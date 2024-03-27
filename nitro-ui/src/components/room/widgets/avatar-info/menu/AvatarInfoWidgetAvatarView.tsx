@@ -6,6 +6,11 @@ import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView'
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
 import { ContextMenuView } from '../../context-menu/ContextMenuView';
 import { AttackUser } from '../../../../../api/roleplay/AttackUser';
+import { GangInviteUser } from '../../../../../api/roleplay/GangInviteUser';
+import { CorpDemoteUser } from '../../../../../api/roleplay/CorpDemoteUser';
+import { CorpPromoteUser } from '../../../../../api/roleplay/CorpPromoteUser';
+import { CorpFireUser } from '../../../../../api/roleplay/CorpFireUser';
+import { CorpOfferJob } from '../../../../../api/roleplay/CorpOfferJob';
 
 interface AvatarInfoWidgetAvatarViewProps
 {
@@ -48,6 +53,21 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 case 'attack':
                     AttackUser(avatarInfo.name);
                     break;
+                case 'corp_offer_job':
+                     CorpOfferJob(avatarInfo.name);
+                    break;
+                case 'corp_fire_user':
+                     CorpFireUser(avatarInfo.name);
+                    break;
+                case 'corp_promote_user':
+                     CorpPromoteUser(avatarInfo.name);
+                    break;
+                case 'corp_demote_user':
+                     CorpDemoteUser(avatarInfo.name);
+                    break;
+                case 'gang_invite_user':
+                     GangInviteUser(avatarInfo.name);
+                    break;
                 case 'whisper':
                     DispatchUiEvent(new RoomWidgetUpdateChatInputContentEvent(RoomWidgetUpdateChatInputContentEvent.WHISPER, avatarInfo.name));
                     break;
@@ -80,6 +100,21 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 <>
                     <ContextMenuListItemView onClick={ event => processAction('attack') }>
                         { LocalizeText('infostand.button.attack') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('corp_offer_job') }>
+                        { LocalizeText('infostand.button.corp_offer_job') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('corp_fire_user') }>
+                        { LocalizeText('infostand.button.corp_fire_user') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('corp_promote_user') }>
+                        { LocalizeText('infostand.button.corp_promote_user') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('corp_demote_user') }>
+                        { LocalizeText('infostand.button.corp_demote_user') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('gang_invite_user') }>
+                        { LocalizeText('infostand.button.gang_invite_user') }
                     </ContextMenuListItemView>
                     { canRequestFriend(avatarInfo.webID) &&
                         <ContextMenuListItemView onClick={ event => processAction('friend') }>
