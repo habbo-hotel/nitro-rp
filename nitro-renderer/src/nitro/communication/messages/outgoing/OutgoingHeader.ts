@@ -483,9 +483,17 @@ export class OutgoingHeader
 
     public static CORP_PROMOTE_USER = 8007;
 
+    public static CORP_START_WORK = 8011;
+
+    public static CORP_STOP_WORK = 8012;
+
     public static GANG_DECLINE_INVITE = 8008;
+
+    public static GANG_DISBAND = 8013;
 
     public static GANG_INVITE_ACCEPT = 8009;
 
     public static GANG_INVITE_USER = 8010;
+
+    public static GANG_LEAVE = 8014
 }

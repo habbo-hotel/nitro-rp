@@ -8,24 +8,28 @@ import { useRoom } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
 import { ContextMenuView } from '../../context-menu/ContextMenuView';
+import { CorpStartWork } from '../../../../../api/roleplay/CorpStartWork';
+import { CorpStopWork } from '../../../../../api/roleplay/CorpStopWork';
+import { GangLeave } from '../../../../../api/roleplay/GangLeave';
+import { GangDisband } from '../../../../../api/roleplay/GangDisband';
 
 interface AvatarInfoWidgetOwnAvatarViewProps
 {
     avatarInfo: AvatarInfoUser;
     isDancing: boolean;
-    setIsDecorating: Dispatch<SetStateAction<boolean>>;
     onClose: () => void;
 }
 
 const MODE_NORMAL = 0;
 const MODE_CLUB_DANCES = 1;
-const MODE_NAME_CHANGE = 2;
 const MODE_EXPRESSIONS = 3;
 const MODE_SIGNS = 4;
+const MODE_BUSINESS = 5;
+const MODE_GANGS = 6;
 
 export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProps> = props =>
 {
-    const { avatarInfo = null, isDancing = false, setIsDecorating = null, onClose = null } = props;
+    const { avatarInfo = null, isDancing = false, onClose = null } = props;
     const [ mode, setMode ] = useState((isDancing && HasHabboClub()) ? MODE_CLUB_DANCES : MODE_NORMAL);
     const { roomSession = null } = useRoom();
 
@@ -45,8 +49,25 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
             {
                 switch(name)
                 {
-                    case 'decorate':
-                        setIsDecorating(true);
+                    case 'view_business':
+                        hideMenu = false;
+                        setMode(MODE_BUSINESS);
+                        break;
+                    case 'view_gang':
+                        hideMenu = false;
+                        setMode(MODE_GANGS);
+                        break;
+                    case 'startwork':
+                        CorpStartWork()
+                        break;
+                    case 'stopwork':
+                        CorpStopWork();
+                        break;
+                    case 'leavegang':
+                        GangLeave();
+                        break;
+                    case 'disbandgang':
+                        GangDisband();
                         break;
                     case 'change_name':
                         DispatchUiEvent(new HelpNameChangeEvent(HelpNameChangeEvent.INIT));
@@ -109,8 +130,6 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
 
         if(hideMenu) onClose();
     }
-
-    const isShowDecorate = () => (avatarInfo.amIOwner || avatarInfo.amIAnyRoomController || (avatarInfo.roomControllerLevel > RoomControllerLevel.GUEST));
     
     const isRidingHorse = IsRidingHorse();
 
@@ -126,25 +145,21 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         <ContextMenuListItemView onClick={ event => processAction('change_name') }>
                             { LocalizeText('widget.avatar.change_name') }
                         </ContextMenuListItemView> }
-                    { isShowDecorate() &&
-                        <ContextMenuListItemView onClick={ event => processAction('decorate') }>
-                            { LocalizeText('widget.avatar.decorate') }
-                        </ContextMenuListItemView> }
                     <ContextMenuListItemView onClick={ event => processAction('change_looks') }>
                         { LocalizeText('widget.memenu.myclothes') }
                     </ContextMenuListItemView>
-                    { (HasHabboClub() && !isRidingHorse) &&
+                    <ContextMenuListItemView onClick={ event => processAction('view_business') }>
+                        <FaChevronRight className="right fa-icon" />
+                        { LocalizeText('infostand.button.business') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('view_gang') }>
+                        <FaChevronRight className="right fa-icon" />
+                        { LocalizeText('infostand.button.gang') }
+                    </ContextMenuListItemView>
+                    { !isRidingHorse &&
                         <ContextMenuListItemView onClick={ event => processAction('dance_menu') }>
                             <FaChevronRight className="right fa-icon" />
                             { LocalizeText('widget.memenu.dance') }
-                        </ContextMenuListItemView> }
-                    { (!isDancing && !HasHabboClub() && !isRidingHorse) &&
-                        <ContextMenuListItemView onClick={ event => processAction('dance') }>
-                            { LocalizeText('widget.memenu.dance') }
-                        </ContextMenuListItemView> }
-                    { (isDancing && !HasHabboClub() && !isRidingHorse) &&
-                        <ContextMenuListItemView onClick={ event => processAction('dance_stop') }>
-                            { LocalizeText('widget.memenu.dance.stop') }
                         </ContextMenuListItemView> }
                     <ContextMenuListItemView onClick={ event => processAction('expressions') }>
                         <FaChevronRight className="right fa-icon" />
@@ -282,6 +297,32 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                             <i className="icon icon-sign-red" />
                         </ContextMenuListItemView>
                     </Flex>
+                    <ContextMenuListItemView onClick={ event => processAction('back') }>
+                        <FaChevronLeft className="left fa-icon" />
+                        { LocalizeText('generic.back') }
+                    </ContextMenuListItemView>
+                </> }
+            { (mode === MODE_BUSINESS) &&
+                <>
+                <ContextMenuListItemView onClick={ event => processAction('startwork') }>
+                    { LocalizeText('widget.memenu.startwork') }
+                </ContextMenuListItemView>
+                <ContextMenuListItemView onClick={ event => processAction('stopwork') }>
+                    { LocalizeText('widget.memenu.stopwork') }
+                </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('back') }>
+                        <FaChevronLeft className="left fa-icon" />
+                        { LocalizeText('generic.back') }
+                    </ContextMenuListItemView>
+                </> }
+            { (mode === MODE_GANGS) &&
+                <>
+                    <ContextMenuListItemView onClick={ event => processAction('leavegang') }>
+                        { LocalizeText('widget.memenu.leavegang') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('disbandgang') }>
+                        { LocalizeText('widget.memenu.disbandgang') }
+                    </ContextMenuListItemView>
                     <ContextMenuListItemView onClick={ event => processAction('back') }>
                         <FaChevronLeft className="left fa-icon" />
                         { LocalizeText('generic.back') }

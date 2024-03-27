@@ -11,6 +11,7 @@ import { CorpDemoteUser } from '../../../../../api/roleplay/CorpDemoteUser';
 import { CorpPromoteUser } from '../../../../../api/roleplay/CorpPromoteUser';
 import { CorpFireUser } from '../../../../../api/roleplay/CorpFireUser';
 import { CorpOfferJob } from '../../../../../api/roleplay/CorpOfferJob';
+import { FaChevronRight } from 'react-icons/fa';
 
 interface AvatarInfoWidgetAvatarViewProps
 {
@@ -125,8 +126,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     </ContextMenuListItemView>
                     <ContextMenuListItemView onClick={ event => processAction('view_business') }>
                         { LocalizeText('infostand.button.business') }
+                        <FaChevronRight className="right fa-icon" />
                     </ContextMenuListItemView>
                     <ContextMenuListItemView onClick={ event => processAction('view_gang') }>
+                        <FaChevronRight className="right fa-icon" />
                         { LocalizeText('infostand.button.gang') }
                     </ContextMenuListItemView>
                     { canRequestFriend(avatarInfo.webID) &&

@@ -179,8 +179,9 @@ export class SocketConnection extends EventDispatcher implements IConnection
                 continue;
             }
 
+            // TODO: Check for empty msgs
             const message = composer.getMessageArray();
-            const encoded = this._codec.encode(header, message);
+            const encoded = this._codec.encode(header, message ?? ['']);
 
             if(!encoded)
             {
