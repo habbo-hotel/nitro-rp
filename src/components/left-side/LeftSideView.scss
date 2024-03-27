@@ -1,0 +1,10 @@
+.nitro-left-side {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    min-width: 200px;
+    max-width: 200px;
+    height: calc(100% - #{$toolbar-height});
+    z-index: $leftside-zindex;
+    pointer-events: none;
+}

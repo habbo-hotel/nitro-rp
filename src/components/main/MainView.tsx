@@ -25,6 +25,7 @@ import { ToolbarView } from '../toolbar/ToolbarView';
 import { UserProfileView } from '../user-profile/UserProfileView';
 import { UserSettingsView } from '../user-settings/UserSettingsView';
 import { WiredView } from '../wired/WiredView';
+import { LeftSideView } from '../left-side/LeftSideView';
 
 export const MainView: FC<{}> = props =>
 {
@@ -93,6 +94,7 @@ export const MainView: FC<{}> = props =>
             <InventoryView />
             <CatalogView />
             <FriendsView />
+            <LeftSideView />
             <RightSideView />
             <UserSettingsView />
             <UserProfileView />

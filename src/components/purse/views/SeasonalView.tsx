@@ -16,7 +16,7 @@ export const SeasonalView: FC<SeasonalViewProps> = props =>
         <Flex fullWidth justifyContent="between" className="nitro-purse-seasonal-currency p-2 rounded">
             <Text variant="white">{ LocalizeText(`purse.seasonal.currency.${ type }`) }</Text>
             <Flex gap={ 1 }>
-                <Text variant="white">{ LocalizeFormattedNumber(amount) }</Text>
+                <Text bold fontSize={6} variant="white">{ LocalizeFormattedNumber(amount) }</Text>
                 <LayoutCurrencyIcon type={ type } />
             </Flex>
         </Flex>

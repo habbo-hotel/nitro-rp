@@ -1,0 +1,29 @@
+.nitro-roleplay-stats-container {
+    font-size: $font-size-sm;
+    pointer-events: all;
+
+    .nitro-roleplay-stats {
+        background-color: rgba($dark, 0.95);
+        box-shadow: inset 0px 5px lighten(rgba($dark, 0.6), 2.5), inset 0 -4px darken(rgba($dark, 0.6), 4);
+        display: flex;
+        gap: 10px;
+        padding: 12px;
+        width: fit-content;
+
+        .nitro-roleplay-user {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            
+            .nitro-roleplay-avatar {
+                height: 40px;
+                overflow: hidden;
+                .avatar-image, .avatar {
+                    background-position: center -40px !important;
+                }
+            }
+        }
+
+    }
+}
