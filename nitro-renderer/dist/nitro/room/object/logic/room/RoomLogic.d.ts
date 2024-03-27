@@ -1,0 +1,34 @@
+import { IRoomGeometry } from '../../../../../api';
+import { RoomSpriteMouseEvent } from '../../../../../events';
+import { RoomObjectLogicBase, RoomObjectUpdateMessage } from '../../../../../room';
+import { RoomMapData } from '../../RoomMapData';
+export declare class RoomLogic extends RoomObjectLogicBase {
+    private _planeParser;
+    private _planeBitmapMaskParser;
+    private _color;
+    private _light;
+    private _originalColor;
+    private _originalLight;
+    private _targetColor;
+    private _targetLight;
+    private _colorChangedTime;
+    private _colorTransitionLength;
+    private _lastHoleUpdate;
+    private _needsMapUpdate;
+    private _skipColorTransition;
+    constructor();
+    getEventTypes(): string[];
+    dispose(): void;
+    initialize(roomMap: RoomMapData): void;
+    update(time: number): void;
+    private updateBackgroundColor;
+    processUpdateMessage(message: RoomObjectUpdateMessage): void;
+    private onObjectRoomUpdateMessage;
+    private onObjectRoomMaskUpdateMessage;
+    private onObjectRoomPlaneVisibilityUpdateMessage;
+    private onObjectRoomPlanePropertyUpdateMessage;
+    private onObjectRoomFloorHoleUpdateMessage;
+    private onObjectRoomColorUpdateMessage;
+    private onObjectRoomMapUpdateMessage;
+    mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void;
+}

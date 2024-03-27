@@ -1,0 +1,38 @@
+import { IMessageDataWrapper, IObjectData } from '../../../../../../../api';
+export declare class FurnitureFloorDataParser {
+    private _itemId;
+    private _spriteId;
+    private _spriteName;
+    private _x;
+    private _y;
+    private _direction;
+    private _z;
+    private _stackHeight;
+    private _extra;
+    private _data;
+    private _state;
+    private _expires;
+    private _usagePolicy;
+    private _userId;
+    private _username;
+    constructor(wrapper: IMessageDataWrapper);
+    flush(): boolean;
+    parse(wrapper: IMessageDataWrapper): boolean;
+    get itemId(): number;
+    get spriteId(): number;
+    get x(): number;
+    get y(): number;
+    get direction(): number;
+    get z(): number;
+    get stackHeight(): number;
+    get extra(): number;
+    get data(): IObjectData;
+    get state(): number;
+    get expires(): number;
+    get usagePolicy(): number;
+    get userId(): number;
+    get username(): string;
+    set username(username: string);
+    get spriteName(): string;
+    set spriteName(type: string);
+}

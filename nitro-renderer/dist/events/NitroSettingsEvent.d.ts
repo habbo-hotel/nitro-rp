@@ -1,0 +1,30 @@
+import { NitroEvent } from './core';
+export declare class NitroSettingsEvent extends NitroEvent {
+    static SETTINGS_UPDATED: string;
+    private _volumeSystem;
+    private _volumeFurni;
+    private _volumeTrax;
+    private _oldChat;
+    private _roomInvites;
+    private _cameraFollow;
+    private _flags;
+    private _chatType;
+    constructor();
+    clone(): NitroSettingsEvent;
+    get volumeSystem(): number;
+    set volumeSystem(volume: number);
+    get volumeFurni(): number;
+    set volumeFurni(volume: number);
+    get volumeTrax(): number;
+    set volumeTrax(volume: number);
+    get oldChat(): boolean;
+    set oldChat(value: boolean);
+    get roomInvites(): boolean;
+    set roomInvites(value: boolean);
+    get cameraFollow(): boolean;
+    set cameraFollow(value: boolean);
+    get flags(): number;
+    set flags(flags: number);
+    get chatType(): number;
+    set chatType(type: number);
+}

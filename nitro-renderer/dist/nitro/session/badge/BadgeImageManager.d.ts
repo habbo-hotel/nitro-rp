@@ -1,0 +1,30 @@
+import { Resource, Texture } from '@pixi/core';
+import { IAssetManager, IDisposable } from '../../../api';
+import { SessionDataManager } from './../SessionDataManager';
+import { BadgeInfo } from './BadgeInfo';
+export declare class BadgeImageManager implements IDisposable {
+    static GROUP_BADGE: string;
+    static NORMAL_BADGE: string;
+    private _assets;
+    private _sessionDataManager;
+    private _messages;
+    private _groupBases;
+    private _groupSymbols;
+    private _groupPartColors;
+    private _requestedBadges;
+    private _groupBadgesQueue;
+    private _readyToGenerateGroupBadges;
+    constructor(assetManager: IAssetManager, sessionDataManager: SessionDataManager);
+    init(): void;
+    dispose(): void;
+    getBadgeImage(badgeName: string, type?: string, load?: boolean): Texture<Resource>;
+    getBadgeInfo(k: string): BadgeInfo;
+    loadBadgeImage(badgeName: string, type?: string): string;
+    private getBadgeTexture;
+    private getBadgePlaceholder;
+    getBadgeUrl(badge: string, type?: string): string;
+    private loadGroupBadge;
+    private renderGroupBadge;
+    private onGroupBadgePartsEvent;
+    get disposed(): boolean;
+}

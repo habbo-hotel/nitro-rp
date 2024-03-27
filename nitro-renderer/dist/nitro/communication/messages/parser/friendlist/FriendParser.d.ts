@@ -1,0 +1,32 @@
+import { IMessageDataWrapper } from '../../../../../api';
+export declare class FriendParser {
+    private _id;
+    private _name;
+    private _gender;
+    private _online;
+    private _followingAllowed;
+    private _figure;
+    private _categoryId;
+    private _motto;
+    private _realName;
+    private _lastAccess;
+    private _persistedMessageUser;
+    private _vipMember;
+    private _pocketHabboUser;
+    private _relationshipStatus;
+    constructor(wrapper: IMessageDataWrapper);
+    get id(): number;
+    get name(): string;
+    get gender(): number;
+    get online(): boolean;
+    get followingAllowed(): boolean;
+    get figure(): string;
+    get categoryId(): number;
+    get motto(): string;
+    get lastAccess(): string;
+    get realName(): string;
+    get persistedMessageUser(): boolean;
+    get vipMember(): boolean;
+    get pocketHabboUser(): boolean;
+    get relationshipStatus(): number;
+}

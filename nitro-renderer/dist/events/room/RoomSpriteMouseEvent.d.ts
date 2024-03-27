@@ -1,0 +1,34 @@
+import { IRoomSpriteMouseEvent } from '../../api';
+export declare class RoomSpriteMouseEvent implements IRoomSpriteMouseEvent {
+    private _type;
+    private _eventId;
+    private _canvasId;
+    private _spriteTag;
+    private _screenX;
+    private _screenY;
+    private _localX;
+    private _localY;
+    private _ctrlKey;
+    private _altKey;
+    private _shiftKey;
+    private _buttonDown;
+    private _spriteOffsetX;
+    private _spriteOffsetY;
+    constructor(type: string, eventId: string, canvasId: string, spriteTag: string, screenX: number, screenY: number, localX?: number, localY?: number, ctrlKey?: boolean, altKey?: boolean, shiftKey?: boolean, buttonDown?: boolean);
+    get type(): string;
+    get eventId(): string;
+    get canvasId(): string;
+    get spriteTag(): string;
+    get screenX(): number;
+    get screenY(): number;
+    get localX(): number;
+    get localY(): number;
+    get ctrlKey(): boolean;
+    get altKey(): boolean;
+    get shiftKey(): boolean;
+    get buttonDown(): boolean;
+    get spriteOffsetX(): number;
+    set spriteOffsetX(k: number);
+    get spriteOffsetY(): number;
+    set spriteOffsetY(k: number);
+}

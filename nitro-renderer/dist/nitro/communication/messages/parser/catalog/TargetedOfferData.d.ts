@@ -1,0 +1,36 @@
+import { IMessageDataWrapper } from '../../../../../api';
+export declare class TargetedOfferData {
+    protected _id: number;
+    protected _identifier: string;
+    protected _type: number;
+    protected _title: string;
+    protected _description: string;
+    protected _imageUrl: string;
+    protected _iconImageUrl: string;
+    protected _productCode: string;
+    protected _purchaseLimit: number;
+    protected _expirationTime: number;
+    protected _priceInCredits: number;
+    protected _priceInActivityPoints: number;
+    protected _activityPointType: number;
+    protected _subProductCodes: string[];
+    protected _trackingState: number;
+    constructor(wrapper: IMessageDataWrapper);
+    populate(offerData: TargetedOfferData): void;
+    purchase(k: number): void;
+    get id(): number;
+    get identifier(): string;
+    get type(): number;
+    get title(): string;
+    get description(): string;
+    get imageUrl(): string;
+    get iconImageUrl(): string;
+    get productCode(): string;
+    get purchaseLimit(): number;
+    get expirationTime(): number;
+    get priceInCredits(): number;
+    get priceInActivityPoints(): number;
+    get activityPointType(): number;
+    get subProductCodes(): string[];
+    get trackingState(): number;
+}

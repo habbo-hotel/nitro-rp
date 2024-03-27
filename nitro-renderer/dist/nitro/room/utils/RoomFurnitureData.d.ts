@@ -1,0 +1,34 @@
+import { IObjectData, IVector3D } from '../../../api';
+export declare class RoomFurnitureData {
+    private _id;
+    private _typeId;
+    private _type;
+    private _location;
+    private _direction;
+    private _state;
+    private _data;
+    private _extra;
+    private _expiryTime;
+    private _usagePolicy;
+    private _ownerId;
+    private _ownerName;
+    private _synchronized;
+    private _realRoomObject;
+    private _sizeZ;
+    constructor(id: number, typeId: number, type: string, location: IVector3D, direction: IVector3D, state: number, objectData: IObjectData, extra?: number, expires?: number, usagePolicy?: number, ownerId?: number, ownerName?: string, synchronized?: boolean, realRoomObject?: boolean, sizeZ?: number);
+    get id(): number;
+    get typeId(): number;
+    get type(): string;
+    get location(): IVector3D;
+    get direction(): IVector3D;
+    get state(): number;
+    get data(): IObjectData;
+    get extra(): number;
+    get expiryTime(): number;
+    get usagePolicy(): number;
+    get ownerId(): number;
+    get ownerName(): string;
+    get synchronized(): boolean;
+    get realRoomObject(): boolean;
+    get sizeZ(): number;
+}

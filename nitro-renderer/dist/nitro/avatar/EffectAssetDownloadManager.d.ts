@@ -1,0 +1,30 @@
+import { IAssetManager, IAvatarEffectListener } from '../../api';
+import { EventDispatcher } from '../../core';
+import { AvatarStructure } from './AvatarStructure';
+export declare class EffectAssetDownloadManager extends EventDispatcher {
+    static DOWNLOADER_READY: string;
+    static LIBRARY_LOADED: string;
+    private static MAX_DOWNLOADS;
+    private _assets;
+    private _structure;
+    private _missingMandatoryLibs;
+    private _effectMap;
+    private _initDownloadBuffer;
+    private _effectListeners;
+    private _incompleteEffects;
+    private _pendingDownloadQueue;
+    private _currentDownloads;
+    private _libraryNames;
+    private _isReady;
+    constructor(assets: IAssetManager, structure: AvatarStructure);
+    private loadEffectMap;
+    private processEffectMap;
+    downloadAvatarEffect(id: number, listener: IAvatarEffectListener): void;
+    private onAvatarRenderReady;
+    private onLibraryLoaded;
+    processMissingLibraries(): void;
+    isAvatarEffectReady(effect: number): boolean;
+    private getAvatarEffectPendingLibraries;
+    private downloadLibrary;
+    private processDownloadQueue;
+}

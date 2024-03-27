@@ -1,0 +1,36 @@
+import { IAssetData, IRoomGeometry, IRoomObjectController, IRoomObjectModel, IVector3D } from '../../../../../api';
+import { RoomSpriteMouseEvent } from '../../../../../events';
+import { RoomObjectUpdateMessage } from '../../../../../room';
+import { MovingObjectLogic } from '../MovingObjectLogic';
+export declare class FurnitureLogic extends MovingObjectLogic {
+    private static BOUNCING_STEPS;
+    private static BOUNCING_Z;
+    private _sizeX;
+    private _sizeY;
+    private _sizeZ;
+    private _centerX;
+    private _centerY;
+    private _centerZ;
+    private _directions;
+    private _mouseOver;
+    private _locationOffset;
+    private _bouncingStep;
+    private _storedRotateMessage;
+    private _directionInitialized;
+    constructor();
+    getEventTypes(): string[];
+    initialize(asset: IAssetData): void;
+    protected onDispose(): void;
+    setObject(object: IRoomObjectController): void;
+    protected getAdClickUrl(model: IRoomObjectModel): string;
+    protected handleAdClick(objectId: number, objectType: string, clickUrl: string): void;
+    update(time: number): void;
+    processUpdateMessage(message: RoomObjectUpdateMessage): void;
+    private processDataUpdateMessage;
+    private processObjectHeightUpdateMessage;
+    private processItemDataUpdateMessage;
+    mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void;
+    protected getLocationOffset(): IVector3D;
+    useObject(): void;
+    tearDown(): void;
+}

@@ -1,0 +1,32 @@
+import { IActiveActionData, IAvatarImage } from '../../../api';
+import { AssetAliasCollection } from '../alias';
+import { AvatarImageBodyPartContainer } from '../AvatarImageBodyPartContainer';
+import { AvatarStructure } from '../AvatarStructure';
+import { AvatarImageBodyPartCache } from './AvatarImageBodyPartCache';
+export declare class AvatarImageCache {
+    private static DEFAULT_MAX_CACHE_STORAGE_TIME_MS;
+    private _structure;
+    private _avatar;
+    private _assets;
+    private _scale;
+    private _cache;
+    private _canvas;
+    private _disposed;
+    private _geometryType;
+    private _unionImages;
+    private _matrix;
+    private _serverRenderData;
+    constructor(k: AvatarStructure, _arg_2: IAvatarImage, _arg_3: AssetAliasCollection, _arg_4: string);
+    dispose(): void;
+    disposeInactiveActions(k?: number): void;
+    resetBodyPartCache(k: IActiveActionData): void;
+    setDirection(k: string, _arg_2: number): void;
+    setAction(k: IActiveActionData, _arg_2: number): void;
+    setGeometryType(k: string): void;
+    getImageContainer(k: string, frameNumber: number, _arg_3?: boolean): AvatarImageBodyPartContainer;
+    getServerRenderData(): any[];
+    getBodyPartCache(k: string): AvatarImageBodyPartCache;
+    private renderBodyPart;
+    private convertColorToHex;
+    private createUnionImage;
+}

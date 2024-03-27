@@ -1,0 +1,35 @@
+import { IRoomObject } from '../../api';
+import { RoomObjectEvent } from './RoomObjectEvent';
+export declare class RoomObjectMouseEvent extends RoomObjectEvent {
+    static CLICK: string;
+    static DOUBLE_CLICK: string;
+    static MOUSE_MOVE: string;
+    static MOUSE_DOWN: string;
+    static MOUSE_DOWN_LONG: string;
+    static MOUSE_UP: string;
+    static MOUSE_ENTER: string;
+    static MOUSE_LEAVE: string;
+    private _eventId;
+    private _altKey;
+    private _ctrlKey;
+    private _shiftKey;
+    private _buttonDown;
+    private _localX;
+    private _localY;
+    private _spriteOffsetX;
+    private _spriteOffsetY;
+    constructor(type: string, object: IRoomObject, eventId: string, altKey?: boolean, ctrlKey?: boolean, shiftKey?: boolean, buttonDown?: boolean);
+    get eventId(): string;
+    get altKey(): boolean;
+    get ctrlKey(): boolean;
+    get shiftKey(): boolean;
+    get buttonDown(): boolean;
+    get localX(): number;
+    set localX(k: number);
+    get localY(): number;
+    set localY(k: number);
+    get spriteOffsetX(): number;
+    set spriteOffsetX(k: number);
+    get spriteOffsetY(): number;
+    set spriteOffsetY(k: number);
+}

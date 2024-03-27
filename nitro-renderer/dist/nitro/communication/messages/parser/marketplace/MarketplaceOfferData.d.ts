@@ -1,0 +1,37 @@
+import { IObjectData } from '../../../../../api';
+export declare class MarketplaceOfferData {
+    static TYPE_LANDSCAPE: number;
+    static TYPE_FLOOR: number;
+    private _offerId;
+    private _furniId;
+    private _furniType;
+    private _extraData;
+    private _stuffData;
+    private _price;
+    private _averagePrice;
+    private _imageCallback;
+    private _status;
+    private _timeLeftMinutes;
+    private _offerCount;
+    private _image;
+    constructor(offerId: number, furniId: number, furniType: number, extraData: string, stuffData: IObjectData, price: number, status: number, averagePrice: number, offerCount?: number);
+    get offerId(): number;
+    set offerId(offerId: number);
+    get furniId(): number;
+    get furniType(): number;
+    get extraData(): string;
+    get stuffData(): IObjectData;
+    get price(): number;
+    set price(price: number);
+    get averagePrice(): number;
+    get image(): string;
+    set image(image: string);
+    get imageCallback(): number;
+    set imageCallback(callback: number);
+    get status(): number;
+    get timeLeftMinutes(): number;
+    set timeLeftMinutes(minutes: number);
+    get offerCount(): number;
+    set offerCount(count: number);
+    get isUniqueLimitedItem(): boolean;
+}

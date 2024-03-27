@@ -1,0 +1,30 @@
+import { IAssetManager, IAvatarFigureContainer, IAvatarImageListener } from '../../api';
+import { EventDispatcher } from '../../core';
+import { AvatarStructure } from './AvatarStructure';
+export declare class AvatarAssetDownloadManager extends EventDispatcher {
+    static DOWNLOADER_READY: string;
+    static LIBRARY_LOADED: string;
+    private static MAX_DOWNLOADS;
+    private _assets;
+    private _structure;
+    private _missingMandatoryLibs;
+    private _figureMap;
+    private _pendingContainers;
+    private _figureListeners;
+    private _incompleteFigures;
+    private _pendingDownloadQueue;
+    private _currentDownloads;
+    private _libraryNames;
+    private _isReady;
+    constructor(assets: IAssetManager, structure: AvatarStructure);
+    private loadFigureMap;
+    private processFigureMap;
+    private onAvatarRenderReady;
+    private onLibraryLoaded;
+    processMissingLibraries(): void;
+    isAvatarFigureContainerReady(container: IAvatarFigureContainer): boolean;
+    private getAvatarFigurePendingLibraries;
+    downloadAvatarFigure(container: IAvatarFigureContainer, listener: IAvatarImageListener): void;
+    private downloadLibrary;
+    private processDownloadQueue;
+}

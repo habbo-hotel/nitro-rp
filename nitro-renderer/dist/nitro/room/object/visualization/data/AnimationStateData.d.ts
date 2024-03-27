@@ -1,0 +1,30 @@
+import { AnimationFrame } from './AnimationFrame';
+export declare class AnimationStateData {
+    private _animationId;
+    private _animationAfterTransitionId;
+    private _animationOver;
+    private _frameCounter;
+    private _frames;
+    private _lastFramePlayed;
+    private _animationPlayed;
+    private _layerCount;
+    constructor();
+    get animationOver(): boolean;
+    set animationOver(k: boolean);
+    get frameCounter(): number;
+    set frameCounter(k: number);
+    get animationId(): number;
+    set animationId(animationId: number);
+    get animationAfterTransitionId(): number;
+    set animationAfterTransitionId(k: number);
+    dispose(): void;
+    setLayerCount(k: number): void;
+    resetAnimationFrames(k?: boolean): void;
+    private recycleFrames;
+    getFrame(layerId: number): AnimationFrame;
+    setFrame(layerId: number, frame: AnimationFrame): void;
+    getAnimationPlayed(layerId: number): boolean;
+    setAnimationPlayed(layerId: number, flag: boolean): void;
+    getLastFramePlayed(layerId: number): boolean;
+    setLastFramePlayed(layerId: number, flag: boolean): void;
+}

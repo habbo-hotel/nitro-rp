@@ -1,0 +1,37 @@
+import { IMessageDataWrapper } from '../../../../../../api';
+import { RoomDataParser } from '../../room';
+export declare class OfficialRoomEntryData {
+    static readonly TYPE_TAG = 1;
+    static readonly TYPE_GUEST_ROOM = 2;
+    static readonly TYPE_FOLDER = 4;
+    private _index;
+    private _popupCaption;
+    private _popupDesc;
+    private _showDetails;
+    private _picText;
+    private _picRef;
+    private _folderId;
+    private _userCount;
+    private _type;
+    private _tag;
+    private _guestRoomData;
+    private _open;
+    private _disposed;
+    constructor(k: IMessageDataWrapper);
+    dispose(): void;
+    get disposed(): boolean;
+    get type(): number;
+    get index(): number;
+    get popupCaption(): string;
+    get popupDesc(): string;
+    get showDetails(): boolean;
+    get picText(): string;
+    get picRef(): string;
+    get folderId(): number;
+    get tag(): string;
+    get userCount(): number;
+    get guestRoomData(): RoomDataParser;
+    get open(): boolean;
+    toggleOpen(): void;
+    get maxUsers(): number;
+}

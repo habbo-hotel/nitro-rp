@@ -1,0 +1,31 @@
+import { IPetCustomPart } from '../../../api';
+export declare class PetFigureData {
+    private _typeId;
+    private _paletteId;
+    private _color;
+    private _headOnly;
+    private _customParts;
+    private _customLayerIds;
+    private _customPartIds;
+    private _customPaletteIds;
+    constructor(k: string);
+    get typeId(): number;
+    get paletteId(): number;
+    get color(): number;
+    get customLayerIds(): number[];
+    get customPartIds(): number[];
+    get customPaletteIds(): number[];
+    get customParts(): IPetCustomPart[];
+    getCustomPart(k: number): IPetCustomPart;
+    get hasCustomParts(): boolean;
+    get headOnly(): boolean;
+    get figureString(): string;
+    private getCustomData;
+    private getCustomLayerIds;
+    private getCustomPartIds;
+    private getCustomPaletteIds;
+    private getTypeId;
+    private getPaletteId;
+    private getColor;
+    private getHeadOnly;
+}

@@ -1,0 +1,32 @@
+import { IMessageDataWrapper } from '../../../../../api';
+import { ForumData } from './ForumData';
+export declare class ExtendedForumData extends ForumData {
+    private _readPermissions;
+    private _postMessagePermissions;
+    private _postThreadPermissions;
+    private _moderatePermissions;
+    private _readPermissionError;
+    private _postMessagePermissionError;
+    private _postThreadPermissionError;
+    private _moderatePermissionError;
+    private _reportPermissionError;
+    private _canChangeSettings;
+    private _isStaff;
+    static parse(wrapper: IMessageDataWrapper): ExtendedForumData;
+    get readPermissions(): number;
+    get postMessagePermissions(): number;
+    get postThreadPermissions(): number;
+    get moderatePermissions(): number;
+    get hasReadPermissionError(): boolean;
+    get canReport(): boolean;
+    get hasPostMessagePermissionError(): boolean;
+    get hasPostThreadPermissionError(): boolean;
+    get hasModeratePermissionError(): boolean;
+    get canChangeSettings(): boolean;
+    get isStaf(): boolean;
+    get readPermissionError(): string;
+    get postMessagePermissionError(): string;
+    get postThreadPermissionError(): string;
+    get moderatePermissionError(): string;
+    get reportPermissionError(): string;
+}

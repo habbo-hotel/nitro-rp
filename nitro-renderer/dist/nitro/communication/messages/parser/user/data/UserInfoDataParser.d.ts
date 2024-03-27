@@ -1,0 +1,34 @@
+import { IMessageDataWrapper } from '../../../../../../api';
+export declare class UserInfoDataParser {
+    private _userId;
+    private _username;
+    private _figure;
+    private _gender;
+    private _motto;
+    private _realName;
+    private _directMail;
+    private _respectsReceived;
+    private _respectsRemaining;
+    private _respectsPetRemaining;
+    private _streamPublishingAllowed;
+    private _lastAccessDate;
+    private _canChangeName;
+    private _safetyLocked;
+    constructor(wrapper: IMessageDataWrapper);
+    flush(): boolean;
+    parse(wrapper: IMessageDataWrapper): boolean;
+    get userId(): number;
+    get username(): string;
+    get figure(): string;
+    get gender(): string;
+    get motto(): string;
+    get realName(): string;
+    get directMail(): boolean;
+    get respectsReceived(): number;
+    get respectsRemaining(): number;
+    get respectsPetRemaining(): number;
+    get streamPublishingAllowed(): boolean;
+    get lastAccessedDate(): string;
+    get canChangeName(): boolean;
+    get safetyLocked(): boolean;
+}

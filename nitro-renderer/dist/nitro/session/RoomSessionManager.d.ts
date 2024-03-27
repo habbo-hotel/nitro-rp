@@ -1,0 +1,30 @@
+import { INitroCommunicationManager, IRoomEngine, IRoomHandlerListener, IRoomSession, IRoomSessionManager } from '../../api';
+import { NitroManager } from '../../core';
+import { RoomEngineEvent } from '../../events';
+export declare class RoomSessionManager extends NitroManager implements IRoomSessionManager, IRoomHandlerListener {
+    private _communication;
+    private _roomEngine;
+    private _handlers;
+    private _sessions;
+    private _pendingSession;
+    private _sessionStarting;
+    private _viewerSession;
+    constructor(communication: INitroCommunicationManager, roomEngine: IRoomEngine);
+    protected onInit(): void;
+    protected onDispose(): void;
+    private createHandlers;
+    private setHandlers;
+    onRoomEngineEvent(event: RoomEngineEvent): void;
+    private processPendingSession;
+    getSession(id: number): IRoomSession;
+    createSession(roomId: number, password?: string): boolean;
+    private addSession;
+    startSession(session: IRoomSession): boolean;
+    removeSession(id: number, openLandingView?: boolean): void;
+    sessionUpdate(id: number, type: string): void;
+    sessionReinitialize(fromRoomId: number, toRoomId: number): void;
+    private getRoomId;
+    get communication(): INitroCommunicationManager;
+    get roomEngine(): IRoomEngine;
+    get viewerSession(): IRoomSession;
+}

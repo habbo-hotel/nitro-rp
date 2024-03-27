@@ -1,0 +1,37 @@
+import { RenderTexture } from '@pixi/core';
+import { IVector3D } from '../../../../../../../api';
+import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
+import { PlaneMaterialCell } from './PlaneMaterialCell';
+export declare class PlaneMaterialCellColumn {
+    static REPEAT_MODE_NONE: number;
+    static REPEAT_MODE_ALL: number;
+    static REPEAT_MODE_BORDERS: number;
+    static REPEAT_MODE_CENTER: number;
+    static REPEAT_MODE_FIRST: number;
+    static REPEAT_MODE_LAST: number;
+    private _cells;
+    private _repeatMode;
+    private _width;
+    private _cachedBitmapData;
+    private _cachedBitmapNormal;
+    private _cachedBitmapDataOffsetX;
+    private _cachedBitmapDataOffsetY;
+    private _isCached;
+    private _isStatic;
+    constructor(width: number, cells: PlaneMaterialCell[], repeatMode?: number);
+    get isStatic(): boolean;
+    isRepeated(): boolean;
+    get width(): number;
+    dispose(): void;
+    clearCache(): void;
+    render(planeId: string, textureCache: PlaneTextureCache, height: number, normal: IVector3D, offsetX: number, offsetY: number): RenderTexture;
+    private getCellsHeight;
+    private renderCells;
+    private renderRepeatNone;
+    private renderRepeatAll;
+    private renderRepeatBorders;
+    private renderRepeatCenter;
+    private renderRepeatFirst;
+    private renderRepeatLast;
+    getCells(): PlaneMaterialCell[];
+}

@@ -1,0 +1,34 @@
+import { IQuestion, IRoomSession } from '../../api';
+import { RoomSessionEvent } from './RoomSessionEvent';
+export declare class RoomSessionWordQuizEvent extends RoomSessionEvent {
+    static QUESTION: string;
+    static FINISHED: string;
+    static ANSWERED: string;
+    private _id;
+    private _pollType;
+    private _pollId;
+    private _questionId;
+    private _duration;
+    private _question;
+    private _userId;
+    private _value;
+    private _answerCounts;
+    constructor(k: string, _arg_2: IRoomSession, _arg_3?: number);
+    get id(): number;
+    get pollType(): string;
+    set pollType(pollType: string);
+    get pollId(): number;
+    set pollId(k: number);
+    get questionId(): number;
+    set questionId(k: number);
+    get duration(): number;
+    set duration(k: number);
+    get question(): IQuestion;
+    set question(k: IQuestion);
+    get userId(): number;
+    set userId(k: number);
+    get value(): string;
+    set value(value: string);
+    get answerCounts(): Map<string, number>;
+    set answerCounts(k: Map<string, number>);
+}

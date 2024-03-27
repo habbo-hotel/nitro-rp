@@ -1,0 +1,30 @@
+import { RoomUnitStatusAction } from './RoomUnitStatusAction';
+export declare class RoomUnitStatusMessage {
+    private _id;
+    private _x;
+    private _y;
+    private _z;
+    private _height;
+    private _headDirection;
+    private _direction;
+    private _targetX;
+    private _targetY;
+    private _targetZ;
+    private _didMove;
+    private _canStandUp;
+    private _actions;
+    constructor(id: number, x: number, y: number, z: number, height: number, headDirection: number, direction: number, targetX: number, targetY: number, targetZ: number, didMove: boolean, canStandUp: boolean, actions: RoomUnitStatusAction[]);
+    get id(): number;
+    get x(): number;
+    get y(): number;
+    get z(): number;
+    get height(): number;
+    get headDirection(): number;
+    get direction(): number;
+    get targetX(): number;
+    get targetY(): number;
+    get targetZ(): number;
+    get didMove(): boolean;
+    get canStandUp(): boolean;
+    get actions(): RoomUnitStatusAction[];
+}

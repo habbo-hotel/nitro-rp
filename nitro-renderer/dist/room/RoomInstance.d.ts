@@ -1,0 +1,33 @@
+import { IRoomInstance, IRoomInstanceContainer, IRoomObject, IRoomObjectController, IRoomObjectManager, IRoomObjectModel, IRoomRendererBase } from '../api';
+import { Disposable } from '../core';
+export declare class RoomInstance extends Disposable implements IRoomInstance {
+    private _id;
+    private _container;
+    private _renderer;
+    private _managers;
+    private _updateCategories;
+    private _model;
+    constructor(id: string, container: IRoomInstanceContainer);
+    protected onDispose(): void;
+    setRenderer(renderer: IRoomRendererBase): void;
+    private destroyRenderer;
+    getManager(category: number): IRoomObjectManager;
+    private getManagerOrCreate;
+    getTotalObjectsForManager(category: number): number;
+    getRoomObject(id: number, category: number): IRoomObject;
+    getRoomObjectsForCategory(category: number): IRoomObject[];
+    getRoomObjectByIndex(index: number, category: number): IRoomObject;
+    createRoomObject(id: number, stateCount: number, type: string, category: number): IRoomObjectController;
+    createRoomObjectAndInitalize(objectId: number, type: string, category: number): IRoomObject;
+    removeRoomObject(id: number, category: number): void;
+    removeAllManagers(): void;
+    addUpdateCategory(category: number): void;
+    removeUpdateCategory(category: number): void;
+    update(time: number, update?: boolean): void;
+    hasUninitializedObjects(): boolean;
+    get id(): string;
+    get container(): IRoomInstanceContainer;
+    get renderer(): IRoomRendererBase;
+    get managers(): Map<number, IRoomObjectManager>;
+    get model(): IRoomObjectModel;
+}

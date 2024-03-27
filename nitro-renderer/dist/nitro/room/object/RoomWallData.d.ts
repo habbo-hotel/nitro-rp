@@ -1,0 +1,34 @@
+import { Point } from '@pixi/math';
+import { Vector3d } from '../../../api';
+export declare class RoomWallData {
+    static WALL_DIRECTION_VECTORS: Vector3d[];
+    static WALL_NORMAL_VECTORS: Vector3d[];
+    private _corners;
+    private _endPoints;
+    private _directions;
+    private _lengths;
+    private _leftTurns;
+    private _borders;
+    private _hideWalls;
+    private _manuallyLeftCut;
+    private _manuallyRightCut;
+    private _addDuplicates;
+    private _count;
+    constructor();
+    addWall(k: Point, _arg_2: number, _arg_3: number, _arg_4: boolean, _arg_5: boolean): void;
+    private checkIsNotDuplicate;
+    get count(): number;
+    getCorner(k: number): Point;
+    getEndPoint(k: number): Point;
+    getLength(k: number): number;
+    getDirection(k: number): number;
+    getBorder(k: number): boolean;
+    getHideWall(k: number): boolean;
+    getLeftTurn(k: number): boolean;
+    getManuallyLeftCut(k: number): boolean;
+    getManuallyRightCut(k: number): boolean;
+    setHideWall(k: number, _arg_2: boolean): void;
+    setLength(k: number, _arg_2: number): void;
+    moveCorner(k: number, _arg_2: number): void;
+    private calculateWallEndPoints;
+}

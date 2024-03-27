@@ -1,0 +1,32 @@
+import { Resource, Texture } from '@pixi/core';
+import { Point } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
+export declare class ExtendedSprite extends Sprite {
+    private _offsetX;
+    private _offsetY;
+    private _tag;
+    private _alphaTolerance;
+    private _varyingDepth;
+    private _clickHandling;
+    private _pairedSpriteId;
+    private _pairedSpriteUpdateCounter;
+    constructor(texture?: Texture<Resource>);
+    needsUpdate(pairedSpriteId: number, pairedSpriteUpdateCounter: number): boolean;
+    calculateVertices(): void;
+    setTexture(texture: Texture<Resource>): void;
+    containsPoint(point: Point): boolean;
+    static containsPoint(sprite: ExtendedSprite, point: Point): boolean;
+    private static generateHitMap;
+    get offsetX(): number;
+    set offsetX(offset: number);
+    get offsetY(): number;
+    set offsetY(offset: number);
+    get tag(): string;
+    set tag(tag: string);
+    get alphaTolerance(): number;
+    set alphaTolerance(tolerance: number);
+    get varyingDepth(): boolean;
+    set varyingDepth(flag: boolean);
+    get clickHandling(): boolean;
+    set clickHandling(flag: boolean);
+}

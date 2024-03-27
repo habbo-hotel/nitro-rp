@@ -1,0 +1,32 @@
+import { IPollQuestion } from '../../../../../api';
+import { PollChoice } from './PollChoice';
+export declare class PollQuestion implements IPollQuestion {
+    private _questionId;
+    private _questionType;
+    private _sortOrder;
+    private _questionCategory;
+    private _questionText;
+    private _questionAnswerType;
+    private _questionAnswerCount;
+    private _children;
+    private _questionChoices;
+    constructor();
+    get questionId(): number;
+    set questionId(questionId: number);
+    get questionType(): number;
+    set questionType(questionType: number);
+    get sortOrder(): number;
+    set sortOrder(sortOrder: number);
+    get questionText(): string;
+    set questionText(questionText: string);
+    get questionCategory(): number;
+    set questionCategory(questionCategory: number);
+    get questionAnswerType(): number;
+    set questionAnswerType(answerType: number);
+    get questionAnswerCount(): number;
+    set questionAnswerCount(k: number);
+    get children(): PollQuestion[];
+    set children(children: PollQuestion[]);
+    get questionChoices(): PollChoice[];
+    set questionChoices(k: PollChoice[]);
+}

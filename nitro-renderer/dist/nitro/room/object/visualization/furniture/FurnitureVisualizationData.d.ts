@@ -1,0 +1,33 @@
+import { IAssetData, IAssetVisualizationData, IObjectVisualizationData } from '../../../../../api';
+import { SizeData } from '../data';
+export declare class FurnitureVisualizationData implements IObjectVisualizationData {
+    static LAYER_LETTERS: string[];
+    private _type;
+    private _sizes;
+    private _sizeDatas;
+    private _lastSize;
+    private _lastSizeScale;
+    private _lastSizeData;
+    private _lastSizeDataScale;
+    constructor();
+    initialize(asset: IAssetData): boolean;
+    dispose(): void;
+    private reset;
+    protected createSizeData(scale: number, layerCount: number, angle: number): SizeData;
+    protected defineVisualizations(visualizations: IAssetVisualizationData[]): boolean;
+    protected processVisualElement(sizeData: SizeData, key: string, data: any): boolean;
+    getValidSize(scale: number): number;
+    private getSizeIndex;
+    protected getSizeData(size: number): SizeData;
+    getLayerCount(scale: number): number;
+    getValidDirection(scale: number, direction: number): number;
+    getLayerTag(scale: number, direction: number, layerId: number): string;
+    getLayerInk(scale: number, direction: number, layerId: number): number;
+    getLayerAlpha(scale: number, direction: number, layerId: number): number;
+    getLayerColor(scale: number, layerId: number, colorId: number): number;
+    getLayerIgnoreMouse(scale: number, direction: number, layerId: number): boolean;
+    getLayerXOffset(scale: number, direction: number, layerId: number): number;
+    getLayerYOffset(scale: number, direction: number, layerId: number): number;
+    getLayerZOffset(scale: number, direction: number, layerId: number): number;
+    get type(): string;
+}

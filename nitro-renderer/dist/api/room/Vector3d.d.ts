@@ -1,0 +1,30 @@
+import { IVector3D } from './IVector3D';
+export declare class Vector3d implements IVector3D {
+    private _x;
+    private _y;
+    private _z;
+    private _length;
+    constructor(x?: number, y?: number, z?: number);
+    static sum(vector1: IVector3D, vector2: IVector3D): Vector3d;
+    static dif(vector1: IVector3D, vector2: IVector3D): Vector3d;
+    static product(vector: IVector3D, value: number): Vector3d;
+    static dotProduct(vector1: IVector3D, vector2: IVector3D): number;
+    static crossProduct(vector1: IVector3D, vector2: IVector3D): Vector3d;
+    static scalarProjection(vector1: IVector3D, vector2: IVector3D): number;
+    static cosAngle(vector1: IVector3D, vector2: IVector3D): number;
+    static isEqual(vector1: IVector3D, vector2: IVector3D): boolean;
+    negate(): void;
+    add(vector: IVector3D): void;
+    subtract(vector: IVector3D): void;
+    multiply(amount: number): void;
+    divide(amount: number): void;
+    assign(vector: IVector3D): void;
+    get x(): number;
+    set x(k: number);
+    get y(): number;
+    set y(k: number);
+    get z(): number;
+    set z(k: number);
+    get length(): number;
+    toString(): string;
+}

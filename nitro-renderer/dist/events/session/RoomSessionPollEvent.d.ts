@@ -1,0 +1,31 @@
+import { IPollQuestion, IRoomSession } from '../../api';
+import { RoomSessionEvent } from './RoomSessionEvent';
+export declare class RoomSessionPollEvent extends RoomSessionEvent {
+    static OFFER: string;
+    static ERROR: string;
+    static CONTENT: string;
+    private _id;
+    private _headline;
+    private _summary;
+    private _numQuestions;
+    private _startMessage;
+    private _endMessage;
+    private _questionArray;
+    private _npsPoll;
+    constructor(k: string, _arg_2: IRoomSession, _arg_3: number);
+    get id(): number;
+    get headline(): string;
+    set headline(k: string);
+    get summary(): string;
+    set summary(k: string);
+    get numQuestions(): number;
+    set numQuestions(k: number);
+    get startMessage(): string;
+    set startMessage(k: string);
+    get endMessage(): string;
+    set endMessage(k: string);
+    get questionArray(): IPollQuestion[];
+    set questionArray(k: IPollQuestion[]);
+    get npsPoll(): boolean;
+    set npsPoll(k: boolean);
+}

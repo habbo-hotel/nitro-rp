@@ -1,0 +1,34 @@
+import { IMessageDataWrapper } from '../../../../../api';
+import { GuildForumThread } from './GuildForumThread';
+export declare class ForumData {
+    private _groupId;
+    private _name;
+    private _description;
+    private _icon;
+    private _totalThreads;
+    private _leaderboardScore;
+    private _totalMessages;
+    private _unreadMessages;
+    private _lastMessageId;
+    private _lastMessageAuthorId;
+    private _lastMessageAuthorName;
+    private _lastMessageTimeAsSecondsAgo;
+    static parse(wrapper: IMessageDataWrapper): ForumData;
+    protected static fillFromMessage(data: ForumData, wrapper: IMessageDataWrapper): ForumData;
+    get groupId(): number;
+    get name(): string;
+    get description(): string;
+    get icon(): string;
+    get totalThreads(): number;
+    get leaderboardScore(): number;
+    get totalMessages(): number;
+    get unreadMessages(): number;
+    get lastMessageId(): number;
+    get lastMessageAuthorId(): number;
+    get lastMessageAuthorName(): string;
+    get lastMessageTimeAsSecondsAgo(): number;
+    updateFrom(forum: ForumData): void;
+    get lastReadMessageId(): number;
+    set lastReadMessageId(k: number);
+    addNewThread(thread: GuildForumThread): void;
+}

@@ -1,0 +1,31 @@
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
+export declare class UserSubscriptionParser implements IMessageParser {
+    static readonly RESPONSE_TYPE_LOGIN: number;
+    static readonly RESPONSE_TYPE_PURCHASE: number;
+    static readonly RESPONSE_TYPE_DISCOUNT_AVAILABLE: number;
+    static readonly RESPONSE_TYPE_CITIZENSHIP_DISCOUNT: number;
+    private _productName;
+    private _daysToPeriodEnd;
+    private _memberPeriods;
+    private _periodsSubscribedAhead;
+    private _responseType;
+    private _hasEverBeenMember;
+    private _isVip;
+    private _pastClubDays;
+    private _pastVipDays;
+    private _minutesUntilExpiration;
+    private _minutesSinceLastModified;
+    flush(): boolean;
+    parse(wrapper: IMessageDataWrapper): boolean;
+    get productName(): string;
+    get daysToPeriodEnd(): number;
+    get memberPeriods(): number;
+    get periodsSubscribedAhead(): number;
+    get responseType(): number;
+    get hasEverBeenMember(): boolean;
+    get isVip(): boolean;
+    get pastClubDays(): number;
+    get pastVipDays(): number;
+    get minutesUntilExpiration(): number;
+    get minutesSinceLastModified(): number;
+}

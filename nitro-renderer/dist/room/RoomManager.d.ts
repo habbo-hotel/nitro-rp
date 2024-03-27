@@ -1,0 +1,38 @@
+import { IRoomContentLoader, IRoomInstance, IRoomInstanceContainer, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectLogicFactory, IRoomObjectManager, IRoomObjectVisualizationFactory } from '../api';
+import { NitroManager } from '../core';
+export declare class RoomManager extends NitroManager implements IRoomManager, IRoomInstanceContainer {
+    static ROOM_MANAGER_ERROR: number;
+    static ROOM_MANAGER_LOADING: number;
+    static ROOM_MANAGER_LOADED: number;
+    static ROOM_MANAGER_INITIALIZING: number;
+    static ROOM_MANAGER_INITIALIZED: number;
+    private static CONTENT_PROCESSING_TIME_LIMIT_MILLISECONDS;
+    private _state;
+    private _rooms;
+    private _contentLoader;
+    private _updateCategories;
+    private _listener;
+    private _visualizationFactory;
+    private _logicFactory;
+    private _initialLoadList;
+    private _pendingContentTypes;
+    private _skipContentProcessing;
+    private _disposed;
+    constructor(listener: IRoomManagerListener, visualizationFactory: IRoomObjectVisualizationFactory, logicFactory: IRoomObjectLogicFactory);
+    onInit(): void;
+    getRoomInstance(roomId: string): IRoomInstance;
+    createRoomInstance(roomId: string): IRoomInstance;
+    removeRoomInstance(roomId: string): boolean;
+    createRoomObjectAndInitalize(roomId: string, objectId: number, type: string, category: number): IRoomObject;
+    private reinitializeRoomObjectsByType;
+    addUpdateCategory(category: number): void;
+    removeUpdateCategory(category: number): void;
+    setContentLoader(loader: IRoomContentLoader): void;
+    private processPendingContentTypes;
+    private removeFromInitialLoad;
+    private onRoomContentLoadedEvent;
+    update(time: number, update?: boolean): void;
+    createRoomObjectManager(category: number): IRoomObjectManager;
+    get rooms(): Map<string, IRoomInstance>;
+    get disposed(): boolean;
+}

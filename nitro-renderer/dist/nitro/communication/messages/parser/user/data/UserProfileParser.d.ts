@@ -1,0 +1,32 @@
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { HabboGroupEntryData } from '../HabboGroupEntryData';
+export declare class UserProfileParser implements IMessageParser {
+    private _id;
+    private _username;
+    private _figure;
+    private _motto;
+    private _registration;
+    private _achievementPoints;
+    private _friendsCount;
+    private _isMyFriend;
+    private _requestSent;
+    private _isOnline;
+    private _groups;
+    private _secondsSinceLastVisit;
+    private _openProfileWindow;
+    flush(): boolean;
+    parse(wrapper: IMessageDataWrapper): boolean;
+    get id(): number;
+    get username(): string;
+    get figure(): string;
+    get motto(): string;
+    get registration(): string;
+    get achievementPoints(): number;
+    get friendsCount(): number;
+    get isMyFriend(): boolean;
+    get requestSent(): boolean;
+    get isOnline(): boolean;
+    get groups(): HabboGroupEntryData[];
+    get secondsSinceLastVisit(): number;
+    get openProfileWindow(): boolean;
+}
