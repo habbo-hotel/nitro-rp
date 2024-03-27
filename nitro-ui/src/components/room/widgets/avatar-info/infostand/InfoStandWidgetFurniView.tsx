@@ -352,24 +352,6 @@ export const InfoStandWidgetFurniView: FC<InfoStandWidgetFurniViewProps> = props
                         </Flex>
                         <hr className="m-0" />
                     </Column>
-                    <Column gap={ 1 }>
-                        <Text fullWidth wrap textBreak variant="white" small>{ avatarInfo.description }</Text>
-                        <hr className="m-0" />
-                    </Column>
-                    <Column gap={ 1 }>
-                        <Flex alignItems="center" gap={ 1 }>
-                            <UserProfileIconView userId={ avatarInfo.ownerId } />
-                            <Text variant="white" small wrap>
-                                { LocalizeText('furni.owner', [ 'name' ], [ avatarInfo.ownerName ]) }
-                            </Text>
-                        </Flex>
-                        { (avatarInfo.purchaseOfferId > 0) &&
-                            <Flex>
-                                <Text variant="white" small underline pointer onClick={ event => processButtonAction('buy_one') }>
-                                    { LocalizeText('infostand.button.buy') }
-                                </Text>
-                            </Flex> }
-                    </Column>
                     { (isJukeBox || isSongDisk) &&
                         <Column gap={ 1 }>
                             <hr className="m-0" />
@@ -406,10 +388,15 @@ export const InfoStandWidgetFurniView: FC<InfoStandWidgetFurniViewProps> = props
                                     <Text variant="white" underline>{ groupName }</Text>
                                 </Flex>
                             </> }
+
+                    <Column gap={ 1 }>
+                        <Text bold fullWidth wrap textBreak variant="white" small>Remaining Health:</Text>
+                        <progress value={100} max={100} />
+                        <hr className="m-0" />
+                    </Column>
                         { godMode &&
                             <>
                                 <hr className="m-0" />
-                                { canSeeFurniId && <Text small wrap variant="white">ID: { avatarInfo.id }</Text> }
                                 { (furniKeys.length > 0) &&
                                     <>
                                         <hr className="m-0"/>

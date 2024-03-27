@@ -44,9 +44,6 @@ export const UserContainerView: FC<UserContainerViewProps> = props =>
                     <Text small>
                         <b>{ LocalizeText('extendedprofile.last.login') }</b> { FriendlyTime.format(userProfile.secondsSinceLastVisit, '.ago', 2) }
                     </Text>
-                    <Text small>
-                        <b>{ LocalizeText('extendedprofile.achievementscore') }</b> { userProfile.achievementPoints }
-                    </Text>
                 </Column>
                 <Flex gap={ 1 }>
                     { userProfile.isOnline &&

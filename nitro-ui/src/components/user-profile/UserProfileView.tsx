@@ -109,13 +109,6 @@ export const UserProfileView: FC<{}> = props =>
                             <FriendsContainerView relationships={ userRelationships } friendsCount={ userProfile.friendsCount } /> }
                     </Column>
                 </Grid>
-                <Flex alignItems="center" className="rooms-button-container px-2 py-1">
-                    <Flex alignItems="center" gap={ 1 } onClick={ event => CreateLinkEvent(`navigator/search/hotel_view/owner:${ userProfile.username }`) }>
-                        <i className="icon icon-rooms" />
-                        <Text bold underline pointer>{ LocalizeText('extendedprofile.rooms') }</Text>
-                    </Flex>
-                </Flex>
-                <GroupsContainerView fullWidth itsMe={ userProfile.id === GetSessionDataManager().userId } groups={ userProfile.groups } onLeaveGroup={ onLeaveGroup } />
             </NitroCardContentView>
         </NitroCardView>
     )
