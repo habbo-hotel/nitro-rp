@@ -52,6 +52,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
         {
             switch(name)
             {
+                case 'back':
+                    hideMenu = false
+                    setMode(MODE_NORMAL);
+                    break;
                 case 'attack':
                     hideMenu = false
                     AttackUser(avatarInfo.name);
@@ -107,6 +111,13 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             <ContextMenuHeaderView className="cursor-pointer" onClick={ event => GetUserProfile(avatarInfo.webID) }>
                 { avatarInfo.name }
             </ContextMenuHeaderView>
+            {
+                mode !== MODE_NORMAL && (
+                <ContextMenuListItemView onClick={ event => processAction('back') }>
+                    { LocalizeText('infostand.button.back') }
+                </ContextMenuListItemView>
+                )
+            }
             { (mode === MODE_NORMAL) &&
                 <>
                     <ContextMenuListItemView onClick={ event => processAction('attack') }>
@@ -145,9 +156,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     </ContextMenuListItemView>
                     <ContextMenuListItemView onClick={ event => processAction('corp_demote_user') }>
                         { LocalizeText('infostand.button.corp_demote_user') }
-                    </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('gang_invite_user') }>
-                        { LocalizeText('infostand.button.gang_invite_user') }
                     </ContextMenuListItemView>
                 </> }
             { (mode === MODE_GANG) &&
