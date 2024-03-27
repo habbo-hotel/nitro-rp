@@ -32,12 +32,7 @@ export const FriendBarItemView: FC<{ friend: MessengerFriend }> = props =>
 
     if(!friend)
     {
-        return (
-            <div ref={ elementRef } className="btn btn-primary friend-bar-item friend-bar-search">
-                <div className="friend-bar-item-head position-absolute"/>
-                <div className="text-truncate">{ LocalizeText('friend.bar.find.title') }</div>
-            </div>
-        );
+        return null;
     }
 
     return (
@@ -50,8 +45,6 @@ export const FriendBarItemView: FC<{ friend: MessengerFriend }> = props =>
             { isVisible &&
             <div className="d-flex justify-content-between">
                 <Base className="nitro-friends-spritesheet icon-friendbar-chat cursor-pointer" onClick={ event => OpenMessengerChat(friend.id) } />
-                { friend.followingAllowed &&
-                <Base className="nitro-friends-spritesheet icon-friendbar-visit cursor-pointer" onClick={ event => followFriend(friend) } /> }
                 <Base className="nitro-friends-spritesheet icon-profile cursor-pointer" onClick={ event => GetUserProfile(friend.id) } />
             </div> }
         </div>
