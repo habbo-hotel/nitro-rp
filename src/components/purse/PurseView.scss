@@ -5,16 +5,21 @@
     .nitro-purse {
         background-color: rgba($dark, 0.95);
         box-shadow: inset 0px 5px lighten(rgba($dark, 0.6), 2.5), inset 0 -4px darken(rgba($dark, 0.6), 4);
+        display: flex;
+        gap: 12px;
+        padding: 12px;
+        width: fit-content;
     
         .nitro-purse-subscription {
             background-color: rgba($light, 0.1);
         }
     
         .nitro-purse-button {
-            padding: 3px 2px;
+            padding: 4px;
+            background-color: rgba($light, 0.1);
     
             &:hover {
-                background-color: rgba($light, 0.1);
+                background-color: rgba($light, 0.4);
             }
         }
     }
