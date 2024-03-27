@@ -1,7 +1,7 @@
+import { AttackUserComposer } from '@nitro-rp/renderer';
 import { SendMessageComposer } from '..';
-import { AttackUserComposer } from '../../messages/outgoing/AttackUserComposer';
 
-export function AttackUser(userId: number): void
+export function AttackUser(username: string): void
 {
-    SendMessageComposer(new AttackUserComposer(userId));
+    SendMessageComposer(new AttackUserComposer(username));
 }

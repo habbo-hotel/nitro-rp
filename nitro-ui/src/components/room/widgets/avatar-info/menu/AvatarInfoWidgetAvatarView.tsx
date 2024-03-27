@@ -46,7 +46,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             switch(name)
             {
                 case 'attack':
-                    AttackUser(avatarInfo.webID);
+                    AttackUser(avatarInfo.name);
                     break;
                 case 'whisper':
                     DispatchUiEvent(new RoomWidgetUpdateChatInputContentEvent(RoomWidgetUpdateChatInputContentEvent.WHISPER, avatarInfo.name));
