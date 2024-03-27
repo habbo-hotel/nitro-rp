@@ -1,10 +1,11 @@
 import { RoleplayStatsContainerProps } from "./RoleplayStatsContainer.types";
 import {LayoutAvatarImageView, Text } from "../../../common";
 import { LocalizeText } from "../../../api";
-import { useSessionInfo } from "../../../hooks";
+import { usePurse, useSessionInfo } from "../../../hooks";
 
 export function RoleplayStatsContainer({ }: RoleplayStatsContainerProps) {
-    const { userFigure = null, userInfo } = useSessionInfo();
+    const { userFigure = null, userInfo, p } = useSessionInfo();
+    const { getCurrencyAmount } = usePurse();
 
     return (
     <div className="nitro-roleplay-stats-container" >
@@ -16,11 +17,23 @@ export function RoleplayStatsContainer({ }: RoleplayStatsContainerProps) {
                 <Text bold center fontSize={5} variant="white">{ userInfo?.username ?? '-'}</Text>
             </div>
             <div className="p-2 rounded">
-                <Text bold variant="white">{ LocalizeText('roleplay.stats.health') }</Text>
+                <Text bold  variant="light">{ LocalizeText('roleplay.stats.bank') }</Text>
+                <div className="nitro-stats-item">
+                    <Text bold variant="white">$0</Text>
+                </div>
+            </div>
+            <div className="p-2 rounded">
+                <Text bold variant="light">{ LocalizeText('roleplay.stats.cash') }</Text>
+                <div className="nitro-stats-item">
+                    <Text bold variant="white">${getCurrencyAmount(-1)}</Text>
+                </div>
+            </div>
+            <div className="p-2 rounded">
+                <Text bold variant="light">{ LocalizeText('roleplay.stats.health') }</Text>
                 <progress value={100} max={100} />
             </div>
             <div className="p-2 rounded">
-                <Text bold variant="white">{ LocalizeText('roleplay.stats.energy') }</Text>
+                <Text bold variant="light">{ LocalizeText('roleplay.stats.energy') }</Text>
                 <progress value={100} max={100} />
             </div>
         </div>
