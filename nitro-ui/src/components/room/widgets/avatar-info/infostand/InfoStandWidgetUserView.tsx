@@ -172,20 +172,9 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                 </Column>
                 <Column gap={ 1 }>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
-                        { (avatarInfo.type !== AvatarInfoUser.OWN_USER) &&
-                            <Flex grow alignItems="center" className="motto-content">
-                                <Text fullWidth pointer wrap textBreak small variant="white">{ motto }</Text>
-                            </Flex> }
-                        { avatarInfo.type === AvatarInfoUser.OWN_USER &&
-                            <Flex grow alignItems="center" gap={ 2 }>
-                                <FaPencilAlt className="small fa-icon" />
-                                <Flex grow alignItems="center" className="motto-content">
-                                    { !isEditingMotto &&
-                                        <Text fullWidth pointer wrap textBreak small variant="white" onClick={ event => setIsEditingMotto(true) }>{ motto }&nbsp;</Text> }
-                                    { isEditingMotto &&
-                                        <input type="text" className="motto-input" maxLength={ GetConfiguration<number>('motto.max.length', 38) } value={ motto } onChange={ event => setMotto(event.target.value) } onBlur={ onMottoBlur } onKeyDown={ onMottoKeyDown } autoFocus={ true } /> }
-                                </Flex>
-                            </Flex> }
+                        <Flex grow alignItems="center" className="motto-content">
+                            <Text fullWidth pointer wrap textBreak small variant="white">{ motto }</Text>
+                        </Flex> 
                     </Flex>
                     <hr className="m-0" />
                 </Column>

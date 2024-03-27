@@ -7,6 +7,7 @@ import { BadgesContainerView } from './views/BadgesContainerView';
 import { FriendsContainerView } from './views/FriendsContainerView';
 import { GroupsContainerView } from './views/GroupsContainerView';
 import { UserContainerView } from './views/UserContainerView';
+import { RoleplayStatsContainerView } from './views/RoleplayStatsContainerView';
 
 export const UserProfileView: FC<{}> = props =>
 {
@@ -100,13 +101,13 @@ export const UserProfileView: FC<{}> = props =>
                 <Grid fullHeight={ false } gap={ 2 }>
                     <Column size={ 7 } gap={ 1 } className="user-container pe-2">
                         <UserContainerView userProfile={ userProfile } />
-                        <Grid columnCount={ 5 } fullHeight className="bg-muted rounded px-2 py-1">
+                        <Grid fullHeight columnCount={ 5 } className="bg-muted rounded px-2 py-1">
                             <BadgesContainerView fullWidth center badges={ userBadges } />
                         </Grid>
                     </Column>
                     <Column size={ 5 }>
-                        { userRelationships &&
-                            <FriendsContainerView relationships={ userRelationships } friendsCount={ userProfile.friendsCount } /> }
+                        <RoleplayStatsContainerView healthNow={100} healthMaximum={100} energyMaximum={100} energyNow={100}  />
+                        <FriendsContainerView relationships={ userRelationships } friendsCount={ userProfile.friendsCount } />
                     </Column>
                 </Grid>
             </NitroCardContentView>
