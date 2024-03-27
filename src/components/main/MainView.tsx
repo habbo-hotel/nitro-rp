@@ -105,7 +105,6 @@ export const MainView: FC<{}> = props =>
             <GuideToolView />
             <HcCenterView />
             <CampaignView />
-            <GameCenterView />
             <FloorplanEditorView />
         </Base>
     );
