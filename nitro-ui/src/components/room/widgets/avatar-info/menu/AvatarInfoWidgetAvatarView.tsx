@@ -19,6 +19,8 @@ interface AvatarInfoWidgetAvatarViewProps
 }
 
 const MODE_NORMAL = 0;
+const MODE_BUSINESS = 1;
+const MODE_GANG = 2;
 
 export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props =>
 {
@@ -51,7 +53,16 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             switch(name)
             {
                 case 'attack':
+                    hideMenu = false
                     AttackUser(avatarInfo.name);
+                    break;
+                case 'view_business':
+                    hideMenu = false
+                     setMode(MODE_BUSINESS);
+                    break;
+                case 'view_gang':
+                        hideMenu = false
+                     setMode(MODE_GANG);
                     break;
                 case 'corp_offer_job':
                      CorpOfferJob(avatarInfo.name);
@@ -101,6 +112,28 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     <ContextMenuListItemView onClick={ event => processAction('attack') }>
                         { LocalizeText('infostand.button.attack') }
                     </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('view_business') }>
+                        { LocalizeText('infostand.button.business') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('view_gang') }>
+                        { LocalizeText('infostand.button.gang') }
+                    </ContextMenuListItemView>
+                    { canRequestFriend(avatarInfo.webID) &&
+                        <ContextMenuListItemView onClick={ event => processAction('friend') }>
+                            { LocalizeText('infostand.button.friend') }
+                        </ContextMenuListItemView> }
+                    <ContextMenuListItemView onClick={ event => processAction('trade') }>
+                        { LocalizeText('infostand.button.trade') }
+                    </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('whisper') }>
+                        { LocalizeText('infostand.button.whisper') }
+                    </ContextMenuListItemView>
+                    { canGiveHandItem && <ContextMenuListItemView onClick={ event => processAction('pass_hand_item') }>
+                        { LocalizeText('avatar.widget.pass_hand_item') }
+                    </ContextMenuListItemView> }
+                </> }
+            { (mode === MODE_BUSINESS) &&
+                <>
                     <ContextMenuListItemView onClick={ event => processAction('corp_offer_job') }>
                         { LocalizeText('infostand.button.corp_offer_job') }
                     </ContextMenuListItemView>
@@ -116,19 +149,12 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     <ContextMenuListItemView onClick={ event => processAction('gang_invite_user') }>
                         { LocalizeText('infostand.button.gang_invite_user') }
                     </ContextMenuListItemView>
-                    { canRequestFriend(avatarInfo.webID) &&
-                        <ContextMenuListItemView onClick={ event => processAction('friend') }>
-                            { LocalizeText('infostand.button.friend') }
-                        </ContextMenuListItemView> }
-                    <ContextMenuListItemView onClick={ event => processAction('trade') }>
-                        { LocalizeText('infostand.button.trade') }
+                </> }
+            { (mode === MODE_GANG) &&
+                <>
+                    <ContextMenuListItemView onClick={ event => processAction('gang_invite_user') }>
+                        { LocalizeText('infostand.button.gang_invite_user') }
                     </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('whisper') }>
-                        { LocalizeText('infostand.button.whisper') }
-                    </ContextMenuListItemView>
-                    { canGiveHandItem && <ContextMenuListItemView onClick={ event => processAction('pass_hand_item') }>
-                        { LocalizeText('avatar.widget.pass_hand_item') }
-                    </ContextMenuListItemView> }
                 </> }
         </ContextMenuView>
     );
