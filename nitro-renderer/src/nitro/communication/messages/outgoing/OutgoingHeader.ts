@@ -470,4 +470,22 @@ export class OutgoingHeader
     public static RENTABLE_GET_RENT_OR_BUYOUT_OFFER = 2518;
     // Roleplay
     public static ATTACK_USER = 8001;
+
+    public static CORP_ACCEPT_JOB = 8002;
+
+    public static CORP_DECLINE_OFFER = 8003;
+
+    public static CORP_DEMOTE_USER = 8004;
+
+    public static CORP_FIRE_USER = 8005;
+
+    public static CORP_OFFER_USER_JOB = 8006;
+
+    public static CORP_PROMOTE_USER = 8007;
+
+    public static GANG_DECLINE_INVITE = 8008;
+
+    public static GANG_INVITE_ACCEPT = 8009;
+
+    public static GANG_INVITE_USER = 8010;
 }
