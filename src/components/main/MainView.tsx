@@ -11,9 +11,7 @@ import { CatalogView } from '../catalog/CatalogView';
 import { ChatHistoryView } from '../chat-history/ChatHistoryView';
 import { FloorplanEditorView } from '../floorplan-editor/FloorplanEditorView';
 import { FriendsView } from '../friends/FriendsView';
-import { GameCenterView } from '../game-center/GameCenterView';
 import { GroupsView } from '../groups/GroupsView';
-import { GuideToolView } from '../guide-tool/GuideToolView';
 import { HcCenterView } from '../hc-center/HcCenterView';
 import { HelpView } from '../help/HelpView';
 import { HotelView } from '../hotel-view/HotelView';
@@ -102,7 +100,6 @@ export const MainView: FC<{}> = props =>
             <CameraWidgetView />
             <HelpView />
             <NitropediaView />
-            <GuideToolView />
             <HcCenterView />
             <CampaignView />
             <FloorplanEditorView />

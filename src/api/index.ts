@@ -9,7 +9,6 @@ export * from './friends';
 export * from './GetRendererVersion';
 export * from './GetUIVersion';
 export * from './groups';
-export * from './guide-tool';
 export * from './hc-center';
 export * from './help';
 export * from './inventory';
