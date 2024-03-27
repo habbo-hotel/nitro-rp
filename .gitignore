@@ -1,8 +1,7 @@
-/dist
-/tmp
-/out-tsc
-/node_modules
-/.idea
+dist
+tmp
+out-tsc
+.idea
 .project
 .classpath
 .c9/
@@ -30,3 +29,4 @@ Thumbs.db
 public/renderer-config*
 public/ui-config*
 .vscode
+node_modules
