@@ -1,10 +1,11 @@
 import { RoomObjectCategory, RoomObjectVariable, RoomUnitGiveHandItemComposer, TradingOpenComposer } from '@nitrots/nitro-renderer';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetOwnRoomObject, GetUserProfile, LocalizeText, RoomWidgetUpdateChatInputContentEvent, SendMessageComposer } from '../../../../../api';
-import { useFriends, useRoom } from '../../../../../hooks';
+import { useFriends } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
 import { ContextMenuView } from '../../context-menu/ContextMenuView';
+import { AttackUser } from '../../../../../api/roleplay/AttackUser';
 
 interface AvatarInfoWidgetAvatarViewProps
 {
@@ -19,7 +20,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
     const { avatarInfo = null, onClose = null } = props;
     const [ mode, setMode ] = useState(MODE_NORMAL);
     const { canRequestFriend = null } = useFriends();
-    const { roomSession = null } = useRoom();
 
     const canGiveHandItem = useMemo(() =>
     {
@@ -45,17 +45,14 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
         {
             switch(name)
             {
+                case 'attack':
+                    AttackUser(avatarInfo.webID);
+                    break;
                 case 'whisper':
                     DispatchUiEvent(new RoomWidgetUpdateChatInputContentEvent(RoomWidgetUpdateChatInputContentEvent.WHISPER, avatarInfo.name));
                     break;
                 case 'friend':
                     CreateLinkEvent(`friends/request/${ avatarInfo.webID }/${ avatarInfo.name }`);
-                    break;
-                case 'give_rights':
-                    roomSession.sendGiveRightsMessage(avatarInfo.webID);
-                    break;
-                case 'remove_rights':
-                    roomSession.sendTakeRightsMessage(avatarInfo.webID);
                     break;
                 case 'trade':
                     SendMessageComposer(new TradingOpenComposer(avatarInfo.roomIndex));
@@ -81,7 +78,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             </ContextMenuHeaderView>
             { (mode === MODE_NORMAL) &&
                 <>
-                    <ContextMenuListItemView onClick={ event => processAction('whisper') }>
+                    <ContextMenuListItemView onClick={ event => processAction('attack') }>
                         { LocalizeText('infostand.button.attack') }
                     </ContextMenuListItemView>
                     { canRequestFriend(avatarInfo.webID) &&
