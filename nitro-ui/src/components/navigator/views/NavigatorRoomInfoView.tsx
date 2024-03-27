@@ -152,18 +152,8 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
                             </Column>
                         </Flex>
                         <Column gap={ 1 }>
-                            { hasPermission('staff_pick') &&
-                            <Button onClick={ () => processAction('toggle_pick') }>
-                                { LocalizeText(isRoomPicked ? 'navigator.staffpicks.unpick' : 'navigator.staffpicks.pick') }
-                            </Button> }
-                            <Button variant="danger" onClick={ () => processAction('report_room') }>
-                                { LocalizeText('help.emergency.main.report.room') }
-                            </Button>
                             { hasPermission('settings') &&
                             <>
-                                <Button onClick={ () => processAction('toggle_mute') }>
-                                    { LocalizeText(isRoomMuted ? 'navigator.muteall_on' : 'navigator.muteall_off') }
-                                </Button>
                                 <Button onClick={ () => processAction('room_filter') }>
                                     { LocalizeText('navigator.roomsettings.roomfilter') }
                                 </Button>
