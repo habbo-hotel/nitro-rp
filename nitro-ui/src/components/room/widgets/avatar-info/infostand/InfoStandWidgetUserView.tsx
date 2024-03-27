@@ -1,9 +1,9 @@
-import { RelationshipStatusInfoEvent, RelationshipStatusInfoMessageParser, RoomSessionFavoriteGroupUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserFigureUpdateEvent, UserRelationshipsComposer } from '@nitro-rp/renderer';
-import { Dispatch, FC, FocusEvent, KeyboardEvent, SetStateAction, useEffect, useState } from 'react';
-import { FaPencilAlt, FaTimes } from 'react-icons/fa';
-import { AvatarInfoUser, CloneObject, GetConfiguration, GetGroupInformation, GetSessionDataManager, GetUserProfile, LocalizeText, SendMessageComposer } from '../../../../../api';
+import { RelationshipStatusInfoEvent, RelationshipStatusInfoMessageParser, RoomSessionFavoriteGroupUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserFigureUpdateEvent } from '@nitro-rp/renderer';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
+import { AvatarInfoUser, CloneObject, GetConfiguration, GetGroupInformation, GetSessionDataManager, GetUserProfile, LocalizeText } from '../../../../../api';
 import { Column, Flex, LayoutAvatarImageView, LayoutBadgeImageView, Text, UserProfileIconView } from '../../../../../common';
-import { useMessageEvent, useRoom, useRoomSessionManagerEvent } from '../../../../../hooks';
+import { useMessageEvent, useRoomSessionManagerEvent } from '../../../../../hooks';
 import { InfoStandWidgetUserRelationshipsView } from './InfoStandWidgetUserRelationshipsView';
 import { InfoStandWidgetUserTagsView } from './InfoStandWidgetUserTagsView';
 
@@ -17,34 +17,7 @@ interface InfoStandWidgetUserViewProps
 export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =>
 {
     const { avatarInfo = null, setAvatarInfo = null, onClose = null } = props;
-    const [ motto, setMotto ] = useState<string>(null);
-    const [ isEditingMotto, setIsEditingMotto ] = useState(false);
     const [ relationships, setRelationships ] = useState<RelationshipStatusInfoMessageParser>(null);
-    const { roomSession = null } = useRoom();
-
-    const saveMotto = (motto: string) =>
-    {
-        if(!isEditingMotto || (motto.length > GetConfiguration<number>('motto.max.length', 38))) return;
-
-        roomSession.sendMottoMessage(motto);
-
-        setIsEditingMotto(false);
-    }
-
-    const onMottoBlur = (event: FocusEvent<HTMLInputElement>) => saveMotto(event.target.value);
-
-    const onMottoKeyDown = (event: KeyboardEvent<HTMLInputElement>) =>
-    {
-        event.stopPropagation();
-
-        switch(event.key)
-        {
-            case 'Enter':
-                saveMotto((event.target as HTMLInputElement).value);
-                return;
-        }
-    }
-
     useRoomSessionManagerEvent<RoomSessionUserBadgesEvent>(RoomSessionUserBadgesEvent.RSUBE_BADGES, event =>
     {
         if(!avatarInfo || (avatarInfo.webID !== event.userId)) return;
@@ -105,21 +78,6 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         setRelationships(parser);
     });
 
-    useEffect(() =>
-    {
-        setIsEditingMotto(false);
-        setMotto(avatarInfo.motto);
-
-        SendMessageComposer(new UserRelationshipsComposer(avatarInfo.webID));
-
-        return () =>
-        {
-            setIsEditingMotto(false);
-            setMotto(null);
-            setRelationships(null);
-        }
-    }, [ avatarInfo ]);
-
     if(!avatarInfo) return null;
 
     return (
@@ -172,9 +130,32 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                 </Column>
                 <Column gap={ 1 }>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
-                        <Flex grow alignItems="center" className="motto-content">
-                            <Text fullWidth pointer wrap textBreak small variant="white">{ motto }</Text>
-                        </Flex> 
+                        <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.health')}</Text>
+                        <div className="roleplay-stats-progress-bar progress-danger">
+                            <div className="progress" />
+                            <div className="progress-text">
+                                <Text small variant="white">100/100</Text>
+                            </div>
+                        </div>
+                    </Flex>
+                    <hr className="m-0" />
+                </Column>
+                <Column gap={ 1 }>
+                    <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
+                        <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.energy')}</Text>
+                        <div className="roleplay-stats-progress-bar progress-primary">
+                            <div className="progress" />
+                            <div className="progress-text">
+                                <Text small variant="white">100/100</Text>
+                            </div>
+                        </div>
+                    </Flex>
+                    <hr className="m-0" />
+                </Column>
+                <Column gap={ 1 }>
+                    <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
+                        <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.activity')}</Text>
+                        <Text small variant="white">{avatarInfo?.motto ?? '-'}</Text>
                     </Flex>
                     <hr className="m-0" />
                 </Column>
