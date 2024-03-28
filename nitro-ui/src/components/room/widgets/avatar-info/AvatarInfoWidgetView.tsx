@@ -13,8 +13,6 @@ import { InfoStandWidgetPetView } from './infostand/InfoStandWidgetPetView';
 import { InfoStandWidgetRentableBotView } from './infostand/InfoStandWidgetRentableBotView';
 import { InfoStandWidgetUserView } from './infostand/InfoStandWidgetUserView';
 import { AvatarInfoWidgetAvatarView } from './menu/AvatarInfoWidgetAvatarView';
-import { AvatarInfoWidgetDecorateView } from './menu/AvatarInfoWidgetDecorateView';
-import { AvatarInfoWidgetFurniView } from './menu/AvatarInfoWidgetFurniView';
 import { AvatarInfoWidgetNameView } from './menu/AvatarInfoWidgetNameView';
 import { AvatarInfoWidgetOwnAvatarView } from './menu/AvatarInfoWidgetOwnAvatarView';
 import { AvatarInfoWidgetOwnPetView } from './menu/AvatarInfoWidgetOwnPetView';
@@ -26,7 +24,7 @@ export const AvatarInfoWidgetView: FC<{}> = props =>
     const [ isGameMode, setGameMode ] = useState(false);
     const [ isDancing, setIsDancing ] = useState(false);
     const [ rentableBotChatEvent, setRentableBotChatEvent ] = useState<RoomWidgetUpdateRentableBotChatEvent>(null);
-    const { avatarInfo = null, setAvatarInfo = null, activeNameBubble = null, setActiveNameBubble = null, nameBubbles = [], removeNameBubble = null, productBubbles = [], confirmingProduct = null, updateConfirmingProduct = null, removeProductBubble = null, isDecorating = false, setIsDecorating = null } = useAvatarInfoWidget();
+    const { avatarInfo = null, setAvatarInfo = null, nameBubbles = [], removeNameBubble = null, productBubbles = [], confirmingProduct = null, updateConfirmingProduct = null, removeProductBubble = null } = useAvatarInfoWidget();
     const { roomSession = null } = useRoom();
 
     useRoomEngineEvent<RoomEngineEvent>(RoomEngineEvent.NORMAL_MODE, event =>
@@ -52,19 +50,10 @@ export const AvatarInfoWidgetView: FC<{}> = props =>
     {
         if(!roomSession || isGameMode) return null;
 
-        if(activeNameBubble) return <AvatarInfoWidgetNameView nameInfo={ activeNameBubble } onClose={ () => setActiveNameBubble(null) } />;
-
         if(avatarInfo)
         {
             switch(avatarInfo.type)
             {
-                case AvatarInfoFurni.FURNI: {
-                    const info = (avatarInfo as AvatarInfoFurni);
-
-                    if(!isDecorating) return null;
-
-                    return <AvatarInfoWidgetFurniView avatarInfo={ info } onClose={ () => setAvatarInfo(null) } />;
-                }
                 case AvatarInfoUser.OWN_USER:
                 case AvatarInfoUser.PEER: {
                     const info = (avatarInfo as AvatarInfoUser);
@@ -76,7 +65,7 @@ export const AvatarInfoWidgetView: FC<{}> = props =>
                     {
                         if(RoomEnterEffect.isRunning()) return null;
 
-                        return <AvatarInfoWidgetOwnAvatarView avatarInfo={ info } isDancing={ isDancing } setIsDecorating={ setIsDecorating } onClose={ () => setAvatarInfo(null) } />;
+                        return <AvatarInfoWidgetOwnAvatarView avatarInfo={ info } isDancing={ isDancing }onClose={ () => setAvatarInfo(null) } />;
                     }
 
                     return <AvatarInfoWidgetAvatarView avatarInfo={ info } onClose={ () => setAvatarInfo(null) } />;
@@ -107,20 +96,19 @@ export const AvatarInfoWidgetView: FC<{}> = props =>
                 return <InfoStandWidgetFurniView avatarInfo={ (avatarInfo as AvatarInfoFurni) } onClose={ () => setAvatarInfo(null) } />;
             case AvatarInfoUser.OWN_USER:
             case AvatarInfoUser.PEER:
-                return <InfoStandWidgetUserView avatarInfo={ (avatarInfo as AvatarInfoUser) } setAvatarInfo={ setAvatarInfo } onClose={ () => setAvatarInfo(null) } />;
+                return <InfoStandWidgetUserView avatarInfo={ (avatarInfo as AvatarInfoUser) } setAvatarInfo={ setAvatarInfo } onClose={ () => setAvatarInfo(null) } />
             case AvatarInfoUser.BOT:
                 return <InfoStandWidgetBotView avatarInfo={ (avatarInfo as AvatarInfoUser) } onClose={ () => setAvatarInfo(null) } />;
             case AvatarInfoRentableBot.RENTABLE_BOT:
                 return <InfoStandWidgetRentableBotView avatarInfo={ (avatarInfo as AvatarInfoRentableBot) } onClose={ () => setAvatarInfo(null) } />;
             case AvatarInfoPet.PET_INFO:
                 return <InfoStandWidgetPetView avatarInfo={ (avatarInfo as AvatarInfoPet) } onClose={ () => setAvatarInfo(null) } />
+
         }
     }
 
     return (
         <>
-            { isDecorating &&
-                <AvatarInfoWidgetDecorateView userId={ GetSessionDataManager().userId } userName={ GetSessionDataManager().userName } roomIndex={ roomSession.ownRoomIndex } setIsDecorating={ setIsDecorating } /> }
             { getMenuView() }
             { avatarInfo &&
                 <Column alignItems="end" className="nitro-infostand-container">

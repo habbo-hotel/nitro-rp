@@ -2,7 +2,6 @@ import { FC, useEffect, useRef } from 'react';
 import { DispatchMouseEvent, DispatchTouchEvent, GetNitroInstance } from '../../api';
 import { Base } from '../../common';
 import { useRoom } from '../../hooks';
-import { RoomSpectatorView } from './spectator/RoomSpectatorView';
 import { RoomWidgetsView } from './widgets/RoomWidgetsView';
 
 export const RoomView: FC<{}> = props =>
@@ -38,7 +37,6 @@ export const RoomView: FC<{}> = props =>
             { roomSession &&
                 <>
                     <RoomWidgetsView />
-                    { roomSession.isSpectator && <RoomSpectatorView /> }
                 </> }
         </Base>
     );
