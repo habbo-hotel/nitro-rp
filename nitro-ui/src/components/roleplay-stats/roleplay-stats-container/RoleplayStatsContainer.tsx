@@ -6,8 +6,7 @@ import { useMessageEvent } from "../../../hooks";
 import { UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer/src/nitro/communication/messages/incoming/roleplay";
 import { UserRoleplayStatsChangeData } from "@nitro-rp/renderer/src/nitro/communication/messages/parser/roleplay/UserRoleplayStatsChangeParser";
 
-
-export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) {
+export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
     const [roleplayStats, setRoleplayStats] = useState<UserRoleplayStatsChangeData>({
         userID: 0,
         username: '',
@@ -33,6 +32,13 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
         }
         setRoleplayStats(eventData);
     });
+
+    return roleplayStats;
+}
+
+
+export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) {
+    const roleplayStats = useRoleplayStats(userID);
 
     function onViewProfile() {
         return GetUserProfile(roleplayStats.userID)

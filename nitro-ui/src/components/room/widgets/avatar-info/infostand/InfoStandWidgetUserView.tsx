@@ -6,6 +6,7 @@ import { Column, Flex, LayoutAvatarImageView, LayoutBadgeImageView, Text, UserPr
 import { useMessageEvent, useRoomSessionManagerEvent } from '../../../../../hooks';
 import { InfoStandWidgetUserRelationshipsView } from './InfoStandWidgetUserRelationshipsView';
 import { InfoStandWidgetUserTagsView } from './InfoStandWidgetUserTagsView';
+import { useRoleplayStats } from '../../../../roleplay-stats/roleplay-stats-container/RoleplayStatsContainer';
 
 interface InfoStandWidgetUserViewProps
 {
@@ -17,6 +18,7 @@ interface InfoStandWidgetUserViewProps
 export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =>
 {
     const { avatarInfo = null, setAvatarInfo = null, onClose = null } = props;
+    const roleplayStats = useRoleplayStats(avatarInfo.webID);
     const [ relationships, setRelationships ] = useState<RelationshipStatusInfoMessageParser>(null);
     useRoomSessionManagerEvent<RoomSessionUserBadgesEvent>(RoomSessionUserBadgesEvent.RSUBE_BADGES, event =>
     {
@@ -80,6 +82,10 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
 
     if(!avatarInfo) return null;
 
+    const healthPercent = (roleplayStats.healthNow / roleplayStats.healthMax) * 100;
+    const energyPercent =  (roleplayStats.energyNow / roleplayStats.energyNow) * 100;
+    const hungerPercent =  (roleplayStats.hungerNow / roleplayStats.hungerMax) * 100;
+
     return (
         <Column className="nitro-infostand rounded">
             <Column overflow="visible" className="container-fluid content-area" gap={ 1 }>
@@ -132,9 +138,9 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
                         <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.health')}</Text>
                         <div className="roleplay-stats-progress-bar progress-danger">
-                            <div className="progress" />
+                        <div className="progress"  />
                             <div className="progress-text">
-                                <Text small variant="white">100/100</Text>
+                                <Text small variant="white">{roleplayStats.healthNow}/{roleplayStats.healthMax}</Text>
                             </div>
                         </div>
                     </Flex>
@@ -144,9 +150,9 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
                         <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.energy')}</Text>
                         <div className="roleplay-stats-progress-bar progress-primary">
-                            <div className="progress" />
+                            <div className="progress"  />
                             <div className="progress-text">
-                                <Text small variant="white">100/100</Text>
+                            <Text small variant="white">{roleplayStats.energyMax}/{roleplayStats.energyMax}</Text>
                             </div>
                         </div>
                     </Flex>
