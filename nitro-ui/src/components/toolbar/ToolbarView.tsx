@@ -2,7 +2,7 @@ import { Dispose, DropBounce, EaseOut, JumpBy, Motions, NitroToolbarAnimateIconE
 import { FC, useState } from 'react';
 import { CreateLinkEvent, GetConfiguration, GetSessionDataManager, MessengerIconState, OpenMessengerChat } from '../../api';
 import { Base, Flex, LayoutAvatarImageView, LayoutItemCountView, TransitionAnimation, TransitionAnimationTypes } from '../../common';
-import { useAchievements, useFriends, useInventoryUnseenTracker, useMessenger, useRoomEngineEvent, useSessionInfo } from '../../hooks';
+import { useFriends, useInventoryUnseenTracker, useMessenger, useRoomEngineEvent, useSessionInfo } from '../../hooks';
 import { ToolbarMeView } from './ToolbarMeView';
 
 export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
@@ -11,7 +11,6 @@ export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
     const [ isMeExpanded, setMeExpanded ] = useState(false);
     const { userFigure = null } = useSessionInfo();
     const { getFullCount = 0 } = useInventoryUnseenTracker();
-    const { getTotalUnseen = 0 } = useAchievements();
     const { requests = [] } = useFriends();
     const { iconState = MessengerIconState.HIDDEN } = useMessenger();
     const isMod = GetSessionDataManager().isModerator;
@@ -57,17 +56,9 @@ export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
 
     return (
         <>
-            <TransitionAnimation type={ TransitionAnimationTypes.FADE_IN } inProp={ isMeExpanded } timeout={ 300 }>
-                <ToolbarMeView unseenAchievementCount={ getTotalUnseen } setMeExpanded={ setMeExpanded } />
-            </TransitionAnimation>
             <Flex alignItems="center" justifyContent="between" gap={ 2 } className="nitro-toolbar py-1 px-3">
                 <Flex gap={ 2 } alignItems="center">
                     <Flex alignItems="center" gap={ 2 }>
-                        <Flex center pointer className={ 'navigation-item item-avatar ' + (isMeExpanded ? 'active ' : '') } onClick={ event => setMeExpanded(!isMeExpanded) }>
-                            <LayoutAvatarImageView figure={ userFigure } direction={ 2 } position="absolute" />
-                            { (getTotalUnseen > 0) &&
-                                <LayoutItemCountView count={ getTotalUnseen } /> }
-                        </Flex>
                         <Base pointer className="navigation-item icon icon-rooms" onClick={ event => CreateLinkEvent('navigator/toggle') } />
                         { GetConfiguration('game.center.enabled') && <Base pointer className="navigation-item icon icon-game" onClick={ event => CreateLinkEvent('games/toggle') } /> }
                         <Base pointer className="navigation-item icon icon-catalog" onClick={ event => CreateLinkEvent('catalog/toggle') } />

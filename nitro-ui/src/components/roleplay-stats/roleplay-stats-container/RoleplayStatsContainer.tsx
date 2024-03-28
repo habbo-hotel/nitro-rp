@@ -1,6 +1,6 @@
 import { RoleplayStatsContainerProps } from "./RoleplayStatsContainer.types";
 import {LayoutAvatarImageView, Text } from "../../../common";
-import { LocalizeText } from "../../../api";
+import { GetSessionDataManager, GetUserProfile, LocalizeText } from "../../../api";
 import { useState } from "react";
 import { useMessageEvent } from "../../../hooks";
 import { UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer/src/nitro/communication/messages/incoming/roleplay";
@@ -28,12 +28,15 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
 
     useMessageEvent<UserRoleplayStatsChangeEvent>(UserRoleplayStatsChangeEvent, event => {
         const eventData: UserRoleplayStatsChangeData = event.getParser().data;
-        console.log(eventData)
         if (eventData.userID !== userID) {
             return;
         }
         setRoleplayStats(eventData);
     });
+
+    function onViewProfile() {
+        return GetUserProfile(roleplayStats.userID)
+    }
 
     const healthPercent = (roleplayStats.healthNow / roleplayStats.healthMax) * 100;
     const energyPercent =  (roleplayStats.energyNow / roleplayStats.energyNow) * 100;
@@ -42,9 +45,9 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
     return (
         <div className="nitro-roleplay-stats-container" >
             <div className="nitro-roleplay-stats rounded-bottom p-1">
-                <div className="nitro-roleplay-user">
+                <div className="nitro-roleplay-user" onClick={onViewProfile} style={{cursor: 'pointer'}}>
                     <div className="nitro-roleplay-avatar">
-                        <LayoutAvatarImageView className="avatar" figure={ roleplayStats.figure } direction={ 2 } />
+                        <LayoutAvatarImageView className="avatar" figure={ roleplayStats.figure } direction={ 2 }/>
                     </div>
                     <Text bold center fontSize={5} variant="white">{roleplayStats.username}</Text>
                 </div>
