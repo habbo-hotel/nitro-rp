@@ -1,9 +1,30 @@
 import { RoleplayStatsContainerProps } from "./RoleplayStatsContainer.types";
 import {LayoutAvatarImageView, Text } from "../../../common";
 import { LocalizeText } from "../../../api";
+import { useState } from "react";
+import { useMessageEvent } from "../../../hooks";
+import { UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer/src/nitro/communication/messages/incoming/roleplay";
+import { UserRoleplayStatsChangeData } from "@nitro-rp/renderer/src/nitro/communication/messages/parser/roleplay/UserRoleplayStatsChangeParser";
 
 
-export function RoleplayStatsContainer({ username, figure, bankBalance, cashBalance, healthMaximum, healthCurrent, energyMaximum, energyCurrent}: RoleplayStatsContainerProps) {
+export function RoleplayStatsContainer({ username, figure, bankBalance, cashBalance}: RoleplayStatsContainerProps) {
+    const [roleplayStats, setRoleplayStats] = useState<UserRoleplayStatsChangeData>({
+        userID: 0,
+        healthCurrent: 0,
+        healthMaximum: 0,
+        corporationID: 0,
+        corporationPositionID: 0,
+        gangID: undefined,
+        gangPositionID: undefined,
+    })
+
+    useMessageEvent<UserRoleplayStatsChangeEvent>(UserRoleplayStatsChangeEvent, event => {
+        setRoleplayStats(event.getParser().data);
+    });
+
+    const healthPercent = (roleplayStats.healthCurrent / roleplayStats.healthMaximum) * 100;
+    const energyPercent = 100;
+
     return (
         <div className="nitro-roleplay-stats-container" >
             <div className="nitro-roleplay-stats rounded-bottom p-1">
@@ -27,11 +48,11 @@ export function RoleplayStatsContainer({ username, figure, bankBalance, cashBala
                 </div>
                 <div className="p-2 rounded">
                     <Text bold variant="light">{ LocalizeText('roleplay.stats.health') }</Text>
-                    <progress value={healthCurrent} max={healthMaximum} />
+                    <progress value={healthPercent} max={roleplayStats.healthMaximum} />
                 </div>
                 <div className="p-2 rounded">
                     <Text bold variant="light">{ LocalizeText('roleplay.stats.energy') }</Text>
-                    <progress value={energyCurrent} max={energyMaximum} />
+                    <progress value={energyPercent} max={100} />
                 </div>
             </div>
         </div>

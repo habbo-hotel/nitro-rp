@@ -470,4 +470,6 @@ export class IncomingHeader
     public static WEEKLY_GAME2_LEADERBOARD = 2196;
     public static RENTABLE_FURNI_RENT_OR_BUYOUT_OFFER = 35;
     public static HANDSHAKE_IDENTITY_ACCOUNT = 3523;
+    // Roleplay
+    public static USER_ROLEPLAY_STATS_CHANGE = 9001;
 }

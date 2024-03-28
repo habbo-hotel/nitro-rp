@@ -3,8 +3,4 @@ export interface RoleplayStatsContainerProps {
     figure: string;
     bankBalance: number;
     cashBalance: number;
-    healthMaximum: number;
-    healthCurrent: number;
-    energyMaximum: number;
-    energyCurrent: number;
 }
