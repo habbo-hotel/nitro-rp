@@ -15,7 +15,6 @@ const useAvatarInfoWidgetState = () =>
     const [ productBubbles, setProductBubbles ] = useState<UseProductItem[]>([]);
     const [ confirmingProduct, setConfirmingProduct ] = useState<UseProductItem>(null);
     const [ pendingPetId, setPendingPetId ] = useState<number>(-1);
-    const [ isDecorating, setIsDecorating ] = useState(false);
     const { friends = [] } = useFriends();
     const { selectObjectForWired = null } = useWired();
     const { roomSession = null } = useRoom();
@@ -260,8 +259,6 @@ const useAvatarInfoWidgetState = () =>
     useRoomEngineEvent<RoomEngineObjectEvent>(RoomEngineObjectEvent.REQUEST_MANIPULATION, event =>
     {
         if(!CanManipulateFurniture(roomSession, event.objectId, event.category)) return;
-
-        setIsDecorating(true);
     });
 
     useObjectSelectedEvent(event =>
@@ -344,12 +341,7 @@ const useAvatarInfoWidgetState = () =>
         setNameBubbles([]);
     }, [ activeNameBubble ]);
 
-    useEffect(() =>
-    {
-        roomSession.isDecorating = isDecorating;
-    }, [ roomSession, isDecorating ]);
-
-    return { avatarInfo, setAvatarInfo, activeNameBubble, setActiveNameBubble, nameBubbles, productBubbles, confirmingProduct, isDecorating, setIsDecorating, removeNameBubble, removeProductBubble, updateConfirmingProduct, getObjectName };
+    return { avatarInfo, setAvatarInfo, activeNameBubble, setActiveNameBubble, nameBubbles, productBubbles, confirmingProduct, removeNameBubble, removeProductBubble, updateConfirmingProduct, getObjectName };
 }
 
 export const useAvatarInfoWidget = useAvatarInfoWidgetState;

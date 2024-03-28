@@ -2427,7 +2427,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(type === MouseEventType.MOUSE_DOWN)
         {
-            if(!altKey && !ctrlKey && !shiftKey && !this.isDecorating)
+            if(!altKey && !ctrlKey && !shiftKey)
             {
                 if(this._roomAllowsDragging)
                 {
@@ -3588,16 +3588,6 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     {
         return this._roomContentLoader;
     }
-
-    public get isDecorating(): boolean
-    {
-        if(!this._roomSessionManager) return false;
-
-        const session = this._roomSessionManager.getSession(this._activeRoomId);
-
-        return (session && session.isDecorating) || false;
-    }
-
     private get useOffsetScrolling(): boolean
     {
         return true;

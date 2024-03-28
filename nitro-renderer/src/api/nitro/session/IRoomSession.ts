@@ -62,7 +62,6 @@ export interface IRoomSession extends IDisposable
     ownRoomIndex: number;
     isGuildRoom: boolean;
     isRoomOwner: boolean;
-    isDecorating: boolean;
     isSpectator: boolean;
     moderationSettings: IRoomModerationSettings;
 }

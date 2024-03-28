@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { MyRoleplayStats } from "./MyRoleplayStats";
 import { TargetRoleplayStats } from "./TargetRoleplayStats";
 

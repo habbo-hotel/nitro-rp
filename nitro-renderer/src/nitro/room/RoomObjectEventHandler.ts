@@ -1051,7 +1051,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
     private onRoomObjectTileMouseEvent(roomId: number, event: RoomObjectTileMouseEvent): void
     {
-        if(!this._roomEngine || this._roomEngine.isDecorating || !this._roomEngine.roomSessionManager) return;
 
         const session = this._roomEngine.roomSessionManager.getSession(roomId);
 
@@ -2169,11 +2168,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         if(!object || !object.model) return;
 
         object.model.setValue(RoomObjectVariable.FURNITURE_ALPHA_MULTIPLIER, multiplier);
-    }
-
-    private decorateModeMove(event: RoomObjectMouseEvent): boolean
-    {
-        return (this._roomEngine.isDecorating) && (!(event.ctrlKey || event.shiftKey));
     }
 
     public cancelRoomObjectPlacement(roomId: number): boolean

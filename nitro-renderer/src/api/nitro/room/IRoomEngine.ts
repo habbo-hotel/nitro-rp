@@ -99,5 +99,4 @@ export interface IRoomEngine extends INitroManager
     ready: boolean;
     disposed: boolean;
     selectedAvatarId: number;
-    isDecorating: boolean;
 }

@@ -43,5 +43,4 @@ export interface IRoomEngineServices
     roomSessionManager: IRoomSessionManager;
     activeRoomId: number;
     events: IEventDispatcher;
-    isDecorating: boolean;
 }

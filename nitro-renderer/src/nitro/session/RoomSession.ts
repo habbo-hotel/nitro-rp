@@ -19,7 +19,6 @@ export class RoomSession extends Disposable implements IRoomSession
     private _ownRoomIndex: number;
     private _isGuildRoom: boolean;
     private _isRoomOwner: boolean;
-    private _isDecorating: boolean;
     private _isSpectator: boolean;
 
     private _moderationSettings: RoomModerationSettings;
@@ -40,7 +39,6 @@ export class RoomSession extends Disposable implements IRoomSession
         this._ownRoomIndex = -1;
         this._isGuildRoom = false;
         this._isRoomOwner = false;
-        this._isDecorating = false;
         this._isSpectator = false;
 
         this._moderationSettings = null;
@@ -429,16 +427,6 @@ export class RoomSession extends Disposable implements IRoomSession
     public get isRoomOwner(): boolean
     {
         return this._isRoomOwner;
-    }
-
-    public get isDecorating(): boolean
-    {
-        return this._isDecorating;
-    }
-
-    public set isDecorating(flag: boolean)
-    {
-        this._isDecorating = flag;
     }
 
     public get isSpectator(): boolean
