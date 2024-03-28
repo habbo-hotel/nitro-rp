@@ -2,8 +2,16 @@ import { IMessageDataWrapper, IMessageParser } from "../../../../../api";
 
 export interface UserRoleplayStatsChangeData {
     userID: number;
-    healthCurrent: number;
-    healthMaximum: number;
+    username: string;
+    figure: string;
+    cashBalance: number;
+    bankBalance: number;
+    healthNow: number;
+    healthMax: number;
+    energyNow: number;
+    energyMax: number;
+    hungerNow: number;
+    hungerMax: number;
     corporationID: number;
     corporationPositionID: number;
     gangID: number;
@@ -14,8 +22,16 @@ export interface UserRoleplayStatsChangeData {
 export class UserRoleplayStatsChangeParser implements IMessageParser
 {
     private _userID: number;
-    private _healthCurrent: number;
-    private _healthMaximum: number;
+    private _username: string;
+    private _figure: string;
+    private _cashBalance: number;
+    private _bankBalance: number;
+    private _healthNow: number;
+    private _healthMax: number;
+    private _energyNow: number;
+    private _energyMax: number;
+    private _hungerNow: number;
+    private _hungerMax: number;
     private _corporationID: number;
     private _corporationPositionID: number;
     private _gangID?: number;
@@ -24,8 +40,16 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
     public flush(): boolean
     {
         this._userID = 0;
-        this._healthCurrent = 0;
-        this._healthMaximum = 0;
+        this._username = '';
+        this._figure = '';
+        this._cashBalance = 0;
+        this._bankBalance = 0;
+        this._healthNow = 0;
+        this._healthMax = 0;
+        this._energyNow = 0;
+        this._energyMax = 0;
+        this._hungerNow = 0;
+        this._hungerMax = 0;
         this._corporationID = 0;
         this._corporationPositionID = 0;
         this._gangID = 0;
@@ -38,8 +62,16 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
         if(!wrapper) return false;
 
         this._userID = wrapper.readInt();
-        this._healthCurrent = wrapper.readInt();
-        this._healthMaximum = wrapper.readInt();
+        this._username = wrapper.readString();
+        this._figure = wrapper.readString();
+        this._cashBalance = wrapper.readInt();
+        this._bankBalance = wrapper.readInt();
+        this._healthNow = wrapper.readInt();
+        this._healthMax = wrapper.readInt();
+        this._energyNow = wrapper.readInt();
+        this._energyMax = wrapper.readInt();
+        this._hungerNow = wrapper.readInt();
+        this._hungerMax = wrapper.readInt();
         this._corporationID = wrapper.readInt();
         this._corporationPositionID = wrapper.readInt();
         this._gangID = wrapper.readInt();
@@ -51,8 +83,16 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
     public get data(): UserRoleplayStatsChangeData {
         return {
             userID: this._userID,
-            healthCurrent: this._healthCurrent,
-            healthMaximum: this._healthMaximum,
+            username: this._username,
+            figure: this._figure,
+            cashBalance: this._cashBalance,
+            bankBalance: this._bankBalance,
+            healthNow: this._healthNow,
+            healthMax: this._healthMax,
+            energyNow: this._energyNow,
+            energyMax: this._energyMax,
+            hungerNow: this._hungerNow,
+            hungerMax: this._hungerMax,
             corporationID: this._corporationID,
             corporationPositionID: this._corporationPositionID,
             gangID: this._gangID,
