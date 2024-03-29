@@ -82,10 +82,6 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
 
     if(!avatarInfo) return null;
 
-    const healthPercent = (roleplayStats.healthNow / roleplayStats.healthMax) * 100;
-    const energyPercent =  (roleplayStats.energyNow / roleplayStats.energyNow) * 100;
-    const hungerPercent =  (roleplayStats.hungerNow / roleplayStats.hungerMax) * 100;
-
     return (
         <Column className="nitro-infostand rounded">
             <Column overflow="visible" className="container-fluid content-area" gap={ 1 }>

@@ -14,6 +14,7 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
         figure: '',
         cashBalance: 0,
         bankBalance: 0,
+        isDead: false,
         healthNow: 0,
         healthMax: 0,
         energyNow: 0,
@@ -22,6 +23,7 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
         hungerMax: 0,
         corporationID: 0,
         corporationPositionID: 0,
+        isWorking: false,
         gangID: undefined,
         gangPositionID: undefined,
     })

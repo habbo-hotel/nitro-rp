@@ -12,6 +12,7 @@ import { CorpStopWork } from '../../../../../api/roleplay/corp/CorpStopWork';
 import { CorpStartWork } from '../../../../../api/roleplay/corp/CorpStartWork';
 import { GangLeave } from '../../../../../api/roleplay/gang/GangLeave';
 import { GangDisband } from '../../../../../api/roleplay/gang/GangDisband';
+import { useRoleplayStats } from '../../../../roleplay-stats/roleplay-stats-container/RoleplayStatsContainer';
 
 interface AvatarInfoWidgetOwnAvatarViewProps
 {
@@ -30,6 +31,8 @@ const MODE_GANGS = 6;
 export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProps> = props =>
 {
     const { avatarInfo = null, isDancing = false, onClose = null } = props;
+
+    const roleplayStats = useRoleplayStats(avatarInfo?.webID);
     const [ mode, setMode ] = useState((isDancing && HasHabboClub()) ? MODE_CLUB_DANCES : MODE_NORMAL);
     const { roomSession = null } = useRoom();
 
@@ -152,10 +155,14 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         <FaChevronRight className="right fa-icon" />
                         { LocalizeText('infostand.button.business') }
                     </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('view_gang') }>
-                        <FaChevronRight className="right fa-icon" />
-                        { LocalizeText('infostand.button.gang') }
-                    </ContextMenuListItemView>
+                    {
+                        roleplayStats.gangID && (
+                            <ContextMenuListItemView onClick={ event => processAction('view_gang') }>
+                                <FaChevronRight className="right fa-icon" />
+                                { LocalizeText('infostand.button.gang') }
+                            </ContextMenuListItemView>
+                        )
+                    }
                     { !isRidingHorse &&
                         <ContextMenuListItemView onClick={ event => processAction('dance_menu') }>
                             <FaChevronRight className="right fa-icon" />
@@ -304,12 +311,16 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                 </> }
             { (mode === MODE_BUSINESS) &&
                 <>
-                <ContextMenuListItemView onClick={ event => processAction('startwork') }>
-                    { LocalizeText('widget.memenu.startwork') }
-                </ContextMenuListItemView>
-                <ContextMenuListItemView onClick={ event => processAction('stopwork') }>
-                    { LocalizeText('widget.memenu.stopwork') }
-                </ContextMenuListItemView>
+                    {roleplayStats.isWorking && (
+                        <ContextMenuListItemView onClick={ event => processAction('stopwork') }>
+                            { LocalizeText('widget.memenu.stopwork') }
+                        </ContextMenuListItemView>
+                    )}
+                    {!roleplayStats.isWorking && (
+                        <ContextMenuListItemView onClick={ event => processAction('startwork') }>
+                            { LocalizeText('widget.memenu.startwork') }
+                        </ContextMenuListItemView>
+                    )}
                     <ContextMenuListItemView onClick={ event => processAction('back') }>
                         <FaChevronLeft className="left fa-icon" />
                         { LocalizeText('generic.back') }
