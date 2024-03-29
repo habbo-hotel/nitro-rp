@@ -23,7 +23,7 @@ export function TargetRoleplayStats() {
 
     return (
         <>
-        <Text bold variant="white" style={{padding: 4}}>vs.</Text>
+        <Text bold variant="danger" style={{padding: 4}}>vs.</Text>
         <RoleplayStatsContainer userID={targetUserID} />
         </>
     )

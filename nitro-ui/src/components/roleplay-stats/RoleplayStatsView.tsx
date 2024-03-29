@@ -4,9 +4,9 @@ import { TargetRoleplayStats } from "./TargetRoleplayStats";
 
 export function RoleplayStatsView() {
     return (
-        <>
+        <div style={{display: 'flex', alignItems: 'center',}}>
             <MyRoleplayStats />
             <TargetRoleplayStats />
-        </>
+        </div>
     )
 }
