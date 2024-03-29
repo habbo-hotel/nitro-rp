@@ -3,9 +3,8 @@ import {LayoutAvatarImageView, Text } from "../../../common";
 import { GetUserProfile, LocalizeText } from "../../../api";
 import { useEffect, useState } from "react";
 import { useMessageEvent } from "../../../hooks";
-import { UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer/src/nitro/communication/messages/incoming/roleplay";
-import { UserRoleplayStatsChangeData } from "@nitro-rp/renderer/src/nitro/communication/messages/parser/roleplay/UserRoleplayStatsChangeParser";
 import { UserRoleplayStatsQuery } from "../../../api/roleplay/user/UserRoleplayStatsQuery";
+import { UserRoleplayStatsChangeData, UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer";
 
 export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
     const [roleplayStats, setRoleplayStats] = useState<UserRoleplayStatsChangeData>({

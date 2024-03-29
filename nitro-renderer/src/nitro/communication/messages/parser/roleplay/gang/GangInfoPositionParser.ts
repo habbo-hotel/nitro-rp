@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
 
-export interface GangInfoData {
+export interface GangPositionInfoData {
     id: number;
     userID: number;
     roomID: number;
@@ -40,7 +40,7 @@ export class GangInfoPositionParser implements IMessageParser
         return true;
     }
 
-    public get data(): GangInfoData {
+    public get data(): GangPositionInfoData {
         return {
             id: this._id,
             userID: this._userID,

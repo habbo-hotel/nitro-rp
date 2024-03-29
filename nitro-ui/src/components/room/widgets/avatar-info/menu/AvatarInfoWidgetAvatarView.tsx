@@ -12,6 +12,7 @@ import { CorpPromoteUser } from '../../../../../api/roleplay/corp/CorpPromoteUse
 import { CorpFireUser } from '../../../../../api/roleplay/corp/CorpFireUser';
 import { CorpOfferJob } from '../../../../../api/roleplay/corp/CorpOfferJob';
 import { FaChevronRight } from 'react-icons/fa';
+import { useRoleplayStats } from '../../../../roleplay-stats/roleplay-stats-container/RoleplayStatsContainer';
 
 interface AvatarInfoWidgetAvatarViewProps
 {
@@ -26,6 +27,7 @@ const MODE_GANG = 2;
 export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props =>
 {
     const { avatarInfo = null, onClose = null } = props;
+    const roleplayStats = useRoleplayStats(avatarInfo?.webID);
     const [ mode, setMode ] = useState(MODE_NORMAL);
     const { canRequestFriend = null } = useFriends();
 
@@ -121,9 +123,13 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             }
             { (mode === MODE_NORMAL) &&
                 <>
-                    <ContextMenuListItemView onClick={ event => processAction('attack') }>
-                        { LocalizeText('infostand.button.attack') }
-                    </ContextMenuListItemView>
+                    {
+                        !roleplayStats.isDead && (
+                            <ContextMenuListItemView onClick={ event => processAction('attack') }>
+                                { LocalizeText('infostand.button.attack') }
+                            </ContextMenuListItemView>
+                        )
+                    }
                     <ContextMenuListItemView onClick={ event => processAction('view_business') }>
                         { LocalizeText('infostand.button.business') }
                         <FaChevronRight className="right fa-icon" />
