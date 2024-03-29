@@ -1,10 +1,11 @@
 import { RoleplayStatsContainerProps } from "./RoleplayStatsContainer.types";
 import {LayoutAvatarImageView, Text } from "../../../common";
-import { GetSessionDataManager, GetUserProfile, LocalizeText } from "../../../api";
-import { useState } from "react";
+import { GetUserProfile, LocalizeText } from "../../../api";
+import { useEffect, useState } from "react";
 import { useMessageEvent } from "../../../hooks";
 import { UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer/src/nitro/communication/messages/incoming/roleplay";
 import { UserRoleplayStatsChangeData } from "@nitro-rp/renderer/src/nitro/communication/messages/parser/roleplay/UserRoleplayStatsChangeParser";
+import { UserRoleplayStatsQuery } from "../../../api/roleplay/user/UserRoleplayStatsQuery";
 
 export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
     const [roleplayStats, setRoleplayStats] = useState<UserRoleplayStatsChangeData>({
@@ -39,6 +40,10 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
 
 export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) {
     const roleplayStats = useRoleplayStats(userID);
+
+    useEffect(() => {
+        UserRoleplayStatsQuery(userID)
+    }, []);
 
     function onViewProfile() {
         return GetUserProfile(roleplayStats.userID)

@@ -496,4 +496,6 @@ export class OutgoingHeader
     public static GANG_INVITE_USER = 8010;
 
     public static GANG_LEAVE = 8014
+
+    public static USER_ROLEPLAY_STATS_QUERY = 8015;
 }

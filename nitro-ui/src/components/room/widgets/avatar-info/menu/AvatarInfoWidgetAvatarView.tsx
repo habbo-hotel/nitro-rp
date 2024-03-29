@@ -5,12 +5,12 @@ import { useFriends } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
 import { ContextMenuView } from '../../context-menu/ContextMenuView';
-import { AttackUser } from '../../../../../api/roleplay/AttackUser';
-import { GangInviteUser } from '../../../../../api/roleplay/GangInviteUser';
-import { CorpDemoteUser } from '../../../../../api/roleplay/CorpDemoteUser';
-import { CorpPromoteUser } from '../../../../../api/roleplay/CorpPromoteUser';
-import { CorpFireUser } from '../../../../../api/roleplay/CorpFireUser';
-import { CorpOfferJob } from '../../../../../api/roleplay/CorpOfferJob';
+import { AttackUser } from '../../../../../api/roleplay/combat/AttackUser';
+import { GangInviteUser } from '../../../../../api/roleplay/gang/GangInviteUser';
+import { CorpDemoteUser } from '../../../../../api/roleplay/corp/CorpDemoteUser';
+import { CorpPromoteUser } from '../../../../../api/roleplay/corp/CorpPromoteUser';
+import { CorpFireUser } from '../../../../../api/roleplay/corp/CorpFireUser';
+import { CorpOfferJob } from '../../../../../api/roleplay/corp/CorpOfferJob';
 import { FaChevronRight } from 'react-icons/fa';
 
 interface AvatarInfoWidgetAvatarViewProps

@@ -8,10 +8,10 @@ import { useRoom } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
 import { ContextMenuView } from '../../context-menu/ContextMenuView';
-import { CorpStartWork } from '../../../../../api/roleplay/CorpStartWork';
-import { CorpStopWork } from '../../../../../api/roleplay/CorpStopWork';
-import { GangLeave } from '../../../../../api/roleplay/GangLeave';
-import { GangDisband } from '../../../../../api/roleplay/GangDisband';
+import { CorpStopWork } from '../../../../../api/roleplay/corp/CorpStopWork';
+import { CorpStartWork } from '../../../../../api/roleplay/corp/CorpStartWork';
+import { GangLeave } from '../../../../../api/roleplay/gang/GangLeave';
+import { GangDisband } from '../../../../../api/roleplay/gang/GangDisband';
 
 interface AvatarInfoWidgetOwnAvatarViewProps
 {
