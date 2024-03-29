@@ -1,7 +1,7 @@
 import { RoomObjectCategory, RoomObjectVariable, RoomUnitGiveHandItemComposer, TradingOpenComposer } from '@nitro-rp/renderer';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetOwnRoomObject, GetUserProfile, LocalizeText, RoomWidgetUpdateChatInputContentEvent, SendMessageComposer } from '../../../../../api';
-import { useFriends } from '../../../../../hooks';
+import { useFriends, useSessionInfo } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
 import { ContextMenuView } from '../../context-menu/ContextMenuView';
@@ -26,8 +26,10 @@ const MODE_GANG = 2;
 
 export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props =>
 {
+    const { userInfo: sessionInfo } = useSessionInfo();
     const { avatarInfo = null, onClose = null } = props;
     const roleplayStats = useRoleplayStats(avatarInfo?.webID);
+    const sessionRoleplayStats = useRoleplayStats(sessionInfo?.userId);
     const [ mode, setMode ] = useState(MODE_NORMAL);
     const { canRequestFriend = null } = useFriends();
 
@@ -154,25 +156,42 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 </> }
             { (mode === MODE_BUSINESS) &&
                 <>
-                    <ContextMenuListItemView onClick={ event => processAction('corp_offer_job') }>
-                        { LocalizeText('infostand.button.corp_offer_job') }
-                    </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('corp_fire_user') }>
-                        { LocalizeText('infostand.button.corp_fire_user') }
-                    </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('corp_promote_user') }>
-                        { LocalizeText('infostand.button.corp_promote_user') }
-                    </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('corp_demote_user') }>
-                        { LocalizeText('infostand.button.corp_demote_user') }
-                    </ContextMenuListItemView>
+                {
+                    roleplayStats.corporationID !== sessionRoleplayStats.corporationID && (
+                        <ContextMenuListItemView onClick={ event => processAction('corp_offer_job') }>
+                            { LocalizeText('infostand.button.corp_offer_job') }
+                        </ContextMenuListItemView>
+                    )
+                }
+                {
+                    roleplayStats.corporationID === sessionRoleplayStats.corporationID && (
+                        <>
+                            <ContextMenuListItemView onClick={ event => processAction('corp_fire_user') }>
+                            { LocalizeText('infostand.button.corp_fire_user') }
+                            </ContextMenuListItemView>
+                            <ContextMenuListItemView onClick={ event => processAction('corp_promote_user') }>
+                                { LocalizeText('infostand.button.corp_promote_user') }
+                            </ContextMenuListItemView>
+                            <ContextMenuListItemView onClick={ event => processAction('corp_demote_user') }>
+                                { LocalizeText('infostand.button.corp_demote_user') }
+                            </ContextMenuListItemView>
+                        </>
+                    )
+                }
                 </> }
             { (mode === MODE_GANG) &&
                 <>
-                    <ContextMenuListItemView onClick={ event => processAction('gang_invite_user') }>
-                        { LocalizeText('infostand.button.gang_invite_user') }
-                    </ContextMenuListItemView>
-                </> }
+                {
+                    roleplayStats.gangID !== sessionRoleplayStats.gangID && (
+                        <>
+                        <ContextMenuListItemView onClick={ event => processAction('gang_invite_user') }>
+                            { LocalizeText('infostand.button.gang_invite_user') }
+                        </ContextMenuListItemView>     
+                        </>                 
+                    )
+                }
+                </> 
+            }
         </ContextMenuView>
     );
 }
