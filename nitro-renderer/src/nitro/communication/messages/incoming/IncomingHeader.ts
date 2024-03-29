@@ -472,4 +472,8 @@ export class IncomingHeader
     public static HANDSHAKE_IDENTITY_ACCOUNT = 3523;
     // Roleplay
     public static USER_ROLEPLAY_STATS_CHANGE = 9001;
+    public static CORP_INFO_QUERY = 9002;
+    public static GANG_INFO_QUERY = 9003;
+    public static CORP_POSITION_INFO_QUERY = 9004;
+    public static GANG_POSITION_INFO_QUERY = 9005;
 }

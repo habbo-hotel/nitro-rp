@@ -1,6 +1,6 @@
-import { IMessageEvent } from "../../../../../api";
-import { MessageEvent } from "../../../../../events";
-import { UserRoleplayStatsChangeParser } from "../../parser/roleplay/UserRoleplayStatsChangeParser";
+import { IMessageEvent } from "../../../../../../api";
+import { MessageEvent } from "../../../../../../events";
+import { UserRoleplayStatsChangeParser } from "../../../parser/roleplay/user/UserRoleplayStatsChangeParser";
 
 export class UserRoleplayStatsChangeEvent extends MessageEvent implements IMessageEvent
 {

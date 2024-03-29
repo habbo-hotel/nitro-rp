@@ -498,4 +498,12 @@ export class OutgoingHeader
     public static GANG_LEAVE = 8014
 
     public static USER_ROLEPLAY_STATS_QUERY = 8015;
+
+    public static CORP_INFO_QUERY = 8016;
+
+    public static GANG_INFO_QUERY = 8017;
+
+    public static CORP_POSITION_INFO_QUERY = 8018;
+
+    public static GANG_POSITION_INFO_QUERY = 8019;
 }
