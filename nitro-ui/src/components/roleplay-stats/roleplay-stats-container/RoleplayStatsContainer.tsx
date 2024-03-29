@@ -26,6 +26,10 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
         gangPositionID: undefined,
     })
 
+    useEffect(() => {
+        UserRoleplayStatsQuery(userID)
+    }, []);
+
     useMessageEvent<UserRoleplayStatsChangeEvent>(UserRoleplayStatsChangeEvent, event => {
         const eventData: UserRoleplayStatsChangeData = event.getParser().data;
         if (eventData.userID !== userID) {
@@ -40,10 +44,6 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
 
 export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) {
     const roleplayStats = useRoleplayStats(userID);
-
-    useEffect(() => {
-        UserRoleplayStatsQuery(userID)
-    }, []);
 
     function onViewProfile() {
         return GetUserProfile(roleplayStats.userID)
