@@ -3,7 +3,6 @@ import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
 export interface CorpPositionInfoData {
     id: number;
     userID: number;
-    roomID: number;
     name: string;
     description: string;
     canHire: boolean;
@@ -16,7 +15,6 @@ export class CorpPositionInfoParser implements IMessageParser
 {
     private _id: number;
     private _userID: number;
-    private _roomID: number;
     private _name: string;
     private _description: string;
     private _canHire: boolean;
@@ -28,7 +26,6 @@ export class CorpPositionInfoParser implements IMessageParser
     {
         this._id = 0;
         this._userID = 0;
-        this._roomID = 0;
         this._name = '';
         this._description = '';
         this._canHire = false;
@@ -44,7 +41,6 @@ export class CorpPositionInfoParser implements IMessageParser
 
         this._id = wrapper.readInt();
         this._userID = wrapper.readInt();
-        this._roomID = wrapper.readInt();
         this._name = wrapper.readString();
         this._description = wrapper.readString();
         this._canHire = wrapper.readBoolean();
@@ -59,7 +55,6 @@ export class CorpPositionInfoParser implements IMessageParser
         return {
             id: this._id,
             userID: this._userID,
-            roomID: this._roomID,
             name: this._name,
             description: this._description,
             canHire: this._canHire,

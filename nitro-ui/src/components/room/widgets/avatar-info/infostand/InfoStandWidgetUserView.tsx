@@ -6,8 +6,10 @@ import { Column, Flex, LayoutAvatarImageView, LayoutBadgeImageView, Text, UserPr
 import { useMessageEvent, useRoomSessionManagerEvent } from '../../../../../hooks';
 import { InfoStandWidgetUserRelationshipsView } from './InfoStandWidgetUserRelationshipsView';
 import { InfoStandWidgetUserTagsView } from './InfoStandWidgetUserTagsView';
-import { useRoleplayStats } from '../../../../roleplay-stats/roleplay-stats-container/RoleplayStatsContainer';
 import { ProgressBar } from '../../../../roleplay-stats/progress-bar/ProgressBar';
+import { CorpBadge } from '../../../../roleplay-stats/corp-badge/CorpBadge';
+import { GangBadge } from '../../../../roleplay-stats/gang-badge/GangBadge';
+import { useRoleplayStats } from '../../../../../hooks/roleplay/use-rp-stats';
 
 interface InfoStandWidgetUserViewProps
 {
@@ -107,27 +109,30 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                         <Column grow alignItems="center" gap={ 0 }>
                             <Flex gap={ 1 }>
                                 <Flex center className="badge-image">
-                                    { avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[0] } showInfo={ true } /> }
+                                    <CorpBadge corpID={roleplayStats.corporationID} corpPositionID={roleplayStats.corporationPositionID} />
                                 </Flex>
-                                <Flex center pointer={ ( avatarInfo.groupId > 0) } className="badge-image" onClick={ event => GetGroupInformation(avatarInfo.groupId) }>
-                                    { avatarInfo.groupId > 0 &&
-                                        <LayoutBadgeImageView badgeCode={ avatarInfo.groupBadgeId } isGroup={ true } showInfo={ true } customTitle={ avatarInfo.groupName } /> }
+                                <Flex center pointer={ ( roleplayStats.gangID > 0) } className="badge-image">
+                                    {
+                                        roleplayStats.gangID && (
+                                            <GangBadge gangID={roleplayStats.gangID} gangPositionID={roleplayStats.gangID} />
+                                        )
+                                    }
                                 </Flex>
                             </Flex>
                             <Flex center gap={ 1 }>
+                                <Flex center className="badge-image">
+                                    { avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[0] } showInfo={ true } /> }
+                                </Flex>
                                 <Flex center className="badge-image">
                                     { avatarInfo.badges[1] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[1] } showInfo={ true } /> }
                                 </Flex>
-                                <Flex center className="badge-image">
-                                    { avatarInfo.badges[2] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[2] } showInfo={ true } /> }
-                                </Flex>
                             </Flex>
                             <Flex center gap={ 1 }>
                                 <Flex center className="badge-image">
-                                    { avatarInfo.badges[3] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[3] } showInfo={ true } /> }
+                                    { avatarInfo.badges[2] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[2] } showInfo={ true } /> }
                                 </Flex>
                                 <Flex center className="badge-image">
-                                    { avatarInfo.badges[4] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[4] } showInfo={ true } /> }
+                                    { avatarInfo.badges[3] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[3] } showInfo={ true } /> }
                                 </Flex>
                             </Flex>
                         </Column>

@@ -6,6 +6,7 @@ export interface CorpInfoData {
     roomID: number;
     name: string;
     description: string;
+    badgeCode: string;
 }
 
 export class CorpInfoParser implements IMessageParser
@@ -15,6 +16,7 @@ export class CorpInfoParser implements IMessageParser
     private _roomID: number;
     private _name: string;
     private _description: string;
+    private _badgeCode: string;
 
     public flush(): boolean
     {
@@ -23,6 +25,7 @@ export class CorpInfoParser implements IMessageParser
         this._roomID = 0;
         this._name = '';
         this._description = '';
+        this._badgeCode = '';
         return true;
     }
 
@@ -35,6 +38,7 @@ export class CorpInfoParser implements IMessageParser
         this._roomID = wrapper.readInt();
         this._name = wrapper.readString();
         this._description = wrapper.readString();
+        this._badgeCode = wrapper.readString();
 
         return true;
     }
@@ -46,6 +50,7 @@ export class CorpInfoParser implements IMessageParser
             roomID: this._roomID,
             name: this._name,
             description: this._description,
+            badgeCode: this._badgeCode,
         }
     }
 }

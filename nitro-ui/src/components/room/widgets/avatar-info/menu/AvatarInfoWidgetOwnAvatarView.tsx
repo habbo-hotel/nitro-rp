@@ -1,5 +1,5 @@
-import { AvatarAction, AvatarExpressionEnum, RoomControllerLevel, RoomObjectCategory, RoomUnitDropHandItemComposer } from '@nitro-rp/renderer';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { AvatarAction, AvatarExpressionEnum, RoomObjectCategory, RoomUnitDropHandItemComposer } from '@nitro-rp/renderer';
+import { FC, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetCanStandUp, GetCanUseExpression, GetOwnPosture, GetUserProfile, HasHabboClub, HasHabboVip, IsRidingHorse, LocalizeText, PostureTypeEnum, SendMessageComposer } from '../../../../../api';
 import { Flex, LayoutCurrencyIcon } from '../../../../../common';
@@ -12,7 +12,7 @@ import { CorpStopWork } from '../../../../../api/roleplay/corp/CorpStopWork';
 import { CorpStartWork } from '../../../../../api/roleplay/corp/CorpStartWork';
 import { GangLeave } from '../../../../../api/roleplay/gang/GangLeave';
 import { GangDisband } from '../../../../../api/roleplay/gang/GangDisband';
-import { useRoleplayStats } from '../../../../roleplay-stats/roleplay-stats-container/RoleplayStatsContainer';
+import { useRoleplayStats } from '../../../../../hooks/roleplay/use-rp-stats';
 
 interface AvatarInfoWidgetOwnAvatarViewProps
 {

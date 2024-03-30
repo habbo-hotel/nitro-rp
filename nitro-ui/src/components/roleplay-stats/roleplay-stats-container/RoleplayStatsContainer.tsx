@@ -1,47 +1,10 @@
 import { RoleplayStatsContainerProps } from "./RoleplayStatsContainer.types";
 import {LayoutAvatarImageView, Text } from "../../../common";
 import { GetUserProfile, LocalizeText } from "../../../api";
-import { useEffect, useState } from "react";
-import { useMessageEvent, useSessionInfo } from "../../../hooks";
-import { UserRoleplayStatsQuery } from "../../../api/roleplay/user/UserRoleplayStatsQuery";
-import { UserRoleplayStatsChangeData, UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer";
+import { useSessionInfo } from "../../../hooks";
 import { ProgressBar } from "../progress-bar/ProgressBar";
+import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
 
-export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
-    const [roleplayStats, setRoleplayStats] = useState<UserRoleplayStatsChangeData>({
-        userID: 0,
-        username: '',
-        figure: '',
-        cashBalance: 0,
-        bankBalance: 0,
-        isDead: false,
-        healthNow: 0,
-        healthMax: 0,
-        energyNow: 0,
-        energyMax: 0,
-        hungerNow: 0,
-        hungerMax: 0,
-        corporationID: 0,
-        corporationPositionID: 0,
-        isWorking: false,
-        gangID: undefined,
-        gangPositionID: undefined,
-    })
-
-    useEffect(() => {
-        UserRoleplayStatsQuery(userID)
-    }, []);
-
-    useMessageEvent<UserRoleplayStatsChangeEvent>(UserRoleplayStatsChangeEvent, event => {
-        const eventData: UserRoleplayStatsChangeData = event.getParser().data;
-        if (eventData.userID !== userID) {
-            return;
-        }
-        setRoleplayStats(eventData);
-    });
-
-    return roleplayStats;
-}
 
 function RoleplayProgressBar(now: number, max: number) {
     return (
@@ -58,13 +21,11 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
     const {userInfo = null} = useSessionInfo();
     const roleplayStats = useRoleplayStats(userID);
 
+    console.log(roleplayStats)
+
     function onViewProfile() {
         return GetUserProfile(roleplayStats.userID)
     }
-
-    const healthPercent = (roleplayStats.healthNow / roleplayStats.healthMax) * 100;
-    const energyPercent =  (roleplayStats.energyNow / roleplayStats.energyNow) * 100;
-    const hungerPercent =  (roleplayStats.hungerNow / roleplayStats.hungerMax) * 100;
 
     return (
         <div className="nitro-roleplay-stats-container" >

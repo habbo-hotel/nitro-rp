@@ -12,7 +12,7 @@ import { CorpPromoteUser } from '../../../../../api/roleplay/corp/CorpPromoteUse
 import { CorpFireUser } from '../../../../../api/roleplay/corp/CorpFireUser';
 import { CorpOfferJob } from '../../../../../api/roleplay/corp/CorpOfferJob';
 import { FaChevronRight } from 'react-icons/fa';
-import { useRoleplayStats } from '../../../../roleplay-stats/roleplay-stats-container/RoleplayStatsContainer';
+import { useRoleplayStats } from '../../../../../hooks/roleplay/use-rp-stats';
 
 interface AvatarInfoWidgetAvatarViewProps
 {
