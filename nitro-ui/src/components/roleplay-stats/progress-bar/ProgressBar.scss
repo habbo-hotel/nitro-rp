@@ -1,0 +1,35 @@
+.roleplay-stats-progress-bar {
+    position: relative;
+    width: 100%;
+    min-width: 75px;
+    height: 20px; 
+    border: 1px solid #000; 
+
+    .progress {
+        height: 100%;
+        background-color:white; /* Color of the progress */
+        width: 0%; 
+    }
+
+    .progress-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+        width: 100%;
+        padding: 4px;
+    }
+      
+}
+
+.progress-danger {
+    background: rgb(187, 26, 26);
+}
+
+.progress-primary {
+    background: rgba(4, 136, 237, 0.614);
+}
+
+.progress-warning {
+    background: orange;
+}

@@ -1,7 +1,7 @@
-import { CorpDemoteUserComposer } from '@nitro-rp/renderer';
+import { CorpPromoteUserComposer } from '@nitro-rp/renderer';
 import { SendMessageComposer } from '../..';
 
 export function CorpPromoteUser(username: string): void
 {
-    SendMessageComposer(new CorpDemoteUserComposer(username));
+    SendMessageComposer(new CorpPromoteUserComposer(username));
 }

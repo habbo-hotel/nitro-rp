@@ -2,9 +2,10 @@ import { RoleplayStatsContainerProps } from "./RoleplayStatsContainer.types";
 import {LayoutAvatarImageView, Text } from "../../../common";
 import { GetUserProfile, LocalizeText } from "../../../api";
 import { useEffect, useState } from "react";
-import { useMessageEvent } from "../../../hooks";
+import { useMessageEvent, useSessionInfo } from "../../../hooks";
 import { UserRoleplayStatsQuery } from "../../../api/roleplay/user/UserRoleplayStatsQuery";
 import { UserRoleplayStatsChangeData, UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer";
+import { ProgressBar } from "../progress-bar/ProgressBar";
 
 export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
     const [roleplayStats, setRoleplayStats] = useState<UserRoleplayStatsChangeData>({
@@ -42,8 +43,19 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
     return roleplayStats;
 }
 
+function RoleplayProgressBar(now: number, max: number) {
+    return (
+        <div className="roleplay-stats-progress-bar progress-danger">
+        <div className="progress"  />
+            <div className="progress-text">
+                <Text small variant="white">{now}/{max}</Text>
+            </div>
+        </div>
+    )
+}
 
 export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) {
+    const {userInfo = null} = useSessionInfo();
     const roleplayStats = useRoleplayStats(userID);
 
     function onViewProfile() {
@@ -77,16 +89,20 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
                 </div>
                 <div className="p-2 rounded">
                     <Text bold variant="light">{ LocalizeText('roleplay.stats.health') }</Text>
-                    <progress value={healthPercent} max={roleplayStats.healthMax} />
+                    <ProgressBar className="progress-danger" value={roleplayStats.healthNow} minValue={0} maxValue={roleplayStats.healthMax} />
                 </div>
                 <div className="p-2 rounded">
                     <Text bold variant="light">{ LocalizeText('roleplay.stats.energy') }</Text>
-                    <progress value={energyPercent} max={roleplayStats.energyMax} />
+                    <ProgressBar className="progress-primary" value={roleplayStats.energyNow} minValue={0} maxValue={roleplayStats.energyMax} />
                 </div>
-                <div className="p-2 rounded">
-                    <Text bold variant="light">{ LocalizeText('roleplay.stats.hunger') }</Text>
-                    <progress value={hungerPercent} max={roleplayStats.hungerMax} />
-                </div>
+                {
+                    userInfo?.userId === userID && (
+                        <div className="p-2 rounded">
+                        <Text bold variant="light">{ LocalizeText('roleplay.stats.hunger') }</Text>
+                        <ProgressBar className="progress-warning" value={roleplayStats.hungerNow} minValue={0} maxValue={roleplayStats.hungerMax} />
+                    </div>
+                    )
+                }
             </div>
         </div>
     )
