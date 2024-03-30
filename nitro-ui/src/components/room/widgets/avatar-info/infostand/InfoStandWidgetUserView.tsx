@@ -7,6 +7,7 @@ import { useMessageEvent, useRoomSessionManagerEvent } from '../../../../../hook
 import { InfoStandWidgetUserRelationshipsView } from './InfoStandWidgetUserRelationshipsView';
 import { InfoStandWidgetUserTagsView } from './InfoStandWidgetUserTagsView';
 import { useRoleplayStats } from '../../../../roleplay-stats/roleplay-stats-container/RoleplayStatsContainer';
+import { ProgressBar } from '../../../../roleplay-stats/progress-bar/ProgressBar';
 
 interface InfoStandWidgetUserViewProps
 {
@@ -89,7 +90,10 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                     <Flex alignItems="center" justifyContent="between">
                         <Flex alignItems="center" gap={ 1 }>
                             <UserProfileIconView userId={ avatarInfo.webID } />
-                            <Text variant="white" small wrap>{ avatarInfo.name }</Text>
+                            <Text variant="white" small wrap>
+                                { roleplayStats.isDead && '☠️' }
+                                { avatarInfo.name }
+                            </Text>
                         </Flex>
                         <FaTimes className="cursor-pointer fa-icon" onClick={ onClose } />
                     </Flex>
@@ -133,6 +137,7 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                 <Column gap={ 1 }>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
                         <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.health')}</Text>
+                        <ProgressBar className="progress-danger" value={roleplayStats.healthNow} minValue={0} maxValue={roleplayStats.healthMax} children={roleplayStats.healthNow <= 0 ? LocalizeText('roleplay.stats.user_is_dead') : undefined} />
                     </Flex>
                     <hr className="m-0" />
                 </Column>
@@ -142,12 +147,24 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                         <div className="roleplay-stats-progress-bar progress-primary">
                             <div className="progress"  />
                             <div className="progress-text">
-                            <Text small variant="white">{roleplayStats.energyMax}/{roleplayStats.energyMax}</Text>
+                            <ProgressBar className="progress-primary" value={roleplayStats.energyNow} minValue={0} maxValue={roleplayStats.energyMax} />
+                            </div>
+                        </div>
+                    </Flex>
+                    <hr className="m-0" />
+                </Column>                <Column gap={ 1 }>
+                    <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
+                        <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.hunger')}</Text>
+                        <div className="roleplay-stats-progress-bar progress-primary">
+                            <div className="progress"  />
+                            <div className="progress-text">
+                            <ProgressBar className="progress-warning" value={roleplayStats.hungerNow} minValue={0} maxValue={roleplayStats.hungerMax} />
                             </div>
                         </div>
                     </Flex>
                     <hr className="m-0" />
                 </Column>
+
                 <Column gap={ 1 }>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
                         <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.activity')}</Text>

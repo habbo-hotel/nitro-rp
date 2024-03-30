@@ -75,12 +75,16 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
                     </div>
                     <Text bold center fontSize={5} variant="white">{roleplayStats.username}</Text>
                 </div>
-                <div className="p-2 rounded">
-                    <Text bold  variant="light">{ LocalizeText('roleplay.stats.bank') }</Text>
-                    <div className="nitro-stats-item">
-                        <Text bold variant="white">${roleplayStats.bankBalance}</Text>
-                    </div>
-                </div>
+                {
+                    userInfo?.userId === userID && (
+                        <div className="p-2 rounded">
+                            <Text bold  variant="light">{ LocalizeText('roleplay.stats.bank') }</Text>
+                            <div className="nitro-stats-item">
+                                <Text bold variant="white">${roleplayStats.bankBalance}</Text>
+                            </div>
+                        </div>
+                    )
+                }
                 <div className="p-2 rounded">
                     <Text bold variant="light">{ LocalizeText('roleplay.stats.cash') }</Text>
                     <div className="nitro-stats-item">
@@ -89,7 +93,7 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
                 </div>
                 <div className="p-2 rounded">
                     <Text bold variant="light">{ LocalizeText('roleplay.stats.health') }</Text>
-                    <ProgressBar className="progress-danger" value={roleplayStats.healthNow} minValue={0} maxValue={roleplayStats.healthMax} />
+                    <ProgressBar className="progress-danger" value={roleplayStats.healthNow} minValue={0} maxValue={roleplayStats.healthMax} children={roleplayStats.healthNow <= 0 ? LocalizeText('roleplay.stats.user_is_dead') : undefined} />
                 </div>
                 <div className="p-2 rounded">
                     <Text bold variant="light">{ LocalizeText('roleplay.stats.energy') }</Text>

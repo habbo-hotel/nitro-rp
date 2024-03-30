@@ -114,9 +114,20 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
     return (
         <ContextMenuView objectId={ avatarInfo.roomIndex } category={ RoomObjectCategory.UNIT } userType={ avatarInfo.userType } onClose={ onClose } collapsable={ true }>
             <ContextMenuHeaderView className="cursor-pointer" onClick={ event => GetUserProfile(avatarInfo.webID) }>
+                { roleplayStats.isDead && '☠️'  }
                 { avatarInfo.name }
             </ContextMenuHeaderView>
             {
+                roleplayStats.isDead && (
+                    <ContextMenuListItemView>
+                        { LocalizeText('infostand.button.user_is_dead').replace(':user', avatarInfo.name) }
+                    </ContextMenuListItemView>
+                )
+            }
+           {
+            !roleplayStats.isDead && (
+                <>
+                 {
                 mode !== MODE_NORMAL && (
                 <ContextMenuListItemView onClick={ event => processAction('back') }>
                     { LocalizeText('infostand.button.back') }
@@ -125,13 +136,9 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             }
             { (mode === MODE_NORMAL) &&
                 <>
-                    {
-                        !roleplayStats.isDead && (
-                            <ContextMenuListItemView onClick={ event => processAction('attack') }>
-                                { LocalizeText('infostand.button.attack') }
-                            </ContextMenuListItemView>
-                        )
-                    }
+                    <ContextMenuListItemView onClick={ event => processAction('attack') }>
+                        { LocalizeText('infostand.button.attack') }
+                    </ContextMenuListItemView>
                     <ContextMenuListItemView onClick={ event => processAction('view_business') }>
                         { LocalizeText('infostand.button.business') }
                         <FaChevronRight className="right fa-icon" />
@@ -192,6 +199,9 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 }
                 </> 
             }
+            </>
+            )
+           }
         </ContextMenuView>
     );
 }
