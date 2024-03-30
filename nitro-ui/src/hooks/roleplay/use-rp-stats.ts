@@ -21,7 +21,6 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
         corporationPositionID: 0,
         isWorking: false,
         gangID: undefined,
-        gangPositionID: undefined,
     })
 
     useEffect(() => {

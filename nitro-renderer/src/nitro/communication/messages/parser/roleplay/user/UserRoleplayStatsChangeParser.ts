@@ -17,7 +17,6 @@ export interface UserRoleplayStatsChangeData {
     corporationPositionID: number;
     isWorking: boolean;
     gangID: number;
-    gangPositionID: number;
 }
 
 
@@ -39,7 +38,6 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
     private _corporationPositionID: number;
     private _isWorking: boolean;
     private _gangID?: number;
-    private _gangPositionID?: number;
 
     public flush(): boolean
     {
@@ -59,7 +57,6 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
         this._corporationPositionID = 0;
         this._isWorking = false;
         this._gangID = 0;
-        this._gangPositionID = 0;
         return true;
     }
 
@@ -83,7 +80,6 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
         this._corporationPositionID = wrapper.readInt();
         this._isWorking = wrapper.readBoolean();
         this._gangID = wrapper.readInt();
-        this._gangPositionID = wrapper.readInt();
 
         return true;
     }
@@ -106,7 +102,6 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
             corporationPositionID: this._corporationPositionID,
             isWorking: this._isWorking,
             gangID: this._gangID,
-            gangPositionID: this._gangPositionID,
         }
     }
 }

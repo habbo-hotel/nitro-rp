@@ -103,18 +103,18 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                 </Column>
                 <Column gap={ 1 }>
                     <Flex gap={ 1 }>
-                        <Column fullWidth className="body-image" onClick={ event => GetUserProfile(avatarInfo.webID) }>
+                        <Column fullWidth className="body-image" onClick={ event => GetUserProfile(avatarInfo.webID)  }>
                             <LayoutAvatarImageView figure={ avatarInfo.figure } direction={ 4 } />
                         </Column>
                         <Column grow alignItems="center" gap={ 0 }>
                             <Flex gap={ 1 }>
-                                <Flex center className="badge-image">
-                                    <CorpBadge corpID={roleplayStats.corporationID} corpPositionID={roleplayStats.corporationPositionID} />
+                                <Flex center className="badge-image" onClick={ event => GetGroupInformation(roleplayStats.corporationID) }>
+                                    <CorpBadge corpID={roleplayStats.corporationID}  />
                                 </Flex>
-                                <Flex center pointer={ ( roleplayStats.gangID > 0) } className="badge-image">
+                                <Flex center pointer={ ( roleplayStats.gangID > 0) } className="badge-image" onClick={ event => GetGroupInformation(roleplayStats.gangID) }>
                                     {
                                         roleplayStats.gangID && (
-                                            <GangBadge gangID={roleplayStats.gangID} gangPositionID={roleplayStats.gangID} />
+                                            <GangBadge gangID={roleplayStats.gangID}  />
                                         )
                                     }
                                 </Flex>
