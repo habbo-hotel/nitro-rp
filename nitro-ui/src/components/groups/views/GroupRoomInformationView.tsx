@@ -107,11 +107,6 @@ export const GroupRoomInformationView: FC<{}> = props =>
     return (
         <Base className="nitro-notification-bubble rounded">
             <Column>
-                <Flex alignItems="center" justifyContent="between" pointer onClick={ event => setIsOpen(value => !value) }>
-                    <Text variant="white">{ LocalizeText('group.homeroominfo.title') }</Text>
-                    { isOpen && <FaChevronUp className="fa-icon" /> }
-                    { !isOpen && <FaChevronDown className="fa-icon" /> }
-                </Flex>
                 { isOpen &&
                     <>
                         <Flex pointer alignItems="center" gap={ 2 } onClick={ event => GetGroupInformation(groupInformation.id) }>
@@ -120,11 +115,6 @@ export const GroupRoomInformationView: FC<{}> = props =>
                             </Base>
                             <Text variant="white">{ groupInformation.title }</Text>
                         </Flex>
-                        { (groupInformation.state !== GroupState.PRIVATE || isRealOwner) && 
-                            <Button fullWidth variant="success" disabled={ (groupInformation.membershipType === GroupMembershipType.REQUEST_PENDING) } onClick={ handleButtonClick }>
-                                { LocalizeText(getButtonText()) }
-                            </Button>
-                        }
                     </> }
             </Column>
         </Base>
