@@ -84,6 +84,8 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
     });
 
     if(!avatarInfo) return null;
+    
+    console.log(avatarInfo.groupBadgeId);
 
     return (
         <Column className="nitro-infostand rounded">
@@ -112,11 +114,7 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                                     <CorpBadge corpID={roleplayStats.corporationID}  />
                                 </Flex>
                                 <Flex center pointer={ ( roleplayStats.gangID > 0) } className="badge-image" onClick={ event => GetGroupInformation(roleplayStats.gangID) }>
-                                    {
-                                        roleplayStats.gangID && (
-                                            <GangBadge gangID={roleplayStats.gangID}  />
-                                        )
-                                    }
+                                    { roleplayStats.gangID ? <GangBadge gangID={roleplayStats.gangID}  /> : null }
                                 </Flex>
                             </Flex>
                             <Flex center gap={ 1 }>

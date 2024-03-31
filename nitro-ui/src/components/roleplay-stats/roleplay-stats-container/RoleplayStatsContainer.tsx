@@ -21,8 +21,6 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
     const {userInfo = null} = useSessionInfo();
     const roleplayStats = useRoleplayStats(userID);
 
-    console.log(roleplayStats)
-
     function onViewProfile() {
         return GetUserProfile(roleplayStats.userID)
     }
