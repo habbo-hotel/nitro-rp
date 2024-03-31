@@ -1,6 +1,6 @@
 .nitro-chat-input-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: relative;
     height: 40px;
@@ -8,7 +8,7 @@
     border: 2px solid rgb(0, 0, 0);
     background: #EDEDED;
     padding-right: 10px;
-    width: 100%;
+    width: 450px;
     overflow: hidden;
 
     @include media-breakpoint-down(sm) {
@@ -34,9 +34,11 @@
 
     .input-sizer {
         display: inline-grid;
+        flex: 1;
         vertical-align: top;
         height: 100%;
         padding: 0 10px;
+        justify-content: flex-start;
         
         &::after,
         input,
@@ -68,6 +70,7 @@
 .nitro-chat-style-selector-container {
     width: $chat-input-style-selector-widget-width;
     max-height: $chat-input-style-selector-widget-height;
+    justify-content: flex-end !important;
 
     .content-area {
         max-height: $chat-input-style-selector-widget-height !important;

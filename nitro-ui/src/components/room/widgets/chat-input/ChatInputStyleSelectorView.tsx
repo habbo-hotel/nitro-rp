@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Overlay, Popover } from 'react-bootstrap';
 import { Base, Flex, Grid, NitroCardContentView } from '../../../../common';
 
@@ -9,9 +9,7 @@ interface ChatInputStyleSelectorViewProps
     selectChatStyleId: (styleId: number) => void;
 }
 
-export const ChatInputStyleSelectorView: FC<ChatInputStyleSelectorViewProps> = props =>
-{
-    const { chatStyleId = 0, chatStyleIds = null, selectChatStyleId = null } = props;
+export function ChatInputStyleSelectorView({ chatStyleIds = null, selectChatStyleId = null }: ChatInputStyleSelectorViewProps) {
     const [ target, setTarget ] = useState<(EventTarget & HTMLElement)>(null);
     const [ selectorVisible, setSelectorVisible ] = useState(false);
 
