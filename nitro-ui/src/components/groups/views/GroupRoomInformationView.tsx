@@ -1,4 +1,4 @@
-import { DesktopViewEvent, GetGuestRoomResultEvent, GroupInformationComposer, GroupInformationEvent, GroupInformationParser,, HabboGroupDeactivatedMessageEvent, RoomEntryInfoMessageEvent } from '@nitro-rp/renderer';
+import { DesktopViewEvent, GetGuestRoomResultEvent, GroupInformationComposer, GroupInformationEvent, GroupInformationParser, HabboGroupDeactivatedMessageEvent, RoomEntryInfoMessageEvent } from '@nitro-rp/renderer';
 import { FC, useState } from 'react';import { GetGroupInformation, SendMessageComposer } from '../../../api';
 import { Base, Column, Flex, LayoutBadgeImageView, Text } from '../../../common';
 import { useMessageEvent } from '../../../hooks';

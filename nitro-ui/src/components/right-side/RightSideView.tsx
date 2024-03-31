@@ -5,12 +5,14 @@ import { GroupRoomInformationView } from '../groups/views/GroupRoomInformationVi
 import { NotificationCenterView } from '../notification-center/NotificationCenterView';
 import { MysteryBoxExtensionView } from '../room/widgets/mysterybox/MysteryBoxExtensionView';
 import { RoomPromotesWidgetView } from '../room/widgets/room-promotes/RoomPromotesWidgetView';
+import { RoomInformationView } from '../room/RoomInformationView';
 
 export const RightSideView: FC<{}> = props =>
 {
     return (
         <div className="nitro-right-side">
             <Column position="relative" gap={ 1 }>
+                <RoomInformationView />
                 <GroupRoomInformationView />
                 <MysteryBoxExtensionView />
                 <OfferView/>
