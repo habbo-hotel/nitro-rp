@@ -3,6 +3,7 @@ import { AcceptFriendMessageComposer, AcceptFriendResultEvent, AcceptGameInviteM
 import { UserRoleplayStatsChangeEvent } from './messages/incoming/roleplay';
 import { CorpInfoQueryEvent } from './messages/incoming/roleplay/corp/CorpInfoQueryEvent';
 import { GangInfoQueryEvent } from './messages/incoming/roleplay/gang/GangInfoQueryEvent';
+import { UserOpenWardrobeEvent } from './messages/incoming/roleplay/user/UserOpenWardrobeEvent';
 import { CorpStartWorkComposer } from './messages/outgoing/roleplay/corp/CorpStartWorkComposer';
 import { CorpStopWorkComposer } from './messages/outgoing/roleplay/corp/CorpStopWorkComposer';
 import { GangDisbandComposer } from './messages/outgoing/roleplay/gang/GangDisbandComposer';
@@ -574,6 +575,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.USER_ROLEPLAY_STATS_CHANGE, UserRoleplayStatsChangeEvent);
         this._events.set(IncomingHeader.CORP_INFO_QUERY, CorpInfoQueryEvent);
         this._events.set(IncomingHeader.GANG_INFO_QUERY, GangInfoQueryEvent);
+        this._events.set(IncomingHeader.USER_WARDROBE_PAGE, UserOpenWardrobeEvent);
     }
 
     private registerComposers(): void

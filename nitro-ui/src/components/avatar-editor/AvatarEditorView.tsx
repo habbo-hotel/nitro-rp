@@ -7,6 +7,7 @@ import { useMessageEvent } from '../../hooks';
 import { AvatarEditorFigurePreviewView } from './views/AvatarEditorFigurePreviewView';
 import { AvatarEditorModelView } from './views/AvatarEditorModelView';
 import { AvatarEditorWardrobeView } from './views/AvatarEditorWardrobeView';
+import { UserOpenWardrobeEvent } from '@nitro-rp/renderer/src/nitro/communication/messages/incoming/roleplay/user/UserOpenWardrobeEvent';
 
 const DEFAULT_MALE_FIGURE: string = 'hr-100.hd-180-7.ch-215-66.lg-270-79.sh-305-62.ha-1002-70.wa-2007';
 const DEFAULT_FEMALE_FIGURE: string = 'hr-515-33.hd-600-1.ch-635-70.lg-716-66-62.sh-735-68';
@@ -261,6 +262,10 @@ export const AvatarEditorView: FC<{}> = props =>
             setNeedsReset(true);
         }
     }, [ isVisible ]);
+
+    useMessageEvent<UserOpenWardrobeEvent>(UserOpenWardrobeEvent, () => {
+        setIsVisible(true);
+    });
 
     if(!isVisible || !figureData) return null;
 

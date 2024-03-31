@@ -475,5 +475,5 @@ export class IncomingHeader
     public static CORP_INFO_QUERY = 9002;
     public static GANG_INFO_QUERY = 9003;
     public static CORP_POSITION_INFO_QUERY = 9004;
-    public static GANG_POSITION_INFO_QUERY = 9005;
+    public static USER_OPEN_WARDROBE = 9005;
 }

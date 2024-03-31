@@ -504,6 +504,4 @@ export class OutgoingHeader
     public static GANG_INFO_QUERY = 8017;
 
     public static CORP_POSITION_INFO_QUERY = 8018;
-
-    public static GANG_POSITION_INFO_QUERY = 8019;
 }
