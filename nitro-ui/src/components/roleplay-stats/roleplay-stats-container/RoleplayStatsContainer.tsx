@@ -4,6 +4,8 @@ import { GetUserProfile, LocalizeText } from "../../../api";
 import { useSessionInfo } from "../../../hooks";
 import { ProgressBar } from "../progress-bar/ProgressBar";
 import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
+import { CorpBadge } from "../corp-badge/CorpBadge";
+import { GangBadge } from "../gang-badge/GangBadge";
 
 
 function RoleplayProgressBar(now: number, max: number) {
@@ -66,6 +68,12 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
                     </div>
                     )
                 }
+                <div className="p-1 d-flex rounded" style={{gap: 12}}>
+                    <CorpBadge corpID={roleplayStats.corporationID} />
+                    {
+                        roleplayStats.gangID ? <GangBadge gangID={roleplayStats.gangID} /> : null
+                    }
+                </div>
             </div>
         </div>
     )
