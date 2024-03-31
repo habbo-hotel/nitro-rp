@@ -328,7 +328,7 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
             { (mode === MODE_GANGS) &&
                 <>
                 {
-                    roleplayStats.gangID && (
+                    roleplayStats.gangID ? (
                         <>
                         <ContextMenuListItemView onClick={ event => processAction('leavegang') }>
                             { LocalizeText('widget.memenu.leavegang') }
@@ -342,9 +342,7 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         </ContextMenuListItemView>
                         </>
                     )
-                }
-                {
-                    !roleplayStats.gangID && (
+                    : (
                         <>
                         <ContextMenuListItemView onClick={ event => processAction('formgang') }>
                             { LocalizeText('widget.memenu.formgang') }

@@ -19,6 +19,8 @@ export const GroupTabBadgeView: FC<GroupTabBadgeViewProps> = props =>
     const [ badgeParts, setBadgeParts ] = useState<GroupBadgePart[]>(null);
     const { groupCustomize = null } = useGroup();
 
+    console.log(groupCustomize)
+
     const getModifiedBadgeCode = () =>
     {
         if(!badgeParts || !badgeParts.length) return '';
