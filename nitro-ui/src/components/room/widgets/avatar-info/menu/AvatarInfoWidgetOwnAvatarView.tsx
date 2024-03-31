@@ -72,6 +72,9 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                     case 'disbandgang':
                         GangDisband();
                         break;
+                    case 'formgang':
+                        CreateLinkEvent('groups/create-gang');
+                        break;
                     case 'change_name':
                         DispatchUiEvent(new HelpNameChangeEvent(HelpNameChangeEvent.INIT));
                         break;
@@ -155,14 +158,10 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         <FaChevronRight className="right fa-icon" />
                         { LocalizeText('infostand.button.business') }
                     </ContextMenuListItemView>
-                    {
-                        roleplayStats.gangID && (
-                            <ContextMenuListItemView onClick={ event => processAction('view_gang') }>
-                                <FaChevronRight className="right fa-icon" />
-                                { LocalizeText('infostand.button.gang') }
-                            </ContextMenuListItemView>
-                        )
-                    }
+                    <ContextMenuListItemView onClick={ event => processAction('view_gang') }>
+                        <FaChevronRight className="right fa-icon" />
+                        { LocalizeText('infostand.button.gang') }
+                    </ContextMenuListItemView>
                     { !isRidingHorse &&
                         <ContextMenuListItemView onClick={ event => processAction('dance_menu') }>
                             <FaChevronRight className="right fa-icon" />
@@ -328,17 +327,33 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                 </> }
             { (mode === MODE_GANGS) &&
                 <>
-                    <ContextMenuListItemView onClick={ event => processAction('leavegang') }>
-                        { LocalizeText('widget.memenu.leavegang') }
-                    </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('disbandgang') }>
-                        { LocalizeText('widget.memenu.disbandgang') }
-                    </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('back') }>
-                        <FaChevronLeft className="left fa-icon" />
-                        { LocalizeText('generic.back') }
-                    </ContextMenuListItemView>
-                </> }
+                {
+                    roleplayStats.gangID && (
+                        <>
+                        <ContextMenuListItemView onClick={ event => processAction('leavegang') }>
+                            { LocalizeText('widget.memenu.leavegang') }
+                        </ContextMenuListItemView>
+                        <ContextMenuListItemView onClick={ event => processAction('disbandgang') }>
+                            { LocalizeText('widget.memenu.disbandgang') }
+                        </ContextMenuListItemView>
+                        <ContextMenuListItemView onClick={ event => processAction('back') }>
+                            <FaChevronLeft className="left fa-icon" />
+                            { LocalizeText('generic.back') }
+                        </ContextMenuListItemView>
+                        </>
+                    )
+                }
+                {
+                    !roleplayStats.gangID && (
+                        <>
+                        <ContextMenuListItemView onClick={ event => processAction('formgang') }>
+                            { LocalizeText('widget.memenu.formgang') }
+                        </ContextMenuListItemView>
+                        </>
+                    )
+                }
+                </>
+            }
         </ContextMenuView>
     );
 }

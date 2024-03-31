@@ -11,6 +11,7 @@ import { GroupTabIdentityView } from './tabs/GroupTabIdentityView';
 interface GroupCreatorViewProps
 {
     onClose: () => void;
+    groupType?: GroupType
 }
 
 const TABS: number[] = [ 1, 2, 3, 4 ];
@@ -23,7 +24,6 @@ export const GroupCreatorView: FC<GroupCreatorViewProps> = props =>
     const [ groupData, setGroupData ] = useState<IGroupData>(null);
     const [ availableRooms, setAvailableRooms ] = useState<{ id: number, name: string }[]>(null);
     const [ purchaseCost, setPurchaseCost ] = useState<number>(0);
-
     const onCloseClose = () =>
     {
         setCloseAction(null);
@@ -103,7 +103,7 @@ export const GroupCreatorView: FC<GroupCreatorViewProps> = props =>
 
         setGroupData({
             groupId: -1,
-            groupType: GroupType.Group,
+            groupType: props.groupType,
             groupName: null,
             groupDescription: null,
             groupHomeroomId: -1,
