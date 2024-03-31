@@ -1,8 +1,10 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { GroupType } from './GroupType';
 import { GroupDataBadgePart } from './utils';
 
 export class GroupSettingsParser implements IMessageParser
 {
+    private _type: GroupType;
     private _roomId: number;
     private _roomName: string;
     private _id: number;
@@ -18,6 +20,7 @@ export class GroupSettingsParser implements IMessageParser
 
     public flush(): boolean
     {
+        this._type = GroupType.Group;
         this._roomId = 0;
         this._roomName = null;
         this._id = 0;
@@ -39,6 +42,8 @@ export class GroupSettingsParser implements IMessageParser
         if(!wrapper) return false;
 
         const hasRoomData = wrapper.readInt();
+
+        this._type = wrapper.readString() as any;
 
         if(hasRoomData === 1)
         {
@@ -85,6 +90,10 @@ export class GroupSettingsParser implements IMessageParser
         this._membersCount = wrapper.readInt();
 
         return true;
+    }
+
+    public get type(): GroupType {
+        return this._type;
     }
 
     public get roomId(): number

@@ -41,17 +41,13 @@ export const GroupManagerView: FC<{}> = props =>
 
         if(!groupData || (groupData.groupId !== parser.id)) return;
 
-        setGroupData(prevValue =>
-        {
-            const newValue = { ...prevValue };
-
-            newValue.groupName = parser.title;
-            newValue.groupDescription = parser.description;
-            newValue.groupState = parser.state;
-            newValue.groupCanMembersDecorate = parser.canMembersDecorate;
-
-            return newValue;
-        });
+        setGroupData(prevValue => ({
+            ...prevValue,
+            groupName: parser.title,
+            groupDescription: parser.description,
+            groupState: parser.state,
+            groupCanMembersDecorate: parser.canMembersDecorate,
+        }));
     });
 
     useMessageEvent<GroupSettingsEvent>(GroupSettingsEvent, event =>
@@ -72,6 +68,7 @@ export const GroupManagerView: FC<{}> = props =>
 
         setGroupData({
             groupId: parser.id,
+            groupType: parser.type,
             groupName: parser.title,
             groupDescription: parser.description,
             groupHomeroomId: parser.roomId,

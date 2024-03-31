@@ -1,12 +1,14 @@
 import { IMessageComposer } from '../../../../../api';
+import { GroupType } from '../../parser';
 
 export class GroupBuyComposer implements IMessageComposer<any[]>
 {
     private _data: any[];
 
-    constructor(name: string, description: string, roomId: number, colorA: number, colorB: number, badge: number[])
+    constructor(type: GroupType, name: string, description: string, roomId: number, colorA: number, colorB: number, badge: number[])
     {
-        this._data = [name, description, roomId, colorA, colorB, badge.length, ...badge];
+        console.log(type)
+        this._data = [type, name, description, roomId, colorA, colorB, badge.length, ...badge];
     }
 
     public getMessageArray()

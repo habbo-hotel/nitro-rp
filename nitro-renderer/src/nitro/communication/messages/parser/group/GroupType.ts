@@ -1,5 +1,5 @@
 export enum GroupType {
-    Group,
-    Gang,
-    Corp
+    Group = 'group',
+    Gang = 'gang',
+    Corp = 'corp',
 }

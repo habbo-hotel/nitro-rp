@@ -1,12 +1,13 @@
 import { IMessageComposer } from '../../../../../api';
+import { GroupType } from '../../parser';
 
 export class GroupSaveInformationComposer implements IMessageComposer<ConstructorParameters<typeof GroupSaveInformationComposer>>
 {
     private _data: ConstructorParameters<typeof GroupSaveInformationComposer>;
 
-    constructor(groupId: number, title: string, description: string)
+    constructor(groupId: number, type: GroupType, title: string, description: string)
     {
-        this._data = [groupId, title, description];
+        this._data = [groupId, type, title, description];
     }
 
     public getMessageArray()
