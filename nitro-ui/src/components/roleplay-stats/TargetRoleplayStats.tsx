@@ -6,7 +6,12 @@ import { Text } from "../../common";
 
 export function TargetRoleplayStats() {
     const [targetUserID, setTargetUserID] = useState<number>();
-    const { avatarInfo = null } = useAvatarInfoWidget();
+    const { avatarInfo = null, setAvatarInfo } = useAvatarInfoWidget();
+
+    function onToggle() {
+        setAvatarInfo(null)
+        setTargetUserID(undefined);
+    }
 
     useEffect(() => {
         if (avatarInfo?.type ===  AvatarInfoUser.PEER) {
@@ -16,15 +21,15 @@ export function TargetRoleplayStats() {
             setTargetUserID((avatarInfo as AvatarInfoUser).webID)
         }
     }, [targetUserID, avatarInfo]);
-
-    if (targetUserID === undefined) {
+    
+    if (!targetUserID) {
         return null;
     }
 
     return (
         <>
         <Text bold variant="danger" style={{padding: 4}}>vs.</Text>
-        <RoleplayStatsContainer userID={targetUserID} />
+        <RoleplayStatsContainer userID={targetUserID}  onToggle={onToggle}/>
         </>
     )
 }

@@ -6,6 +6,7 @@ import { ProgressBar } from "../progress-bar/ProgressBar";
 import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
 import { CorpBadge } from "../corp-badge/CorpBadge";
 import { GangBadge } from "../gang-badge/GangBadge";
+import { FaTimes, FaTimesCircle } from "react-icons/fa";
 
 
 function RoleplayProgressBar(now: number, max: number) {
@@ -19,7 +20,7 @@ function RoleplayProgressBar(now: number, max: number) {
     )
 }
 
-export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) {
+export function RoleplayStatsContainer({ userID, onToggle}: RoleplayStatsContainerProps) {
     const {userInfo = null} = useSessionInfo();
     const roleplayStats = useRoleplayStats(userID);
 
@@ -74,6 +75,15 @@ export function RoleplayStatsContainer({ userID }: RoleplayStatsContainerProps) 
                         roleplayStats.gangID ? <GangBadge gangID={roleplayStats.gangID} /> : null
                     }
                 </div>
+                {
+                    onToggle && (
+                        <div className="p-2 d-flex rounded" style={{ gap: 8 }}>
+                            <Text bold variant="danger">
+                                <FaTimesCircle style={{cursor: 'pointer'}}  onClick={onToggle}/>
+                            </Text>
+                        </div>
+                    )
+                }
             </div>
         </div>
     )
