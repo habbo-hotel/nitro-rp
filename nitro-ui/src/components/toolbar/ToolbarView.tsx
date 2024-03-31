@@ -54,7 +54,7 @@ export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
     return (
         <>
             <Flex alignItems="center" justifyContent="between" gap={ 2 } className="nitro-toolbar py-1 px-3">
-                <Flex gap={ 2 } alignItems="center">
+                <Flex gap={ 2 } alignItems="center" style={{flex: 1, width: '100%'}}>
                     <Flex alignItems="center" gap={ 2 }>
                         <Base pointer className="navigation-item icon icon-rooms" onClick={ event => CreateLinkEvent('navigator/toggle') } />
                         <Base pointer className="navigation-item icon icon-catalog" onClick={ event => CreateLinkEvent('catalog/toggle') } />
@@ -62,10 +62,8 @@ export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
                             { (getFullCount > 0) &&
                                 <LayoutItemCountView count={ getFullCount } /> }
                         </Base>
-                        { isInRoom &&
-                            <Base pointer className="navigation-item icon icon-camera" onClick={ event => CreateLinkEvent('camera/toggle') } /> }
                     </Flex>
-                    <Flex alignItems="center" id="toolbar-chat-input-container" />
+                    <Flex alignItems="center" id="toolbar-chat-input-container" style={{flex: 1, width: '100%'}} />
                 </Flex>
                 <Flex alignItems="center" gap={ 2 }>
                     <Flex gap={ 2 }>

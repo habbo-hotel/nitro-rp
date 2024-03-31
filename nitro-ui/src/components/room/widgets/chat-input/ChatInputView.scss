@@ -10,6 +10,7 @@
     padding-right: 10px;
     width: 450px;
     overflow: hidden;
+    margin: 0 auto;
 
     @include media-breakpoint-down(sm) {
         display: flex;
