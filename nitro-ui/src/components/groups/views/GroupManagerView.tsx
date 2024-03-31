@@ -47,7 +47,7 @@ export const GroupManagerView: FC<{}> = props =>
 
             newValue.groupName = parser.title;
             newValue.groupDescription = parser.description;
-            newValue.groupState = parser.type;
+            newValue.groupState = parser.state;
             newValue.groupCanMembersDecorate = parser.canMembersDecorate;
 
             return newValue;

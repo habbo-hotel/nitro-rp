@@ -1,7 +1,7 @@
-import { DesktopViewEvent, GetGuestRoomResultEvent, GroupInformationComposer, GroupInformationEvent, GroupInformationParser, GroupRemoveMemberComposer, HabboGroupDeactivatedMessageEvent, RoomEntryInfoMessageEvent } from '@nitro-rp/renderer';
+import { DesktopViewEvent, GetGuestRoomResultEvent, GroupInformationComposer, GroupInformationEvent, GroupInformationParser, GroupRemoveMemberComposer, GroupState, HabboGroupDeactivatedMessageEvent, RoomEntryInfoMessageEvent } from '@nitro-rp/renderer';
 import { FC, useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { GetGroupInformation, GetGroupManager, GetSessionDataManager, GroupMembershipType, GroupType, LocalizeText, SendMessageComposer, TryJoinGroup } from '../../../api';
+import { GetGroupInformation, GetGroupManager, GetSessionDataManager, GroupMembershipType, LocalizeText, SendMessageComposer, TryJoinGroup } from '../../../api';
 import { Base, Button, Column, Flex, LayoutBadgeImageView, Text } from '../../../common';
 import { useMessageEvent, useNotification } from '../../../hooks';
 
@@ -75,22 +75,22 @@ export const GroupRoomInformationView: FC<{}> = props =>
     {
         if(isRealOwner) return 'group.manage';
 
-        if(groupInformation.type === GroupType.PRIVATE) return '';
+        if(groupInformation.state === GroupState.PRIVATE) return '';
 
         if(groupInformation.membershipType === GroupMembershipType.MEMBER) return 'group.leave';
 
-        if((groupInformation.membershipType === GroupMembershipType.NOT_MEMBER) && groupInformation.type === GroupType.REGULAR) return 'group.join';
+        if((groupInformation.membershipType === GroupMembershipType.NOT_MEMBER) && groupInformation.state === GroupState.REGULAR) return 'group.join';
 
         if(groupInformation.membershipType === GroupMembershipType.REQUEST_PENDING) return 'group.membershippending';
 
-        if((groupInformation.membershipType === GroupMembershipType.NOT_MEMBER) && groupInformation.type === GroupType.EXCLUSIVE) return 'group.requestmembership';
+        if((groupInformation.membershipType === GroupMembershipType.NOT_MEMBER) && groupInformation.state === GroupState.EXCLUSIVE) return 'group.requestmembership';
     }
 
     const handleButtonClick = () =>
     {
         if(isRealOwner) return GetGroupManager(groupInformation.id);
 
-        if((groupInformation.type === GroupType.PRIVATE) && (groupInformation.membershipType === GroupMembershipType.NOT_MEMBER)) return;
+        if((groupInformation.state === GroupState.PRIVATE) && (groupInformation.membershipType === GroupMembershipType.NOT_MEMBER)) return;
 
         if(groupInformation.membershipType === GroupMembershipType.MEMBER)
         {
@@ -120,7 +120,7 @@ export const GroupRoomInformationView: FC<{}> = props =>
                             </Base>
                             <Text variant="white">{ groupInformation.title }</Text>
                         </Flex>
-                        { (groupInformation.type !== GroupType.PRIVATE || isRealOwner) && 
+                        { (groupInformation.state !== GroupState.PRIVATE || isRealOwner) && 
                             <Button fullWidth variant="success" disabled={ (groupInformation.membershipType === GroupMembershipType.REQUEST_PENDING) } onClick={ handleButtonClick }>
                                 { LocalizeText(getButtonText()) }
                             </Button>

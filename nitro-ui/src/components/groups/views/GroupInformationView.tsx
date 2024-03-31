@@ -1,6 +1,6 @@
-import { GroupInformationParser, GroupRemoveMemberComposer } from '@nitro-rp/renderer';
+import { GroupInformationParser, GroupRemoveMemberComposer, GroupState } from '@nitro-rp/renderer';
 import { FC } from 'react';
-import { CatalogPageName, CreateLinkEvent, GetGroupManager, GetGroupMembers, GetSessionDataManager, GroupMembershipType, GroupType, LocalizeText, SendMessageComposer, TryJoinGroup, TryVisitRoom } from '../../../api';
+import { CatalogPageName, CreateLinkEvent, GetGroupManager, GetGroupMembers, GetSessionDataManager, GroupMembershipType, LocalizeText, SendMessageComposer, TryJoinGroup, TryVisitRoom } from '../../../api';
 import { Button, Column, Flex, Grid, GridProps, LayoutBadgeImageView, Text } from '../../../common';
 import { useNotification } from '../../../hooks';
 
@@ -47,20 +47,20 @@ export const GroupInformationView: FC<GroupInformationViewProps> = props =>
     {
         if(isRealOwner) return 'group.youareowner';
 
-        if(groupInformation.type === GroupType.PRIVATE && groupInformation.membershipType !== GroupMembershipType.MEMBER) return '';
+        if(groupInformation.state === GroupState.PRIVATE && groupInformation.membershipType !== GroupMembershipType.MEMBER) return '';
 
         if(groupInformation.membershipType === GroupMembershipType.MEMBER) return 'group.leave';
 
-        if((groupInformation.membershipType === GroupMembershipType.NOT_MEMBER) && groupInformation.type === GroupType.REGULAR) return 'group.join';
+        if((groupInformation.membershipType === GroupMembershipType.NOT_MEMBER) && groupInformation.state === GroupState.REGULAR) return 'group.join';
 
         if(groupInformation.membershipType === GroupMembershipType.REQUEST_PENDING) return 'group.membershippending';
 
-        if((groupInformation.membershipType === GroupMembershipType.NOT_MEMBER) && groupInformation.type === GroupType.EXCLUSIVE) return 'group.requestmembership';
+        if((groupInformation.membershipType === GroupMembershipType.NOT_MEMBER) && groupInformation.state === GroupState.EXCLUSIVE) return 'group.requestmembership';
     }
 
     const handleButtonClick = () =>
     {
-        if((groupInformation.type === GroupType.PRIVATE) && (groupInformation.membershipType === GroupMembershipType.NOT_MEMBER)) return;
+        if((groupInformation.state === GroupState.PRIVATE) && (groupInformation.membershipType === GroupMembershipType.NOT_MEMBER)) return;
 
         if(groupInformation.membershipType === GroupMembershipType.MEMBER)
         {
@@ -120,7 +120,7 @@ export const GroupInformationView: FC<GroupInformationViewProps> = props =>
                         <Flex alignItems="center" gap={ 2 }>
                             <Text bold>{ groupInformation.title }</Text>
                             <Flex gap={ 1 }>
-                                <i className={ 'icon icon-group-type-' + groupInformation.type } title={ LocalizeText(`group.edit.settings.type.${ STATES[groupInformation.type] }.help`) } />
+                                <i className={ 'icon icon-group-type-' + groupInformation.state } title={ LocalizeText(`group.edit.settings.type.${ STATES[groupInformation.state] }.help`) } />
                                 { groupInformation.canMembersDecorate &&
                                     <i className="icon icon-group-decorate" title={ LocalizeText('group.memberscandecorate') } /> }
                             </Flex>
@@ -130,7 +130,7 @@ export const GroupInformationView: FC<GroupInformationViewProps> = props =>
                     <Text small overflow="auto" className="group-description">{ groupInformation.description }</Text>
                 </Column>
                 <Column>
-                    { (groupInformation.type !== GroupType.PRIVATE || groupInformation.type === GroupType.PRIVATE && groupInformation.membershipType === GroupMembershipType.MEMBER) &&
+                    { (groupInformation.state !== GroupState.PRIVATE || groupInformation.state === GroupState.PRIVATE && groupInformation.membershipType === GroupMembershipType.MEMBER) &&
                         <Button disabled={ (groupInformation.membershipType === GroupMembershipType.REQUEST_PENDING) || isRealOwner } onClick={ handleButtonClick }>
                             { LocalizeText(getButtonText()) }
                         </Button> }

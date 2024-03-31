@@ -5,5 +5,7 @@ export * from './GroupInformationParser';
 export * from './GroupMembersParser';
 export * from './GroupPurchasedParser';
 export * from './GroupSettingsParser';
+export * from './GroupState';
+export * from './GroupType';
 export * from './HabboGroupDeactivatedMessageParser';
 export * from './utils';

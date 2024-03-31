@@ -1,10 +1,8 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { GroupType } from './GroupType';
 
 export class GroupPurchasedParser implements IMessageParser
 {
 
-    private _groupType: GroupType;
     private _groupId: number;
     private _roomId: number;
 
@@ -19,7 +17,6 @@ export class GroupPurchasedParser implements IMessageParser
     parse(wrapper: IMessageDataWrapper): boolean
     {
         if(!wrapper) return false;
-        this._groupType = GroupType[wrapper.readString()];
         this._groupId = wrapper.readInt();
         this._roomId = wrapper.readInt();
 

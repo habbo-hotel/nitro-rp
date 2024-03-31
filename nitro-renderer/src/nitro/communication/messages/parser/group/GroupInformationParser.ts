@@ -1,9 +1,12 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { GroupState } from './GroupState';
+import { GroupType } from './GroupType';
 
 export class GroupInformationParser implements IMessageParser
 {
     private _id: number;
-    private _type: number;
+    private _type: GroupType
+    private _state: number;
     private _title: string;
     private _description: string;
     private _badge: string;
@@ -23,7 +26,8 @@ export class GroupInformationParser implements IMessageParser
     public flush(): boolean
     {
         this._id = 0;
-        this._type = 0;
+        this._type = GroupType.Group;
+        this._state = 0;
         this._title = null;
         this._description = null;
         this._badge = null;
@@ -49,7 +53,8 @@ export class GroupInformationParser implements IMessageParser
 
         this._id = wrapper.readInt();
         wrapper.readBoolean();
-        this._type = wrapper.readInt();
+        this._type = GroupType[wrapper.readString()];
+        this._state = GroupState[wrapper.readInt()];
         this._title = wrapper.readString();
         this._description = wrapper.readString();
         this._badge = wrapper.readString();
@@ -74,9 +79,14 @@ export class GroupInformationParser implements IMessageParser
         return this._id;
     }
 
-    public get type(): number
+    public get type(): GroupType
     {
         return this._type;
+    }
+
+    public get state(): GroupState
+    {
+        return this._state;
     }
 
     public get title(): string
