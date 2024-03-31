@@ -92,7 +92,7 @@ export const GroupTabIdentityView: FC<GroupTabIdentityViewProps> = props =>
                 <Flex alignItems="center" gap={ 1 }>
                             <Text center className="col-3">{ LocalizeText('group.edit.type') }</Text>
                             <Column fullWidth gap={ 1 }>
-                                <select className="form-select form-select-sm" value={ groupType } onChange={ event => setGroupType(event.currentTarget.value as any) }>
+                                <select className="form-select form-select-sm" value={ groupType } disabled>
                                     { Object.values(GroupType).map(groupType => <option key={ groupType } value={ groupType }>{ groupType }</option>) }
                                 </select>
                             </Column>
