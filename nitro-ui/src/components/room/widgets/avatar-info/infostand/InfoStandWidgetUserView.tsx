@@ -155,23 +155,12 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                         </div>
                     </Flex>
                     <hr className="m-0" />
-                </Column>                <Column gap={ 1 }>
-                    <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
-                        <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.hunger')}</Text>
-                        <div className="roleplay-stats-progress-bar progress-primary">
-                            <div className="progress"  />
-                            <div className="progress-text">
-                            <ProgressBar className="progress-warning" value={roleplayStats.hungerNow} minValue={0} maxValue={roleplayStats.hungerMax} />
-                            </div>
-                        </div>
-                    </Flex>
-                    <hr className="m-0" />
-                </Column>
+                </Column>               
 
                 <Column gap={ 1 }>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
                         <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.activity')}</Text>
-                        <Text small variant="white">{avatarInfo?.motto ?? '-'}</Text>
+                        <Text small fullWidth variant="white">{avatarInfo?.motto ?? '-'}</Text>
                     </Flex>
                     <hr className="m-0" />
                 </Column>

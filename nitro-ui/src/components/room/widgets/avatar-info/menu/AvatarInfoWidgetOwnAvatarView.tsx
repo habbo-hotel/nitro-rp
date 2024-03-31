@@ -336,10 +336,6 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         <ContextMenuListItemView onClick={ event => processAction('disbandgang') }>
                             { LocalizeText('widget.memenu.disbandgang') }
                         </ContextMenuListItemView>
-                        <ContextMenuListItemView onClick={ event => processAction('back') }>
-                            <FaChevronLeft className="left fa-icon" />
-                            { LocalizeText('generic.back') }
-                        </ContextMenuListItemView>
                         </>
                     )
                     : (
@@ -350,6 +346,10 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         </>
                     )
                 }
+                <ContextMenuListItemView onClick={ event => processAction('back') }>
+                    <FaChevronLeft className="left fa-icon" />
+                    { LocalizeText('generic.back') }
+                </ContextMenuListItemView>
                 </>
             }
         </ContextMenuView>
