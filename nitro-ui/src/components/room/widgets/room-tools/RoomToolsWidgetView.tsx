@@ -1,12 +1,11 @@
 import { GetGuestRoomResultEvent, NavigatorSearchComposer, RateFlatMessageComposer } from '@nitro-rp/renderer';
 import { FC, useEffect, useState } from 'react';
-import { CreateLinkEvent, GetRoomEngine, LocalizeText, SendMessageComposer } from '../../../../api';
-import { Base, classNames, Column, Flex, Text, TransitionAnimation, TransitionAnimationTypes } from '../../../../common';
+import { CreateLinkEvent, LocalizeText, SendMessageComposer } from '../../../../api';
+import { Base, Column, Flex, Text, TransitionAnimation, TransitionAnimationTypes } from '../../../../common';
 import { useMessageEvent, useNavigator, useRoom } from '../../../../hooks';
 
-export const RoomToolsWidgetView: FC<{}> = props =>
+export const RoomToolsWidgetView: FC<{}> = () =>
 {
-    const [ isZoomedIn, setIsZoomedIn ] = useState<boolean>(false);
     const [ roomName, setRoomName ] = useState<string>(null);
     const [ roomOwner, setRoomOwner ] = useState<string>(null);
     const [ roomTags, setRoomTags ] = useState<string[]>(null);
@@ -20,19 +19,6 @@ export const RoomToolsWidgetView: FC<{}> = props =>
         {
             case 'settings':
                 CreateLinkEvent('navigator/toggle-room-info');
-                return;
-            case 'zoom':
-                setIsZoomedIn(prevValue =>
-                {
-                    let scale = GetRoomEngine().getRoomInstanceRenderingCanvasScale(roomSession.roomId, 1);
-
-                    if(!prevValue) scale /= 2;
-                    else scale *= 2;
-
-                    GetRoomEngine().setRoomInstanceRenderingCanvasScale(roomSession.roomId, 1, scale);
-
-                    return !prevValue;
-                });
                 return;
             case 'chat_history':
                 CreateLinkEvent('chat-history/toggle');
@@ -74,7 +60,6 @@ export const RoomToolsWidgetView: FC<{}> = props =>
         <Flex className="nitro-room-tools-container" gap={ 2 }>
             <Column center className="nitro-room-tools p-2">
                 <Base pointer title={ LocalizeText('room.settings.button.text') } className="icon icon-cog" onClick={ () => handleToolClick('settings') } />
-                <Base pointer title={ LocalizeText('room.zoom.button.text') } onClick={ () => handleToolClick('zoom') } className={ classNames('icon', (!isZoomedIn && 'icon-zoom-less'), (isZoomedIn && 'icon-zoom-more')) } />
                 <Base pointer title={ LocalizeText('room.chathistory.button.text') } onClick={ () => handleToolClick('chat_history') } className="icon icon-chat-history" />
                 { navigatorData.canRate &&
                     <Base pointer title={ LocalizeText('room.like.button.text') } onClick={ () => handleToolClick('like_room') } className="icon icon-like-room" /> }

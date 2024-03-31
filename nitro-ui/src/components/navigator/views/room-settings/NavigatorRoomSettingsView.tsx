@@ -3,7 +3,6 @@ import { FC, useState } from 'react';
 import { IRoomData, LocalizeText, SendMessageComposer } from '../../../../api';
 import { NitroCardContentView, NitroCardHeaderView, NitroCardTabsItemView, NitroCardTabsView, NitroCardView } from '../../../../common';
 import { useMessageEvent } from '../../../../hooks';
-import { NavigatorRoomSettingsAccessTabView } from './NavigatorRoomSettingsAccessTabView';
 import { NavigatorRoomSettingsBasicTabView } from './NavigatorRoomSettingsBasicTabView';
 import { NavigatorRoomSettingsModTabView } from './NavigatorRoomSettingsModTabView';
 import { NavigatorRoomSettingsRightsTabView } from './NavigatorRoomSettingsRightsTabView';
@@ -11,7 +10,6 @@ import { NavigatorRoomSettingsVipChatTabView } from './NavigatorRoomSettingsVipC
 
 const TABS: string[] = [
     'navigator.roomsettings.tab.1',
-    'navigator.roomsettings.tab.2',
     'navigator.roomsettings.tab.3',
     'navigator.roomsettings.tab.4',
     'navigator.roomsettings.tab.5'
@@ -193,12 +191,10 @@ export const NavigatorRoomSettingsView: FC<{}> = props =>
                 { (currentTab === TABS[0]) &&
                     <NavigatorRoomSettingsBasicTabView roomData={ roomData } handleChange={ handleChange } onClose={ onClose } /> }
                 { (currentTab === TABS[1]) &&
-                    <NavigatorRoomSettingsAccessTabView roomData={ roomData } handleChange={ handleChange } /> }
-                { (currentTab === TABS[2]) &&
                     <NavigatorRoomSettingsRightsTabView roomData={ roomData } handleChange={ handleChange } /> }
-                { (currentTab === TABS[3]) &&
+                { (currentTab === TABS[2]) &&
                     <NavigatorRoomSettingsVipChatTabView roomData={ roomData } handleChange={ handleChange } /> }
-                { (currentTab === TABS[4]) &&
+                { (currentTab === TABS[3]) &&
                     <NavigatorRoomSettingsModTabView roomData={ roomData } handleChange={ handleChange } /> }
             </NitroCardContentView>
         </NitroCardView>

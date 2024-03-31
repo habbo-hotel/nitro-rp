@@ -71,9 +71,6 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
                 setIsRoomMuted(value => !value);
                 SendMessageComposer(new RoomMuteComposer());
                 return;
-            case 'room_filter':
-                SendMessageComposer(new GetCustomRoomFilterMessageComposer(navigatorData.enteredGuestRoom.roomId));
-                return;
             case 'open_floorplan_editor':
                 CreateLinkEvent('floor-editor/toggle');
                 return;
@@ -123,10 +120,6 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
                                                     <Text>{ navigatorData.enteredGuestRoom.ownerName }</Text>
                                                 </Flex>
                                             </Flex> }
-                                        <Flex alignItems="center" gap={ 1 }>
-                                            <Text variant="muted">{ LocalizeText('navigator.roomrating') }</Text>
-                                            <Text>{ navigatorData.currentRoomRating }</Text>
-                                        </Flex>
                                         { (navigatorData.enteredGuestRoom.tags.length > 0) &&
                                             <Flex alignItems="center" gap={ 1 }>
                                                 { navigatorData.enteredGuestRoom.tags.map(tag =>
@@ -138,7 +131,6 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
                                     <Column alignItems="center" gap={ 1 }>
                                         { hasPermission('settings') &&
                                             <i className="icon icon-cog cursor-pointer" title={ LocalizeText('navigator.room.popup.info.room.settings') } onClick={ event => processAction('open_room_settings') } /> }
-                                        <FaLink title={ LocalizeText('navigator.embed.caption') } className="cursor-pointer fa-icon" onClick={ event => CreateLinkEvent('navigator/toggle-room-link') } />
                                     </Column>
                                 </Flex>
                                 <Text overflow="auto" style={ { maxHeight: 50 } }>{ navigatorData.enteredGuestRoom.description }</Text>
@@ -154,9 +146,6 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
                         <Column gap={ 1 }>
                             { hasPermission('settings') &&
                             <>
-                                <Button onClick={ () => processAction('room_filter') }>
-                                    { LocalizeText('navigator.roomsettings.roomfilter') }
-                                </Button>
                                 <Button onClick={ () => processAction('open_floorplan_editor') }>
                                     { LocalizeText('open.floor.plan.editor') }
                                 </Button>
