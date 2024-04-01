@@ -106,7 +106,7 @@ export const UserProfileView: FC<{}> = props =>
                         </Grid>
                     </Column>
                     <Column size={ 5 }>
-                        <RoleplayStatsContainerView healthNow={100} healthMaximum={100} energyMaximum={100} energyNow={100}  />
+                        <RoleplayStatsContainerView userID={userProfile.id} />
                         <FriendsContainerView relationships={ userRelationships } friendsCount={ userProfile.friendsCount } />
                     </Column>
                 </Grid>
