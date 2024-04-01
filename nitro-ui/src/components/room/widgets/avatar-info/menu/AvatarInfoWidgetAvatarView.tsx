@@ -13,7 +13,6 @@ import { CorpFireUser } from '../../../../../api/roleplay/corp/CorpFireUser';
 import { CorpOfferJob } from '../../../../../api/roleplay/corp/CorpOfferJob';
 import { FaChevronRight } from 'react-icons/fa';
 import { useRoleplayStats } from '../../../../../hooks/roleplay/use-rp-stats';
-import { PoliceUncuffUser } from '../../../../../api/roleplay/police/PoliceUncuffUser';
 import { PoliceArrestUser } from '../../../../../api/roleplay/police/PoliceArrestUser';
 import { PoliceCuffUser } from '../../../../../api/roleplay/police/PoliceCuffUser';
 import { PoliceStunUser } from '../../../../../api/roleplay/police/PoliceStunUser';
@@ -105,10 +104,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 case 'police_cuff':
                     hideMenu = false
                      PoliceCuffUser(avatarInfo.name);
-                    break;
-                case 'police_uncuff':
-                    hideMenu = false
-                     PoliceUncuffUser(avatarInfo.name);
                     break;
                 case 'police_arrest':
                     hideMenu = false
@@ -275,7 +270,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 }
                 {
                     roleplayStats.isCuffed && roleplayStats.escortedByUserID == null && (
-                        <ContextMenuListItemView onClick={ () => processAction('police_uncuff') }>
+                        <ContextMenuListItemView onClick={ () => processAction('police_cuff') }>
                             { LocalizeText('infostand.button.police_uncuff') }
                         </ContextMenuListItemView>
                     )

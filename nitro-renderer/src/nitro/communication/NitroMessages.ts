@@ -11,7 +11,6 @@ import { GangLeaveComposer } from './messages/outgoing/roleplay/gang/GangLeaveCo
 import { PoliceArrestComposer } from './messages/outgoing/roleplay/police/PoliceArrestComposer';
 import { PoliceCuffComposer } from './messages/outgoing/roleplay/police/PoliceCuffComposer';
 import { PoliceStunComposer } from './messages/outgoing/roleplay/police/PoliceStunComposer';
-import { PoliceUncuffComposer } from './messages/outgoing/roleplay/police/PoliceUncuffComposer';
 import { UserRoleplayStatsQueryComposer } from './messages/outgoing/roleplay/user/UserRoleplayStatsQueryComposer';
 
 export class NitroMessages implements IMessageConfiguration
@@ -580,6 +579,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.CORP_INFO_QUERY, CorpInfoQueryEvent);
         this._events.set(IncomingHeader.GANG_INFO_QUERY, GangInfoQueryEvent);
         this._events.set(IncomingHeader.USER_WARDROBE_PAGE, UserOpenWardrobeEvent);
+        this._events.set(IncomingHeader.TIME_OF_DAY_QUERY, TimeOfDayEvent);
 
     }
 
@@ -1207,7 +1207,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.POLICE_ARREST, PoliceArrestComposer);
         this._composers.set(OutgoingHeader.POLICE_CUFF, PoliceCuffComposer);
         this._composers.set(OutgoingHeader.POLICE_STUN, PoliceStunComposer);
-        this._composers.set(OutgoingHeader.POLICE_UNCUFF, PoliceUncuffComposer);
         this._composers.set(OutgoingHeader.POLICE_ESCORT, PoliceEscortComposer);
         
     }
