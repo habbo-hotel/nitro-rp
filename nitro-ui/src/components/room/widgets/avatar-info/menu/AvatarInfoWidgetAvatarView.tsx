@@ -233,8 +233,15 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                         </ContextMenuListItemView>
                     )
                 }
+                {
+                    roleplayStats.isStunned && !roleplayStats.isCuffed && (
+                        <ContextMenuListItemView onClick={ event => processAction('police_cuff') }>
+                            { LocalizeText('infostand.button.police_cuff') }
+                        </ContextMenuListItemView>
+                    )
+                }
                     {
-                        roleplayStats.isCuffed ? (
+                        roleplayStats.isCuffed && (
                             <>
                                 <ContextMenuListItemView onClick={ event => processAction('police_uncuff') }>
                                     { LocalizeText('infostand.button.police_uncuff') }
@@ -243,10 +250,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     { LocalizeText('infostand.button.police_arrest') }
                                 </ContextMenuListItemView>
                             </>
-                        ) :
-                        <ContextMenuListItemView onClick={ event => processAction('police_cuff') }>
-                            { LocalizeText('infostand.button.police_cuff') }
-                        </ContextMenuListItemView>
+                        )
                     }
                 </> 
             }
