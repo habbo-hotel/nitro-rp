@@ -107,12 +107,15 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                      PoliceCuffUser(avatarInfo.name);
                     break;
                 case 'police_uncuff':
+                    hideMenu = false
                      PoliceUncuffUser(avatarInfo.name);
                     break;
                 case 'police_arrest':
+                    hideMenu = false
                      PoliceArrestUser(avatarInfo.name);
                     break;
                 case 'police_escort':
+                    hideMenu = false
                     PoliceEscortUser(avatarInfo.name);
                     break;
                 case 'whisper':
@@ -180,10 +183,14 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                             </>
                         )
                     }
-                    <ContextMenuListItemView onClick={ () => processAction('view_gang') }>
-                        <FaChevronRight className="right fa-icon" />
-                        { LocalizeText('infostand.button.gang') }
-                    </ContextMenuListItemView>
+                    {
+                        !sessionRoleplayStats.isWorking && (
+                            <ContextMenuListItemView onClick={ () => processAction('view_gang') }>
+                                <FaChevronRight className="right fa-icon" />
+                                { LocalizeText('infostand.button.gang') }
+                            </ContextMenuListItemView>
+                        )
+                    }
                     { canRequestFriend(avatarInfo.webID) &&
                         <ContextMenuListItemView onClick={ () => processAction('friend') }>
                             { LocalizeText('infostand.button.friend') }
@@ -252,32 +259,34 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                         </ContextMenuListItemView>
                     )
                 }
-                    {
-                        roleplayStats.isCuffed && (
-                            <>
-                                <ContextMenuListItemView onClick={ () => processAction('police_uncuff') }>
-                                    { LocalizeText('infostand.button.police_uncuff') }
-                                </ContextMenuListItemView>
-                                {
-                                    !roleplayStats.escortedByUserID && (
-                                        <ContextMenuListItemView onClick={ () => processAction('police_escort') }>
-                                            { LocalizeText('infostand.button.police_escort') }
-                                        </ContextMenuListItemView>
-                                    )
-                                }
-                                {
-                                    roleplayStats.escortedByUserID === sessionInfo.userId && (
-                                        <ContextMenuListItemView onClick={ () => processAction('police_escort') }>
-                                            { LocalizeText('infostand.button.police_stop_escort') }
-                                        </ContextMenuListItemView>
-                                    )
-                                }
-                                <ContextMenuListItemView onClick={ () => processAction('police_arrest') }>
-                                    { LocalizeText('infostand.button.police_arrest') }
-                                </ContextMenuListItemView>
-                            </>
-                        )
-                    }
+                {
+                    roleplayStats.isCuffed && !roleplayStats.escortedByUserID && (
+                        <ContextMenuListItemView onClick={ () => processAction('police_escort') }>
+                            { LocalizeText('infostand.button.police_escort') }
+                        </ContextMenuListItemView>
+                    )
+                }
+                {
+                    roleplayStats.escortedByUserID === sessionInfo.userId && (
+                        <ContextMenuListItemView onClick={ () => processAction('police_escort') }>
+                            { LocalizeText('infostand.button.police_stop_escort') }
+                        </ContextMenuListItemView>
+                    )
+                }
+                {
+                    roleplayStats.isCuffed && roleplayStats.escortedByUserID == null && (
+                        <ContextMenuListItemView onClick={ () => processAction('police_uncuff') }>
+                            { LocalizeText('infostand.button.police_uncuff') }
+                        </ContextMenuListItemView>
+                    )
+                }
+                {
+                    roleplayStats.isCuffed && !!roleplayStats.escortedByUserID && (
+                        <ContextMenuListItemView onClick={ () => processAction('police_arrest') }>
+                            { LocalizeText('infostand.button.police_arrest') }
+                        </ContextMenuListItemView>
+                    )
+                }
                 </> 
             }
             </>
