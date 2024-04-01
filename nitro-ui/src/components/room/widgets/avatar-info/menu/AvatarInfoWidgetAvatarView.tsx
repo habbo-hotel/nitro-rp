@@ -98,9 +98,11 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                      GangInviteUser(avatarInfo.name);
                     break;
                 case 'police_stun':
+                    hideMenu = false
                      PoliceStunUser(avatarInfo.name);
                     break;
                 case 'police_cuff':
+                    hideMenu = false
                      PoliceCuffUser(avatarInfo.name);
                     break;
                 case 'police_uncuff':
