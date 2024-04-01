@@ -1,6 +1,6 @@
 import { GroupInformationComposer, GroupInformationEvent, GroupInformationParser, HabboGroupEntryData } from '@nitro-rp/renderer';
 import { FC, useEffect, useState } from 'react';
-import { SendMessageComposer, ToggleFavoriteGroup } from '../../../api';
+import { GetGroupInformation, SendMessageComposer, ToggleFavoriteGroup } from '../../../api';
 import { AutoGrid, Base, Column, Flex, Grid, GridProps, LayoutBadgeImageView, LayoutGridItem } from '../../../common';
 import { useMessageEvent } from '../../../hooks';
 import { GroupInformationView } from '../../groups/views/GroupInformationView';

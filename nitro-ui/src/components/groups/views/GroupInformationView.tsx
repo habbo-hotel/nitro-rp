@@ -1,6 +1,6 @@
 import { GroupInformationParser } from '@nitro-rp/renderer';
 import { FC } from 'react';
-import { CatalogPageName, CreateLinkEvent, GetGroupManager, GetGroupMembers, LocalizeText, TryVisitRoom } from '../../../api';
+import { GetGroupManager, GetGroupMembers, LocalizeText } from '../../../api';
 import {Column, Flex, Grid, GridProps, LayoutBadgeImageView, Text } from '../../../common';
 
 interface GroupInformationViewProps extends GridProps
@@ -26,15 +26,6 @@ export const GroupInformationView: FC<GroupInformationViewProps> = props =>
                 break;
             case 'manage':
                 GetGroupManager(groupInformation.id);
-                break;
-            case 'homeroom':
-                TryVisitRoom(groupInformation.roomId);
-                break;
-            case 'furniture':
-                CreateLinkEvent('catalog/open/' + CatalogPageName.GUILD_CUSTOM_FURNI);
-                break;
-            case 'popular_groups':
-                CreateLinkEvent('navigator/search/groups');
                 break;
         }
     }
