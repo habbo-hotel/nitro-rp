@@ -504,4 +504,14 @@ export class OutgoingHeader
     public static GANG_INFO_QUERY = 8017;
 
     public static CORP_POSITION_INFO_QUERY = 8018;
+
+    public static TIME_OF_DAY_QUERY = 8019;
+
+    public static POLICE_ARREST = 8020;
+
+    public static POLICE_CUFF = 8021;
+
+    public static POLICE_STUN = 8022;
+
+    public static POLICE_UNCUFF = 8023;
 }

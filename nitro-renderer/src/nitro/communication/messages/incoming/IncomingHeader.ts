@@ -476,4 +476,5 @@ export class IncomingHeader
     public static GANG_INFO_QUERY = 9003;
     public static CORP_POSITION_INFO_QUERY = 9004;
     public static USER_OPEN_WARDROBE = 9005;
+    public static TIME_OF_DAY_QUERY = 9006;
 }

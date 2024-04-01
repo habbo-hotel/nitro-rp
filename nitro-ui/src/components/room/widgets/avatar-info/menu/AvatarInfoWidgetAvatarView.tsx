@@ -13,6 +13,10 @@ import { CorpFireUser } from '../../../../../api/roleplay/corp/CorpFireUser';
 import { CorpOfferJob } from '../../../../../api/roleplay/corp/CorpOfferJob';
 import { FaChevronRight } from 'react-icons/fa';
 import { useRoleplayStats } from '../../../../../hooks/roleplay/use-rp-stats';
+import { PoliceUncuffUser } from '../../../../../api/roleplay/police/PoliceUncuffUser';
+import { PoliceArrestUser } from '../../../../../api/roleplay/police/PoliceArrestUser';
+import { PoliceCuffUser } from '../../../../../api/roleplay/police/PoliceCuffUser';
+import { PoliceStunUser } from '../../../../../api/roleplay/police/PoliceStunUser';
 
 interface AvatarInfoWidgetAvatarViewProps
 {
@@ -23,6 +27,7 @@ interface AvatarInfoWidgetAvatarViewProps
 const MODE_NORMAL = 0;
 const MODE_BUSINESS = 1;
 const MODE_GANG = 2;
+const MODE_POLICE = 3;
 
 export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props =>
 {
@@ -73,6 +78,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                         hideMenu = false
                      setMode(MODE_GANG);
                     break;
+                case 'view_police':
+                        hideMenu = false
+                     setMode(MODE_POLICE);
+                    break;
                 case 'corp_offer_job':
                      CorpOfferJob(avatarInfo.name);
                     break;
@@ -87,6 +96,18 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     break;
                 case 'gang_invite_user':
                      GangInviteUser(avatarInfo.name);
+                    break;
+                case 'police_stun':
+                     PoliceStunUser(avatarInfo.name);
+                    break;
+                case 'police_cuff':
+                     PoliceCuffUser(avatarInfo.name);
+                    break;
+                case 'police_uncuff':
+                     PoliceUncuffUser(avatarInfo.name);
+                    break;
+                case 'police_arrest':
+                     PoliceArrestUser(avatarInfo.name);
                     break;
                 case 'whisper':
                     DispatchUiEvent(new RoomWidgetUpdateChatInputContentEvent(RoomWidgetUpdateChatInputContentEvent.WHISPER, avatarInfo.name));
@@ -147,6 +168,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                         <FaChevronRight className="right fa-icon" />
                         { LocalizeText('infostand.button.gang') }
                     </ContextMenuListItemView>
+                    <ContextMenuListItemView onClick={ event => processAction('view_police') }>
+                        <FaChevronRight className="right fa-icon" />
+                        { LocalizeText('infostand.button.police') }
+                    </ContextMenuListItemView>
                     { canRequestFriend(avatarInfo.webID) &&
                         <ContextMenuListItemView onClick={ event => processAction('friend') }>
                             { LocalizeText('infostand.button.friend') }
@@ -197,6 +222,32 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                         </>                 
                     )
                 }
+                </> 
+            }
+            { (mode === MODE_POLICE) &&
+                <>
+                {
+                    !roleplayStats.isCuffed && !roleplayStats.isStunned && !roleplayStats.isDead && (
+                        <ContextMenuListItemView onClick={ event => processAction('police_stun') }>
+                            { LocalizeText('infostand.button.police_stun') }
+                        </ContextMenuListItemView>
+                    )
+                }
+                    {
+                        roleplayStats.isCuffed ? (
+                            <>
+                                <ContextMenuListItemView onClick={ event => processAction('police_uncuff') }>
+                                    { LocalizeText('infostand.button.police_uncuff') }
+                                </ContextMenuListItemView>
+                                <ContextMenuListItemView onClick={ event => processAction('police_arrest') }>
+                                    { LocalizeText('infostand.button.police_arrest') }
+                                </ContextMenuListItemView>
+                            </>
+                        ) :
+                        <ContextMenuListItemView onClick={ event => processAction('police_cuff') }>
+                            { LocalizeText('infostand.button.police_cuff') }
+                        </ContextMenuListItemView>
+                    }
                 </> 
             }
             </>
