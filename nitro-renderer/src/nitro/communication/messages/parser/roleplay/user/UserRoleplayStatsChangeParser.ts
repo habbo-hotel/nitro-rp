@@ -9,6 +9,7 @@ export interface UserRoleplayStatsChangeData {
     isDead: boolean;
     isStunned: boolean;
     isCuffed: boolean;
+    escortedByUserID: number;
     healthNow: number;
     healthMax: number;
     energyNow: number;
@@ -33,6 +34,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
     private _isStunned: boolean;
     private _isCuffed: boolean;
     private _isWorking: boolean;
+    private _escortedByUserID: number;
     private _healthNow: number;
     private _healthMax: number;
     private _energyNow: number;
@@ -54,6 +56,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
         this._isStunned = false;
         this._isCuffed = false;
         this._isWorking = false;
+        this._escortedByUserID = 0;
         this._healthNow = 0;
         this._healthMax = 0;
         this._energyNow = 0;
@@ -79,6 +82,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
         this._isStunned = wrapper.readBoolean();
         this._isCuffed = wrapper.readBoolean();
         this._isWorking = wrapper.readBoolean();
+        this._escortedByUserID = wrapper.readInt();
         this._healthNow = wrapper.readInt();
         this._healthMax = wrapper.readInt();
         this._energyNow = wrapper.readInt();
@@ -103,6 +107,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser
             isStunned: this._isStunned,
             isCuffed: this._isCuffed,
             isWorking: this._isWorking,
+            escortedByUserID: this._escortedByUserID,
             healthNow: this._healthNow,
             healthMax: this._healthMax,
             energyNow: this._energyNow,

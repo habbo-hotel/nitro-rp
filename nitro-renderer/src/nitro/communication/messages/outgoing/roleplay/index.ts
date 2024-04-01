@@ -17,6 +17,7 @@ export * from './gang/GangInviteUserEventComposer';
 export * from './gang/GangLeaveComposer';
 export * from './police/PoliceArrestComposer';
 export * from './police/PoliceCuffComposer';
+export * from './police/PoliceEscortComposer';
 export * from './police/PoliceStunComposer';
 export * from './police/PoliceUncuffComposer';
 export * from './user/UserRoleplayStatsQueryComposer';

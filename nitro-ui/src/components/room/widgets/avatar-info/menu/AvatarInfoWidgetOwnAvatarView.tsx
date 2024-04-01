@@ -1,9 +1,8 @@
 import { AvatarAction, AvatarExpressionEnum, RoomObjectCategory, RoomUnitDropHandItemComposer } from '@nitro-rp/renderer';
 import { FC, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetCanStandUp, GetCanUseExpression, GetOwnPosture, GetUserProfile, HasHabboClub, HasHabboVip, IsRidingHorse, LocalizeText, PostureTypeEnum, SendMessageComposer } from '../../../../../api';
+import { AvatarInfoUser, CreateLinkEvent, GetCanStandUp, GetCanUseExpression, GetOwnPosture, GetUserProfile, HasHabboClub, HasHabboVip, IsRidingHorse, LocalizeText, PostureTypeEnum, SendMessageComposer } from '../../../../../api';
 import { Flex, LayoutCurrencyIcon } from '../../../../../common';
-import { HelpNameChangeEvent } from '../../../../../events';
 import { useRoom } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
@@ -75,12 +74,6 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                     case 'formgang':
                         CreateLinkEvent('groups/create-gang');
                         break;
-                    case 'change_name':
-                        DispatchUiEvent(new HelpNameChangeEvent(HelpNameChangeEvent.INIT));
-                        break;
-                    case 'change_looks':
-                        CreateLinkEvent('avatar-editor/show');
-                        break;
                     case 'expressions':
                         hideMenu = false;
                         setMode(MODE_EXPRESSIONS);
@@ -147,13 +140,6 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
             </ContextMenuHeaderView>
             { (mode === MODE_NORMAL) &&
                 <>
-                    { avatarInfo.allowNameChange &&
-                        <ContextMenuListItemView onClick={ event => processAction('change_name') }>
-                            { LocalizeText('widget.avatar.change_name') }
-                        </ContextMenuListItemView> }
-                    <ContextMenuListItemView onClick={ event => processAction('change_looks') }>
-                        { LocalizeText('widget.memenu.myclothes') }
-                    </ContextMenuListItemView>
                     <ContextMenuListItemView onClick={ event => processAction('view_business') }>
                         <FaChevronRight className="right fa-icon" />
                         { LocalizeText('infostand.button.business') }

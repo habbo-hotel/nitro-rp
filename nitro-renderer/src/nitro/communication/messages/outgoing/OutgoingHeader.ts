@@ -514,4 +514,6 @@ export class OutgoingHeader
     public static POLICE_STUN = 8022;
 
     public static POLICE_UNCUFF = 8023;
+
+    public static POLICE_ESCORT = 8024;
 }

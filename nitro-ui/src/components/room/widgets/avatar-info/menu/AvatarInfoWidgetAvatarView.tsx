@@ -17,6 +17,7 @@ import { PoliceUncuffUser } from '../../../../../api/roleplay/police/PoliceUncuf
 import { PoliceArrestUser } from '../../../../../api/roleplay/police/PoliceArrestUser';
 import { PoliceCuffUser } from '../../../../../api/roleplay/police/PoliceCuffUser';
 import { PoliceStunUser } from '../../../../../api/roleplay/police/PoliceStunUser';
+import { PoliceEscortUser } from '../../../../../api/roleplay/police/PoliceEscortUser';
 
 interface AvatarInfoWidgetAvatarViewProps
 {
@@ -111,6 +112,9 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 case 'police_arrest':
                      PoliceArrestUser(avatarInfo.name);
                     break;
+                case 'police_escort':
+                    PoliceEscortUser(avatarInfo.name);
+                    break;
                 case 'whisper':
                     DispatchUiEvent(new RoomWidgetUpdateChatInputContentEvent(RoomWidgetUpdateChatInputContentEvent.WHISPER, avatarInfo.name));
                     break;
@@ -152,39 +156,45 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 <>
                  {
                 mode !== MODE_NORMAL && (
-                <ContextMenuListItemView onClick={ event => processAction('back') }>
+                <ContextMenuListItemView onClick={ () => processAction('back') }>
                     { LocalizeText('infostand.button.back') }
                 </ContextMenuListItemView>
                 )
             }
             { (mode === MODE_NORMAL) &&
                 <>
-                    <ContextMenuListItemView onClick={ event => processAction('attack') }>
+                    <ContextMenuListItemView onClick={ () => processAction('attack') }>
                         { LocalizeText('infostand.button.attack') }
                     </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('view_business') }>
-                        { LocalizeText('infostand.button.business') }
-                        <FaChevronRight className="right fa-icon" />
-                    </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('view_gang') }>
+                    {
+                        sessionRoleplayStats.isWorking && (
+                            <>
+                                <ContextMenuListItemView onClick={ () => processAction('view_business') }>
+                                    { LocalizeText('infostand.button.business') }
+                                    <FaChevronRight className="right fa-icon" />
+                                </ContextMenuListItemView>
+                                <ContextMenuListItemView onClick={ () => processAction('view_police') }>
+                                    <FaChevronRight className="right fa-icon" />
+                                    { LocalizeText('infostand.button.police') }
+                                </ContextMenuListItemView>
+                            </>
+                        )
+                    }
+                    <ContextMenuListItemView onClick={ () => processAction('view_gang') }>
                         <FaChevronRight className="right fa-icon" />
                         { LocalizeText('infostand.button.gang') }
                     </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('view_police') }>
-                        <FaChevronRight className="right fa-icon" />
-                        { LocalizeText('infostand.button.police') }
-                    </ContextMenuListItemView>
                     { canRequestFriend(avatarInfo.webID) &&
-                        <ContextMenuListItemView onClick={ event => processAction('friend') }>
+                        <ContextMenuListItemView onClick={ () => processAction('friend') }>
                             { LocalizeText('infostand.button.friend') }
                         </ContextMenuListItemView> }
-                    <ContextMenuListItemView onClick={ event => processAction('trade') }>
+                    <ContextMenuListItemView onClick={ () => processAction('trade') }>
                         { LocalizeText('infostand.button.trade') }
                     </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ event => processAction('whisper') }>
+                    <ContextMenuListItemView onClick={ () => processAction('whisper') }>
                         { LocalizeText('infostand.button.whisper') }
                     </ContextMenuListItemView>
-                    { canGiveHandItem && <ContextMenuListItemView onClick={ event => processAction('pass_hand_item') }>
+                    { canGiveHandItem && <ContextMenuListItemView onClick={ () => processAction('pass_hand_item') }>
                         { LocalizeText('avatar.widget.pass_hand_item') }
                     </ContextMenuListItemView> }
                 </> }
@@ -192,7 +202,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 <>
                 {
                     roleplayStats.corporationID !== sessionRoleplayStats.corporationID && (
-                        <ContextMenuListItemView onClick={ event => processAction('corp_offer_job') }>
+                        <ContextMenuListItemView onClick={ () => processAction('corp_offer_job') }>
                             { LocalizeText('infostand.button.corp_offer_job') }
                         </ContextMenuListItemView>
                     )
@@ -200,13 +210,13 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 {
                     roleplayStats.corporationID === sessionRoleplayStats.corporationID && (
                         <>
-                            <ContextMenuListItemView onClick={ event => processAction('corp_fire_user') }>
+                            <ContextMenuListItemView onClick={ () => processAction('corp_fire_user') }>
                             { LocalizeText('infostand.button.corp_fire_user') }
                             </ContextMenuListItemView>
-                            <ContextMenuListItemView onClick={ event => processAction('corp_promote_user') }>
+                            <ContextMenuListItemView onClick={ () => processAction('corp_promote_user') }>
                                 { LocalizeText('infostand.button.corp_promote_user') }
                             </ContextMenuListItemView>
-                            <ContextMenuListItemView onClick={ event => processAction('corp_demote_user') }>
+                            <ContextMenuListItemView onClick={ () => processAction('corp_demote_user') }>
                                 { LocalizeText('infostand.button.corp_demote_user') }
                             </ContextMenuListItemView>
                         </>
@@ -218,7 +228,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 {
                     roleplayStats.gangID !== sessionRoleplayStats.gangID && (
                         <>
-                        <ContextMenuListItemView onClick={ event => processAction('gang_invite_user') }>
+                        <ContextMenuListItemView onClick={ () => processAction('gang_invite_user') }>
                             { LocalizeText('infostand.button.gang_invite_user') }
                         </ContextMenuListItemView>     
                         </>                 
@@ -230,14 +240,14 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 <>
                 {
                     !roleplayStats.isCuffed && !roleplayStats.isStunned && !roleplayStats.isDead && (
-                        <ContextMenuListItemView onClick={ event => processAction('police_stun') }>
+                        <ContextMenuListItemView onClick={ () => processAction('police_stun') }>
                             { LocalizeText('infostand.button.police_stun') }
                         </ContextMenuListItemView>
                     )
                 }
                 {
                     roleplayStats.isStunned && !roleplayStats.isCuffed && (
-                        <ContextMenuListItemView onClick={ event => processAction('police_cuff') }>
+                        <ContextMenuListItemView onClick={ () => processAction('police_cuff') }>
                             { LocalizeText('infostand.button.police_cuff') }
                         </ContextMenuListItemView>
                     )
@@ -245,10 +255,24 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     {
                         roleplayStats.isCuffed && (
                             <>
-                                <ContextMenuListItemView onClick={ event => processAction('police_uncuff') }>
+                                <ContextMenuListItemView onClick={ () => processAction('police_uncuff') }>
                                     { LocalizeText('infostand.button.police_uncuff') }
                                 </ContextMenuListItemView>
-                                <ContextMenuListItemView onClick={ event => processAction('police_arrest') }>
+                                {
+                                    !roleplayStats.escortedByUserID && (
+                                        <ContextMenuListItemView onClick={ () => processAction('police_escort') }>
+                                            { LocalizeText('infostand.button.police_escort') }
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                {
+                                    roleplayStats.escortedByUserID === sessionInfo.userId && (
+                                        <ContextMenuListItemView onClick={ () => processAction('police_escort') }>
+                                            { LocalizeText('infostand.button.police_stop_escort') }
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                <ContextMenuListItemView onClick={ () => processAction('police_arrest') }>
                                     { LocalizeText('infostand.button.police_arrest') }
                                 </ContextMenuListItemView>
                             </>
