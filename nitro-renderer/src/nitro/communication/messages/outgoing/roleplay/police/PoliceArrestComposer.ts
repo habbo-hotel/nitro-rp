@@ -4,9 +4,9 @@ export class PoliceArrestComposer implements IMessageComposer<ConstructorParamet
 {
     private _data: ConstructorParameters<typeof PoliceArrestComposer>;
 
-    constructor(username: string)
+    constructor(username: string, crime: string, sentence: number)
     {
-        this._data = [username];
+        this._data = [username, crime, sentence];
     }
 
     public getMessageArray()

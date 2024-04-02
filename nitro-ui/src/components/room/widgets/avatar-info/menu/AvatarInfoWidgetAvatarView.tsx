@@ -112,10 +112,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     hideMenu = false
                      PoliceCuffUser(avatarInfo.name);
                     break;
-                case 'police_arrest':
-                    hideMenu = false
-                     PoliceArrestUser(avatarInfo.name);
-                    break;
                 case 'police_escort':
                     hideMenu = false
                     PoliceEscortUser(avatarInfo.name);
@@ -290,7 +286,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 }
                 {
                     roleplayStats.isCuffed && !!roleplayStats.escortedByUserID && (
-                        <ContextMenuListItemView onClick={ () => processAction('police_arrest') }>
+                        <ContextMenuListItemView onClick={ () => processAction('view_police_arrest') }>
                             { LocalizeText('infostand.button.police_arrest') }
                         </ContextMenuListItemView>
                     )
@@ -301,7 +297,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 <>
                 {
                     crimeList.map(crime => (
-                        <ContextMenuListItemView onClick={ () => processAction('police_arrest') }>
+                        <ContextMenuListItemView key={`crime_${crime.crime}`} onClick={ () => { onClose(); PoliceArrestUser(avatarInfo.name, crime.crime, crime.sentence) }}>
                             {crime.crime} ({crime.sentence}mins)
                         </ContextMenuListItemView>
                     ))
