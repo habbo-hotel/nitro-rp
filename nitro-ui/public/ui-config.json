@@ -1180,5 +1180,27 @@
             "display": "BUBBLE",
             "image": "${image.library.url}/album1584/X1517.gif"
         }
-    }
+    },
+    "roleplay.crimes": [
+        {
+            "crime": "Mischief",
+            "sentence": 6
+        },
+        {
+            "crime": "Assault",
+            "sentence": 10
+        },
+        {
+            "crime": "Murder",
+            "sentence": 15
+        },
+        {
+            "crime": "Cop-Killing",
+            "sentence": 20
+        },
+        {
+            "crime": "Mass-Murder",
+            "sentence": 25
+        }
+    ]
 }

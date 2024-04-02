@@ -1,6 +1,6 @@
 import { RoomObjectCategory, RoomObjectVariable, RoomUnitGiveHandItemComposer, TradingOpenComposer } from '@nitro-rp/renderer';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetOwnRoomObject, GetUserProfile, LocalizeText, RoomWidgetUpdateChatInputContentEvent, SendMessageComposer } from '../../../../../api';
+import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetConfiguration, GetOwnRoomObject, GetUserProfile, LocalizeText, RoomWidgetUpdateChatInputContentEvent, SendMessageComposer } from '../../../../../api';
 import { useFriends, useSessionInfo } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
@@ -17,6 +17,7 @@ import { PoliceArrestUser } from '../../../../../api/roleplay/police/PoliceArres
 import { PoliceCuffUser } from '../../../../../api/roleplay/police/PoliceCuffUser';
 import { PoliceStunUser } from '../../../../../api/roleplay/police/PoliceStunUser';
 import { PoliceEscortUser } from '../../../../../api/roleplay/police/PoliceEscortUser';
+import { useCrimes } from '../../../../../api/roleplay/police/GetCrimes';
 
 interface AvatarInfoWidgetAvatarViewProps
 {
@@ -28,6 +29,7 @@ const MODE_NORMAL = 0;
 const MODE_BUSINESS = 1;
 const MODE_GANG = 2;
 const MODE_POLICE = 3;
+const MODE_ARREST = 4;
 
 export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props =>
 {
@@ -37,6 +39,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
     const sessionRoleplayStats = useRoleplayStats(sessionInfo?.userId);
     const [ mode, setMode ] = useState(MODE_NORMAL);
     const { canRequestFriend = null } = useFriends();
+    const crimeList = useCrimes();
 
     const canGiveHandItem = useMemo(() =>
     {
@@ -81,6 +84,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 case 'view_police':
                         hideMenu = false
                      setMode(MODE_POLICE);
+                    break;
+                case 'view_police_arrest':
+                        hideMenu = false
+                     setMode(MODE_ARREST);
                     break;
                 case 'corp_offer_job':
                      CorpOfferJob(avatarInfo.name);
@@ -136,6 +143,8 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
         setMode(MODE_NORMAL);
     }, [ avatarInfo ]);
 
+    const canBeArrested = roleplayStats.isCuffed && !!roleplayStats.escortedByUserID;
+
     return (
         <ContextMenuView objectId={ avatarInfo.roomIndex } category={ RoomObjectCategory.UNIT } userType={ avatarInfo.userType } onClose={ onClose } collapsable={ true }>
             <ContextMenuHeaderView className="cursor-pointer" onClick={ event => GetUserProfile(avatarInfo.webID) }>
@@ -174,6 +183,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                 <ContextMenuListItemView onClick={ () => processAction('view_police') }>
                                     <FaChevronRight className="right fa-icon" />
                                     { LocalizeText('infostand.button.police') }
+                                </ContextMenuListItemView>
+                                <ContextMenuListItemView onClick={ () => processAction('view_police_arrest') }>
+                                    <FaChevronRight className="right fa-icon" />
+                                    { LocalizeText('infostand.button.police_arrest') }
                                 </ContextMenuListItemView>
                             </>
                         )
@@ -281,6 +294,17 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                             { LocalizeText('infostand.button.police_arrest') }
                         </ContextMenuListItemView>
                     )
+                }
+                </> 
+            }
+            { (mode === MODE_ARREST) &&
+                <>
+                {
+                    crimeList.map(crime => (
+                        <ContextMenuListItemView onClick={ () => processAction('police_arrest') }>
+                            {crime.crime} ({crime.sentence}mins)
+                        </ContextMenuListItemView>
+                    ))
                 }
                 </> 
             }
