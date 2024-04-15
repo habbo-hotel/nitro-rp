@@ -11,28 +11,24 @@ import { CorpBadge } from '../../../../roleplay-stats/corp-badge/CorpBadge';
 import { GangBadge } from '../../../../roleplay-stats/gang-badge/GangBadge';
 import { useRoleplayStats } from '../../../../../hooks/roleplay/use-rp-stats';
 
-interface InfoStandWidgetUserViewProps
-{
+interface InfoStandWidgetUserViewProps {
     avatarInfo: AvatarInfoUser;
     setAvatarInfo: Dispatch<SetStateAction<AvatarInfoUser>>;
     onClose: () => void;
 }
 
-export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =>
-{
+export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props => {
     const { avatarInfo = null, setAvatarInfo = null, onClose = null } = props;
     const roleplayStats = useRoleplayStats(avatarInfo.webID);
-    const [ relationships, setRelationships ] = useState<RelationshipStatusInfoMessageParser>(null);
-    useRoomSessionManagerEvent<RoomSessionUserBadgesEvent>(RoomSessionUserBadgesEvent.RSUBE_BADGES, event =>
-    {
-        if(!avatarInfo || (avatarInfo.webID !== event.userId)) return;
+    const [relationships, setRelationships] = useState<RelationshipStatusInfoMessageParser>(null);
+    useRoomSessionManagerEvent<RoomSessionUserBadgesEvent>(RoomSessionUserBadgesEvent.RSUBE_BADGES, event => {
+        if (!avatarInfo || (avatarInfo.webID !== event.userId)) return;
 
         const oldBadges = avatarInfo.badges.join('');
 
-        if(oldBadges === event.badges.join('')) return;
+        if (oldBadges === event.badges.join('')) return;
 
-        setAvatarInfo(prevValue =>
-        {
+        setAvatarInfo(prevValue => {
             const newValue = CloneObject(prevValue);
 
             newValue.badges = event.badges;
@@ -41,12 +37,10 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         });
     });
 
-    useRoomSessionManagerEvent<RoomSessionUserFigureUpdateEvent>(RoomSessionUserFigureUpdateEvent.USER_FIGURE, event =>
-    {
-        if(!avatarInfo || (avatarInfo.roomIndex !== event.roomIndex)) return;
+    useRoomSessionManagerEvent<RoomSessionUserFigureUpdateEvent>(RoomSessionUserFigureUpdateEvent.USER_FIGURE, event => {
+        if (!avatarInfo || (avatarInfo.roomIndex !== event.roomIndex)) return;
 
-        setAvatarInfo(prevValue =>
-        {
+        setAvatarInfo(prevValue => {
             const newValue = CloneObject(prevValue);
 
             newValue.figure = event.figure;
@@ -57,12 +51,10 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         });
     });
 
-    useRoomSessionManagerEvent<RoomSessionFavoriteGroupUpdateEvent>(RoomSessionFavoriteGroupUpdateEvent.FAVOURITE_GROUP_UPDATE, event =>
-    {
-        if(!avatarInfo || (avatarInfo.roomIndex !== event.roomIndex)) return;
+    useRoomSessionManagerEvent<RoomSessionFavoriteGroupUpdateEvent>(RoomSessionFavoriteGroupUpdateEvent.FAVOURITE_GROUP_UPDATE, event => {
+        if (!avatarInfo || (avatarInfo.roomIndex !== event.roomIndex)) return;
 
-        setAvatarInfo(prevValue =>
-        {
+        setAvatarInfo(prevValue => {
             const newValue = CloneObject(prevValue);
             const clearGroup = ((event.status === -1) || (event.habboGroupId <= 0));
 
@@ -74,111 +66,110 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         });
     });
 
-    useMessageEvent<RelationshipStatusInfoEvent>(RelationshipStatusInfoEvent, event =>
-    {
+    useMessageEvent<RelationshipStatusInfoEvent>(RelationshipStatusInfoEvent, event => {
         const parser = event.getParser();
 
-        if(!avatarInfo || (avatarInfo.webID !== parser.userId)) return;
+        if (!avatarInfo || (avatarInfo.webID !== parser.userId)) return;
 
         setRelationships(parser);
     });
 
-    if(!avatarInfo) return null;
-    
+    if (!avatarInfo) return null;
+
     console.log(avatarInfo.groupBadgeId);
 
     return (
         <Column className="nitro-infostand rounded">
-            <Column overflow="visible" className="container-fluid content-area" gap={ 1 }>
-                <Column gap={ 1 }>
+            <Column overflow="visible" className="container-fluid content-area" gap={1}>
+                <Column gap={1}>
                     <Flex alignItems="center" justifyContent="between">
-                        <Flex alignItems="center" gap={ 1 }>
-                            <UserProfileIconView userId={ avatarInfo.webID } />
+                        <Flex alignItems="center" gap={1}>
+                            <UserProfileIconView userId={avatarInfo.webID} />
                             <Text variant="white" small wrap>
-                                { roleplayStats.isDead && '☠️' }
-                                { avatarInfo.name }
+                                {roleplayStats.isDead && '☠️'}
+                                {avatarInfo.name}
                             </Text>
                         </Flex>
-                        <FaTimes className="cursor-pointer fa-icon" onClick={ onClose } />
+                        <FaTimes className="cursor-pointer fa-icon" onClick={onClose} />
                     </Flex>
                     <hr className="m-0" />
                 </Column>
-                <Column gap={ 1 }>
-                    <Flex gap={ 1 }>
-                        <Column fullWidth className="body-image" onClick={ event => GetUserProfile(avatarInfo.webID)  }>
-                            <LayoutAvatarImageView figure={ avatarInfo.figure } direction={ 4 } />
+                <Column gap={1}>
+                    <Flex gap={1}>
+                        <Column fullWidth className="body-image" onClick={event => GetUserProfile(avatarInfo.webID)}>
+                            <LayoutAvatarImageView figure={avatarInfo.figure} direction={4} />
                         </Column>
-                        <Column grow alignItems="center" gap={ 0 }>
-                            <Flex gap={ 1 }>
-                                <Flex center className="badge-image" onClick={ event => GetGroupInformation(roleplayStats.corporationID) }>
-                                    <CorpBadge corpID={roleplayStats.corporationID}  />
+                        <Column grow alignItems="center" gap={0}>
+                            <Flex gap={1}>
+                                <Flex center className="badge-image" onClick={event => GetGroupInformation(roleplayStats.corporationID)}>
+                                    <CorpBadge corpID={roleplayStats.corporationID} />
                                 </Flex>
-                                <Flex center pointer={ ( roleplayStats.gangID > 0) } className="badge-image" onClick={ event => GetGroupInformation(roleplayStats.gangID) }>
-                                    { roleplayStats.gangID ? <GangBadge gangID={roleplayStats.gangID}  /> : null }
-                                </Flex>
-                            </Flex>
-                            <Flex center gap={ 1 }>
-                                <Flex center className="badge-image">
-                                    { avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[0] } showInfo={ true } /> }
-                                </Flex>
-                                <Flex center className="badge-image">
-                                    { avatarInfo.badges[1] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[1] } showInfo={ true } /> }
+                                <Flex center pointer={(roleplayStats.gangID > 0)} className="badge-image" onClick={event => GetGroupInformation(roleplayStats.gangID)}>
+                                    {roleplayStats.gangID ? <GangBadge gangID={roleplayStats.gangID} /> : null}
                                 </Flex>
                             </Flex>
-                            <Flex center gap={ 1 }>
+                            <Flex center gap={1}>
                                 <Flex center className="badge-image">
-                                    { avatarInfo.badges[2] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[2] } showInfo={ true } /> }
+                                    {avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={avatarInfo.badges[0]} showInfo={true} />}
                                 </Flex>
                                 <Flex center className="badge-image">
-                                    { avatarInfo.badges[3] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[3] } showInfo={ true } /> }
+                                    {avatarInfo.badges[1] && <LayoutBadgeImageView badgeCode={avatarInfo.badges[1]} showInfo={true} />}
+                                </Flex>
+                            </Flex>
+                            <Flex center gap={1}>
+                                <Flex center className="badge-image">
+                                    {avatarInfo.badges[2] && <LayoutBadgeImageView badgeCode={avatarInfo.badges[2]} showInfo={true} />}
+                                </Flex>
+                                <Flex center className="badge-image">
+                                    {avatarInfo.badges[3] && <LayoutBadgeImageView badgeCode={avatarInfo.badges[3]} showInfo={true} />}
                                 </Flex>
                             </Flex>
                         </Column>
                     </Flex>
                     <hr className="m-0" />
                 </Column>
-                <Column gap={ 1 }>
+                <Column gap={1}>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
                         <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.health')}</Text>
                         <ProgressBar className="progress-danger" value={roleplayStats.healthNow} minValue={0} maxValue={roleplayStats.healthMax} children={roleplayStats.healthNow <= 0 ? LocalizeText('roleplay.stats.user_is_dead') : undefined} />
                     </Flex>
                     <hr className="m-0" />
                 </Column>
-                <Column gap={ 1 }>
+                <Column gap={1}>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
                         <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.energy')}</Text>
                         <div className="roleplay-stats-progress-bar progress-primary">
-                            <div className="progress"  />
+                            <div className="progress" />
                             <div className="progress-text">
-                            <ProgressBar className="progress-primary" value={roleplayStats.energyNow} minValue={0} maxValue={roleplayStats.energyMax} />
+                                <ProgressBar className="progress-primary" value={roleplayStats.energyNow} minValue={0} maxValue={roleplayStats.energyMax} />
                             </div>
                         </div>
                     </Flex>
                     <hr className="m-0" />
-                </Column>               
+                </Column>
 
-                <Column gap={ 1 }>
+                <Column gap={1}>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
                         <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.activity')}</Text>
                         <Text small fullWidth variant="white">{avatarInfo?.motto ?? '-'}</Text>
                     </Flex>
                     <hr className="m-0" />
                 </Column>
-                <Column gap={ 1 }>
-                    { (avatarInfo.carryItem > 0) &&
+                <Column gap={1}>
+                    {(avatarInfo.carryItem > 0) &&
                         <>
                             <hr className="m-0" />
                             <Text variant="white" small wrap>
-                                { LocalizeText('infostand.text.handitem', [ 'item' ], [ LocalizeText('handitem' + avatarInfo.carryItem) ]) }
+                                {LocalizeText('infostand.text.handitem', ['item'], [LocalizeText('handitem' + avatarInfo.carryItem)])}
                             </Text>
-                        </> }
+                        </>}
                 </Column>
-                <Column gap={ 1 }>
-                    <InfoStandWidgetUserRelationshipsView relationships={ relationships } />
+                <Column gap={1}>
+                    <InfoStandWidgetUserRelationshipsView relationships={relationships} />
                 </Column>
-                { GetConfiguration('user.tags.enabled') &&
-                    <Column gap={ 1 } className="mt-1">
-                        <InfoStandWidgetUserTagsView tags={ GetSessionDataManager().tags } />
+                {GetConfiguration('user.tags.enabled') &&
+                    <Column gap={1} className="mt-1">
+                        <InfoStandWidgetUserTagsView tags={GetSessionDataManager().tags} />
                     </Column>
                 }
             </Column>

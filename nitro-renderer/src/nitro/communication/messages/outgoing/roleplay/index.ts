@@ -1,4 +1,5 @@
 export * from './combat/AttackUserComposer';
+export * from './combat/EquipWeaponComposer';
 export * from './corp/CorpAcceptJobComposer';
 export * from './corp/CorpDeclineOfferComposer';
 export * from './corp/CorpDemoteUserComposer';

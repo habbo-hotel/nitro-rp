@@ -1,5 +1,4 @@
-export class IncomingHeader
-{
+export class IncomingHeader {
     public static ACHIEVEMENT_LIST = 305;
     public static AUTHENTICATED = 2491;
     public static AUTHENTICATION = -1;
@@ -477,4 +476,5 @@ export class IncomingHeader
     public static CORP_POSITION_INFO_QUERY = 9004;
     public static USER_OPEN_WARDROBE = 9005;
     public static TIME_OF_DAY_QUERY = 9006;
+    public static MY_WEAPON_LIST_QUERY = 9007;
 }
