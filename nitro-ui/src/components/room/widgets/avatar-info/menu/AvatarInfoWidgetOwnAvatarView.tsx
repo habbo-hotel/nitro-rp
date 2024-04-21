@@ -135,7 +135,7 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
 
     function onEquip(weapon: MyWeaponData) {
         EquipWeapon(weapon.uniqueName);
-        setMode(0);
+        onClose();
     }
 
     return (
@@ -352,11 +352,21 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                     </ContextMenuListItemView>
                 </>
             }
-            {(mode === MODE_WEAPONS) && weaponList.map(_ => (
-                <ContextMenuListItemView key={`weapon_${_.uniqueName}`} onClick={() => onEquip(_)}>
-                    {_.displayName}
-                </ContextMenuListItemView>
-            ))}
+            {(mode === MODE_WEAPONS) && (
+                <>
+                    <ContextMenuListItemView onClick={event => processAction('back')}>
+                        <FaChevronLeft className="left fa-icon" />
+                        {LocalizeText('generic.back')}
+                    </ContextMenuListItemView>
+                    {
+                        weaponList.map(_ => (
+                            <ContextMenuListItemView key={`weapon_${_.uniqueName}`} onClick={() => onEquip(_)}>
+                                {_.displayName}
+                            </ContextMenuListItemView>
+                        ))
+                    }
+                </>
+            )}
         </ContextMenuView >
     );
 }

@@ -19,8 +19,7 @@ import { PoliceStunUser } from '../../../../../api/roleplay/police/PoliceStunUse
 import { PoliceEscortUser } from '../../../../../api/roleplay/police/PoliceEscortUser';
 import { useCrimes } from '../../../../../api/roleplay/police/GetCrimes';
 
-interface AvatarInfoWidgetAvatarViewProps
-{
+interface AvatarInfoWidgetAvatarViewProps {
     avatarInfo: AvatarInfoUser;
     onClose: () => void;
 }
@@ -31,40 +30,34 @@ const MODE_GANG = 2;
 const MODE_POLICE = 3;
 const MODE_ARREST = 4;
 
-export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props =>
-{
+export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props => {
     const { userInfo: sessionInfo } = useSessionInfo();
     const { avatarInfo = null, onClose = null } = props;
     const roleplayStats = useRoleplayStats(avatarInfo?.webID);
     const sessionRoleplayStats = useRoleplayStats(sessionInfo?.userId);
-    const [ mode, setMode ] = useState(MODE_NORMAL);
+    const [mode, setMode] = useState(MODE_NORMAL);
     const { canRequestFriend = null } = useFriends();
     const crimeList = useCrimes();
 
-    const canGiveHandItem = useMemo(() =>
-    {
+    const canGiveHandItem = useMemo(() => {
         let flag = false;
 
         const roomObject = GetOwnRoomObject();
 
-        if(roomObject)
-        {
+        if (roomObject) {
             const carryId = roomObject.model.getValue<number>(RoomObjectVariable.FIGURE_CARRY_OBJECT);
 
-            if((carryId > 0) && (carryId < 999999)) flag = true;
+            if ((carryId > 0) && (carryId < 999999)) flag = true;
         }
 
         return flag;
     }, []);
 
-    const processAction = (name: string) =>
-    {
+    const processAction = (name: string) => {
         let hideMenu = true;
 
-        if(name)
-        {
-            switch(name)
-            {
+        if (name) {
+            switch (name) {
                 case 'back':
                     hideMenu = false
                     setMode(MODE_NORMAL);
@@ -75,42 +68,42 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     break;
                 case 'view_business':
                     hideMenu = false
-                     setMode(MODE_BUSINESS);
+                    setMode(MODE_BUSINESS);
                     break;
                 case 'view_gang':
-                        hideMenu = false
-                     setMode(MODE_GANG);
+                    hideMenu = false
+                    setMode(MODE_GANG);
                     break;
                 case 'view_police':
-                        hideMenu = false
-                     setMode(MODE_POLICE);
+                    hideMenu = false
+                    setMode(MODE_POLICE);
                     break;
                 case 'view_police_arrest':
-                        hideMenu = false
-                     setMode(MODE_ARREST);
+                    hideMenu = false
+                    setMode(MODE_ARREST);
                     break;
                 case 'corp_offer_job':
-                     CorpOfferJob(avatarInfo.name);
+                    CorpOfferJob(avatarInfo.name);
                     break;
                 case 'corp_fire_user':
-                     CorpFireUser(avatarInfo.name);
+                    CorpFireUser(avatarInfo.name);
                     break;
                 case 'corp_promote_user':
-                     CorpPromoteUser(avatarInfo.name);
+                    CorpPromoteUser(avatarInfo.name);
                     break;
                 case 'corp_demote_user':
-                     CorpDemoteUser(avatarInfo.name);
+                    CorpDemoteUser(avatarInfo.name);
                     break;
                 case 'gang_invite_user':
-                     GangInviteUser(avatarInfo.name);
+                    GangInviteUser(avatarInfo.name);
                     break;
                 case 'police_stun':
                     hideMenu = false
-                     PoliceStunUser(avatarInfo.name);
+                    PoliceStunUser(avatarInfo.name);
                     break;
                 case 'police_cuff':
                     hideMenu = false
-                     PoliceCuffUser(avatarInfo.name);
+                    PoliceCuffUser(avatarInfo.name);
                     break;
                 case 'police_escort':
                     hideMenu = false
@@ -120,7 +113,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     DispatchUiEvent(new RoomWidgetUpdateChatInputContentEvent(RoomWidgetUpdateChatInputContentEvent.WHISPER, avatarInfo.name));
                     break;
                 case 'friend':
-                    CreateLinkEvent(`friends/request/${ avatarInfo.webID }/${ avatarInfo.name }`);
+                    CreateLinkEvent(`friends/request/${avatarInfo.webID}/${avatarInfo.name}`);
                     break;
                 case 'trade':
                     SendMessageComposer(new TradingOpenComposer(avatarInfo.roomIndex));
@@ -131,182 +124,181 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             }
         }
 
-        if(hideMenu) onClose();
+        if (hideMenu) onClose();
     }
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         setMode(MODE_NORMAL);
-    }, [ avatarInfo ]);
+    }, [avatarInfo]);
 
     const canBeArrested = roleplayStats.isCuffed && !!roleplayStats.escortedByUserID;
 
     return (
-        <ContextMenuView objectId={ avatarInfo.roomIndex } category={ RoomObjectCategory.UNIT } userType={ avatarInfo.userType } onClose={ onClose } collapsable={ true }>
-            <ContextMenuHeaderView className="cursor-pointer" onClick={ event => GetUserProfile(avatarInfo.webID) }>
-                { roleplayStats.isDead && '☠️'  }
-                { avatarInfo.name }
+        <ContextMenuView objectId={avatarInfo.roomIndex} category={RoomObjectCategory.UNIT} userType={avatarInfo.userType} onClose={onClose} collapsable={true}>
+            <ContextMenuHeaderView className="cursor-pointer" onClick={event => GetUserProfile(avatarInfo.webID)}>
+                {roleplayStats.isDead && '☠️'}
+                {avatarInfo.name}
             </ContextMenuHeaderView>
             {
                 roleplayStats.isDead && (
                     <ContextMenuListItemView>
-                        { LocalizeText('infostand.button.user_is_dead').replace(':user', avatarInfo.name) }
+                        {LocalizeText('infostand.button.user_is_dead').replace(':user', avatarInfo.name)}
                     </ContextMenuListItemView>
                 )
             }
-           {
-            !roleplayStats.isDead && (
-                <>
-                 {
-                mode !== MODE_NORMAL && (
-                <ContextMenuListItemView onClick={ () => processAction('back') }>
-                    { LocalizeText('infostand.button.back') }
-                </ContextMenuListItemView>
-                )
-            }
-            { (mode === MODE_NORMAL) &&
-                <>
-                    <ContextMenuListItemView onClick={ () => processAction('attack') }>
-                        { LocalizeText('infostand.button.attack') }
-                    </ContextMenuListItemView>
-                    {
-                        sessionRoleplayStats.isWorking && (
+            {
+                !roleplayStats.isDead && (
+                    <>
+                        {
+                            mode !== MODE_NORMAL && (
+                                <ContextMenuListItemView onClick={() => processAction('back')}>
+                                    {LocalizeText('infostand.button.back')}
+                                </ContextMenuListItemView>
+                            )
+                        }
+                        {(mode === MODE_NORMAL) &&
                             <>
-                                <ContextMenuListItemView onClick={ () => processAction('view_business') }>
-                                    { LocalizeText('infostand.button.business') }
-                                    <FaChevronRight className="right fa-icon" />
+                                <ContextMenuListItemView onClick={() => processAction('attack')}>
+                                    {LocalizeText('infostand.button.attack')}
                                 </ContextMenuListItemView>
-                                <ContextMenuListItemView onClick={ () => processAction('view_police') }>
-                                    <FaChevronRight className="right fa-icon" />
-                                    { LocalizeText('infostand.button.police') }
+                                {
+                                    sessionRoleplayStats.isWorking && (
+                                        <>
+                                            <ContextMenuListItemView onClick={() => processAction('view_business')}>
+                                                {LocalizeText('infostand.button.business')}
+                                                <FaChevronRight className="right fa-icon" />
+                                            </ContextMenuListItemView>
+                                            <ContextMenuListItemView onClick={() => processAction('view_police')}>
+                                                <FaChevronRight className="right fa-icon" />
+                                                {LocalizeText('infostand.button.police')}
+                                            </ContextMenuListItemView>
+                                            <ContextMenuListItemView onClick={() => processAction('view_police_arrest')}>
+                                                <FaChevronRight className="right fa-icon" />
+                                                {LocalizeText('infostand.button.police_arrest')}
+                                            </ContextMenuListItemView>
+                                        </>
+                                    )
+                                }
+                                {
+                                    !sessionRoleplayStats.isWorking && (
+                                        <ContextMenuListItemView onClick={() => processAction('view_gang')}>
+                                            <FaChevronRight className="right fa-icon" />
+                                            {LocalizeText('infostand.button.gang')}
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                {canRequestFriend(avatarInfo.webID) &&
+                                    <ContextMenuListItemView onClick={() => processAction('friend')}>
+                                        {LocalizeText('infostand.button.friend')}
+                                    </ContextMenuListItemView>}
+                                <ContextMenuListItemView onClick={() => processAction('trade')}>
+                                    {LocalizeText('infostand.button.trade')}
                                 </ContextMenuListItemView>
-                                <ContextMenuListItemView onClick={ () => processAction('view_police_arrest') }>
-                                    <FaChevronRight className="right fa-icon" />
-                                    { LocalizeText('infostand.button.police_arrest') }
+                                <ContextMenuListItemView onClick={() => processAction('whisper')}>
+                                    {LocalizeText('infostand.button.whisper')}
                                 </ContextMenuListItemView>
+                                {canGiveHandItem && <ContextMenuListItemView onClick={() => processAction('pass_hand_item')}>
+                                    {LocalizeText('avatar.widget.pass_hand_item')}
+                                </ContextMenuListItemView>}
+                            </>}
+                        {(mode === MODE_BUSINESS) &&
+                            <>
+                                {
+                                    roleplayStats.corporationID !== sessionRoleplayStats.corporationID && (
+                                        <ContextMenuListItemView onClick={() => processAction('corp_offer_job')}>
+                                            {LocalizeText('infostand.button.corp_offer_job')}
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                {
+                                    roleplayStats.corporationID === sessionRoleplayStats.corporationID && (
+                                        <>
+                                            <ContextMenuListItemView onClick={() => processAction('corp_fire_user')}>
+                                                {LocalizeText('infostand.button.corp_fire_user')}
+                                            </ContextMenuListItemView>
+                                            <ContextMenuListItemView onClick={() => processAction('corp_promote_user')}>
+                                                {LocalizeText('infostand.button.corp_promote_user')}
+                                            </ContextMenuListItemView>
+                                            <ContextMenuListItemView onClick={() => processAction('corp_demote_user')}>
+                                                {LocalizeText('infostand.button.corp_demote_user')}
+                                            </ContextMenuListItemView>
+                                        </>
+                                    )
+                                }
+                            </>}
+                        {(mode === MODE_GANG) &&
+                            <>
+                                {
+                                    roleplayStats.gangID !== sessionRoleplayStats.gangID && (
+                                        <>
+                                            <ContextMenuListItemView onClick={() => processAction('gang_invite_user')}>
+                                                {LocalizeText('infostand.button.gang_invite_user')}
+                                            </ContextMenuListItemView>
+                                        </>
+                                    )
+                                }
                             </>
-                        )
-                    }
-                    {
-                        !sessionRoleplayStats.isWorking && (
-                            <ContextMenuListItemView onClick={ () => processAction('view_gang') }>
-                                <FaChevronRight className="right fa-icon" />
-                                { LocalizeText('infostand.button.gang') }
-                            </ContextMenuListItemView>
-                        )
-                    }
-                    { canRequestFriend(avatarInfo.webID) &&
-                        <ContextMenuListItemView onClick={ () => processAction('friend') }>
-                            { LocalizeText('infostand.button.friend') }
-                        </ContextMenuListItemView> }
-                    <ContextMenuListItemView onClick={ () => processAction('trade') }>
-                        { LocalizeText('infostand.button.trade') }
-                    </ContextMenuListItemView>
-                    <ContextMenuListItemView onClick={ () => processAction('whisper') }>
-                        { LocalizeText('infostand.button.whisper') }
-                    </ContextMenuListItemView>
-                    { canGiveHandItem && <ContextMenuListItemView onClick={ () => processAction('pass_hand_item') }>
-                        { LocalizeText('avatar.widget.pass_hand_item') }
-                    </ContextMenuListItemView> }
-                </> }
-            { (mode === MODE_BUSINESS) &&
-                <>
-                {
-                    roleplayStats.corporationID !== sessionRoleplayStats.corporationID && (
-                        <ContextMenuListItemView onClick={ () => processAction('corp_offer_job') }>
-                            { LocalizeText('infostand.button.corp_offer_job') }
-                        </ContextMenuListItemView>
-                    )
-                }
-                {
-                    roleplayStats.corporationID === sessionRoleplayStats.corporationID && (
-                        <>
-                            <ContextMenuListItemView onClick={ () => processAction('corp_fire_user') }>
-                            { LocalizeText('infostand.button.corp_fire_user') }
-                            </ContextMenuListItemView>
-                            <ContextMenuListItemView onClick={ () => processAction('corp_promote_user') }>
-                                { LocalizeText('infostand.button.corp_promote_user') }
-                            </ContextMenuListItemView>
-                            <ContextMenuListItemView onClick={ () => processAction('corp_demote_user') }>
-                                { LocalizeText('infostand.button.corp_demote_user') }
-                            </ContextMenuListItemView>
-                        </>
-                    )
-                }
-                </> }
-            { (mode === MODE_GANG) &&
-                <>
-                {
-                    roleplayStats.gangID !== sessionRoleplayStats.gangID && (
-                        <>
-                        <ContextMenuListItemView onClick={ () => processAction('gang_invite_user') }>
-                            { LocalizeText('infostand.button.gang_invite_user') }
-                        </ContextMenuListItemView>     
-                        </>                 
-                    )
-                }
-                </> 
+                        }
+                        {(mode === MODE_POLICE) &&
+                            <>
+                                {
+                                    !roleplayStats.isCuffed && !roleplayStats.isStunned && !roleplayStats.isDead && (
+                                        <ContextMenuListItemView onClick={() => processAction('police_stun')}>
+                                            {LocalizeText('infostand.button.police_stun')}
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                {
+                                    roleplayStats.isStunned && !roleplayStats.isCuffed && (
+                                        <ContextMenuListItemView onClick={() => processAction('police_cuff')}>
+                                            {LocalizeText('infostand.button.police_cuff')}
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                {
+                                    roleplayStats.isCuffed && !roleplayStats.escortedByUserID && (
+                                        <ContextMenuListItemView onClick={() => processAction('police_escort')}>
+                                            {LocalizeText('infostand.button.police_escort')}
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                {
+                                    roleplayStats.escortedByUserID === sessionInfo.userId && (
+                                        <ContextMenuListItemView onClick={() => processAction('police_escort')}>
+                                            {LocalizeText('infostand.button.police_stop_escort')}
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                {
+                                    roleplayStats.isCuffed && roleplayStats.escortedByUserID == null && (
+                                        <ContextMenuListItemView onClick={() => processAction('police_cuff')}>
+                                            {LocalizeText('infostand.button.police_uncuff')}
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                                {
+                                    roleplayStats.isCuffed && !!roleplayStats.escortedByUserID && (
+                                        <ContextMenuListItemView onClick={() => processAction('view_police_arrest')}>
+                                            {LocalizeText('infostand.button.police_arrest')}
+                                        </ContextMenuListItemView>
+                                    )
+                                }
+                            </>
+                        }
+                        {(mode === MODE_ARREST) &&
+                            <>
+                                {
+                                    crimeList.map(crime => (
+                                        <ContextMenuListItemView key={`crime_${crime.crime}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.name, crime.crime, crime.sentence) }}>
+                                            {crime.crime} ({crime.sentence}mins)
+                                        </ContextMenuListItemView>
+                                    ))
+                                }
+                            </>
+                        }
+                    </>
+                )
             }
-            { (mode === MODE_POLICE) &&
-                <>
-                {
-                    !roleplayStats.isCuffed && !roleplayStats.isStunned && !roleplayStats.isDead && (
-                        <ContextMenuListItemView onClick={ () => processAction('police_stun') }>
-                            { LocalizeText('infostand.button.police_stun') }
-                        </ContextMenuListItemView>
-                    )
-                }
-                {
-                    roleplayStats.isStunned && !roleplayStats.isCuffed && (
-                        <ContextMenuListItemView onClick={ () => processAction('police_cuff') }>
-                            { LocalizeText('infostand.button.police_cuff') }
-                        </ContextMenuListItemView>
-                    )
-                }
-                {
-                    roleplayStats.isCuffed && !roleplayStats.escortedByUserID && (
-                        <ContextMenuListItemView onClick={ () => processAction('police_escort') }>
-                            { LocalizeText('infostand.button.police_escort') }
-                        </ContextMenuListItemView>
-                    )
-                }
-                {
-                    roleplayStats.escortedByUserID === sessionInfo.userId && (
-                        <ContextMenuListItemView onClick={ () => processAction('police_escort') }>
-                            { LocalizeText('infostand.button.police_stop_escort') }
-                        </ContextMenuListItemView>
-                    )
-                }
-                {
-                    roleplayStats.isCuffed && roleplayStats.escortedByUserID == null && (
-                        <ContextMenuListItemView onClick={ () => processAction('police_cuff') }>
-                            { LocalizeText('infostand.button.police_uncuff') }
-                        </ContextMenuListItemView>
-                    )
-                }
-                {
-                    roleplayStats.isCuffed && !!roleplayStats.escortedByUserID && (
-                        <ContextMenuListItemView onClick={ () => processAction('view_police_arrest') }>
-                            { LocalizeText('infostand.button.police_arrest') }
-                        </ContextMenuListItemView>
-                    )
-                }
-                </> 
-            }
-            { (mode === MODE_ARREST) &&
-                <>
-                {
-                    crimeList.map(crime => (
-                        <ContextMenuListItemView key={`crime_${crime.crime}`} onClick={ () => { onClose(); PoliceArrestUser(avatarInfo.name, crime.crime, crime.sentence) }}>
-                            {crime.crime} ({crime.sentence}mins)
-                        </ContextMenuListItemView>
-                    ))
-                }
-                </> 
-            }
-            </>
-            )
-           }
         </ContextMenuView>
     );
 }

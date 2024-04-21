@@ -577,7 +577,7 @@ export class NitroMessages implements IMessageConfiguration {
         this._events.set(IncomingHeader.USER_ROLEPLAY_STATS_CHANGE, UserRoleplayStatsChangeEvent);
         this._events.set(IncomingHeader.CORP_INFO_QUERY, CorpInfoQueryEvent);
         this._events.set(IncomingHeader.GANG_INFO_QUERY, GangInfoQueryEvent);
-        this._events.set(IncomingHeader.USER_WARDROBE_PAGE, UserOpenWardrobeEvent);
+        this._events.set(IncomingHeader.USER_OPEN_WARDROBE, UserOpenWardrobeEvent);
         this._events.set(IncomingHeader.TIME_OF_DAY_QUERY, TimeOfDayEvent);
         this._events.set(IncomingHeader.MY_WEAPON_LIST_QUERY, MyWeaponListEvent);
     }
